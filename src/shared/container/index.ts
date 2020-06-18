@@ -6,6 +6,9 @@ import './providers';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
+import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
+import AdressesRepository from '@modules/adresses/infra/typeorm/repositories/AdressesRepository';
+
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
@@ -15,6 +18,11 @@ import NotificationsRepository from '@modules/notifications/infra/typeorm/reposi
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
+);
+
+container.registerSingleton<IAdressesRepository>(
+  'AdressesRepository',
+  AdressesRepository,
 );
 
 container.registerSingleton<IUserTokensRepository>(
