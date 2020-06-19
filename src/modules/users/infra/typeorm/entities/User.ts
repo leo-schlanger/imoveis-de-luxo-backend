@@ -59,7 +59,7 @@ class User {
   @Column()
   address_id: string;
 
-  @ManyToOne(() => Address)
+  @ManyToOne(() => Address, { eager: true })
   @JoinColumn({ name: 'address_id' })
   address: Address;
 

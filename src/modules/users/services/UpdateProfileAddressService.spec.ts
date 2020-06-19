@@ -32,6 +32,7 @@ describe('UpdateAddressProfile', () => {
       country: 'Brasil',
       state: 'Rio de Janeiro',
       postal_code: '22222-222',
+      address: 'My address',
       neighborhood: 'Copacabana',
     });
 
@@ -52,6 +53,7 @@ describe('UpdateAddressProfile', () => {
       country: 'Brasil',
       state: 'Rio de Janeiro',
       postal_code: '22222-222',
+      address: 'My address',
       neighborhood: 'Copacabana',
     });
 
@@ -82,6 +84,7 @@ describe('UpdateAddressProfile', () => {
       state: 'Rio de Janeiro',
       postal_code: '22222-222',
       neighborhood: 'Copacabana',
+      address: 'My address',
     });
 
     fakeAdressesRepository.delete(updatedUser.address_id);
@@ -120,6 +123,7 @@ describe('UpdateAddressProfile', () => {
         country: 'Brasil',
         state: 'Rio de Janeiro',
         postal_code: '22222-222',
+        address: 'My address',
         neighborhood: 'Copacabana',
       }),
     ).rejects.toBeInstanceOf(AppError);

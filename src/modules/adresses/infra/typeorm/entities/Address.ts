@@ -27,6 +27,9 @@ class Address {
   sub_neighborhood: string;
 
   @Column()
+  address: string;
+
+  @Column()
   number: string;
 
   @Column()

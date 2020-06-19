@@ -21,6 +21,7 @@ class FakeAdressesRepository implements IAdressesRepository {
         (data.country && data.country !== address.country) ||
         (data.state && data.state !== address.state) ||
         (data.neighborhood && data.neighborhood !== address.neighborhood) ||
+        (data.address && data.address !== address.address) ||
         (data.sub_neighborhood &&
           data.sub_neighborhood !== address.sub_neighborhood) ||
         (data.postal_code && data.postal_code !== address.postal_code)

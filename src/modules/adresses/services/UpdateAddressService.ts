@@ -12,6 +12,7 @@ interface IRequest {
   postal_code?: string;
   neighborhood?: string;
   sub_neighborhood?: string;
+  address?: string;
   number?: string;
   complement?: string;
   description?: string;
@@ -31,49 +32,54 @@ class UpdateProfileService {
     postal_code,
     neighborhood,
     sub_neighborhood,
+    address,
     number,
     complement,
     description,
   }: IRequest): Promise<Address> {
-    const address = await this.adressesRepository.findById(address_id);
+    const searchAddress = await this.adressesRepository.findById(address_id);
 
-    if (!address) {
+    if (!searchAddress) {
       throw new AppError('Address not found.');
     }
 
     if (country) {
-      address.country = country;
+      searchAddress.country = country;
     }
 
     if (state) {
-      address.state = state;
+      searchAddress.state = state;
     }
 
     if (postal_code) {
-      address.postal_code = postal_code;
+      searchAddress.postal_code = postal_code;
     }
 
     if (neighborhood) {
-      address.neighborhood = neighborhood;
+      searchAddress.neighborhood = neighborhood;
     }
 
     if (sub_neighborhood) {
-      address.sub_neighborhood = sub_neighborhood;
+      searchAddress.sub_neighborhood = sub_neighborhood;
+    }
+
+    if (address) {
+      searchAddress.address = address;
     }
 
     if (number) {
-      address.number = number;
+      searchAddress.number = number;
     }
 
     if (complement) {
-      address.complement = complement;
+      searchAddress.complement = complement;
     }
 
     if (description) {
-      address.description = description;
+      searchAddress.description = description;
     }
 
-    return this.adressesRepository.save(address);
+    return this.adressesRepository.save(searchAddress);
   }
 }
 
