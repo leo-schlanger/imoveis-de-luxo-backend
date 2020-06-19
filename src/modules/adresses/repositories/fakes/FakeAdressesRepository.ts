@@ -10,9 +10,9 @@ class FakeAdressesRepository implements IAdressesRepository {
   private adresses: Address[] = [];
 
   public async findById(id: string): Promise<Address | undefined> {
-    const findAdress = this.adresses.find(address => address.id === id);
+    const findAddress = this.adresses.find(address => address.id === id);
 
-    return findAdress;
+    return findAddress;
   }
 
   public async filter(data: IFilterAddressDTO): Promise<Address[] | undefined> {
@@ -41,6 +41,10 @@ class FakeAdressesRepository implements IAdressesRepository {
     this.adresses.push(address);
 
     return address;
+  }
+
+  public async delete(id: string): Promise<void> {
+    this.adresses = this.adresses.filter(address => address.id !== id);
   }
 
   public async save(address: Address): Promise<Address> {

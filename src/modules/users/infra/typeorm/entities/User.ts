@@ -4,11 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import uploadConfig from '@config/upload';
 
 import { Exclude, Expose } from 'class-transformer';
+import Address from '@modules/adresses/infra/typeorm/entities/Address';
 
 export type UserTypeEnum = 'adm' | 'anunciante' | 'usuario';
 
@@ -52,6 +55,13 @@ class User {
 
   @Column()
   avatar: string;
+
+  @Column()
+  address_id: string;
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
 
   @CreateDateColumn()
   created_at: Date;

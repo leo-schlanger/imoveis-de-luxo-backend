@@ -35,6 +35,10 @@ class AdressesRepository implements IAdressesRepository {
     return address;
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
+
   public async save(address: Address): Promise<Address> {
     return this.ormRepository.save(address);
   }

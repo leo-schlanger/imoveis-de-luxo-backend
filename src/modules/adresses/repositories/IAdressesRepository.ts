@@ -6,5 +6,6 @@ export default interface IAdressesRepository {
   findById(id: string): Promise<Address | undefined>;
   filter(data: IFilterAddressDTO): Promise<Address[] | undefined>;
   create(data: ICreateAddressDTO): Promise<Address>;
+  delete(id: string): Promise<void>;
   save(Address: Address): Promise<Address>;
 }
