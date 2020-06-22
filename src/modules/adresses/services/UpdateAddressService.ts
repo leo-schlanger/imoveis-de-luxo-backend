@@ -19,7 +19,7 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateProfileService {
+class UpdateAddressService {
   constructor(
     @inject('AdressesRepository')
     private adressesRepository: IAdressesRepository,
@@ -83,4 +83,4 @@ class UpdateProfileService {
   }
 }
 
-export default UpdateProfileService;
+export default UpdateAddressService;

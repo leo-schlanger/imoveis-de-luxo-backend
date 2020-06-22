@@ -57,6 +57,7 @@ class User {
   avatar: string;
 
   @Column()
+  @Exclude()
   address_id: string;
 
   @ManyToOne(() => Address, { eager: true })
