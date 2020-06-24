@@ -12,20 +12,20 @@ import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import { Exclude } from 'class-transformer';
 
 export type PropertyTypeEnum =
-  | 'casa'
-  | 'apartamento'
-  | 'cobertura'
-  | 'sitio'
-  | 'fazenda'
-  | 'terreno'
-  | 'galpão'
-  | 'corporativo'
-  | 'escritorio'
-  | 'loja'
+  | 'home'
+  | 'apartment'
+  | 'penthouse'
+  | 'grange'
+  | 'farm'
+  | 'terrain'
+  | 'shed'
+  | 'corporate'
+  | 'office'
+  | 'store'
   | 'hotel'
-  | 'pousada'
-  | 'ilha'
-  | 'customizado';
+  | 'inn'
+  | 'island'
+  | 'customized';
 
 @Entity('properties')
 class Property {

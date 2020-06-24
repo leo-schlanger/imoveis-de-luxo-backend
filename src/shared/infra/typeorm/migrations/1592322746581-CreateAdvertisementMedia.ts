@@ -42,7 +42,7 @@ export default class CreateAdvertisementMedia1592322746581
         foreignKeys: [
           {
             name: 'AdMedia',
-            referencedTableName: 'advertisement',
+            referencedTableName: 'advertisements',
             referencedColumnNames: ['id'],
             columnNames: ['advertisement_id'],
             onDelete: 'CASCADE',

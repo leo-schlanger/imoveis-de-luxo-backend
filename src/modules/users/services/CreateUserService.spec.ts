@@ -40,7 +40,7 @@ describe('CreateUser', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '123456',
-      type: 'usuario',
+      type: 'user',
     });
 
     await expect(
@@ -49,7 +49,7 @@ describe('CreateUser', () => {
         email: 'johndoe@example.com',
         password: '123456',
         phone: '123456',
-        type: 'usuario',
+        type: 'user',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

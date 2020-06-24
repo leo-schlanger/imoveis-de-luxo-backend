@@ -18,7 +18,6 @@ describe('deleteProperty', () => {
     fakeCacheProvider = new FakeCacheProvider();
     deleteProperty = new DeletePropertyService(
       fakePropertiesRepository,
-      fakeAdressesRepository,
       fakeCacheProvider,
     );
   });
@@ -33,7 +32,7 @@ describe('deleteProperty', () => {
     });
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartamento',
+      type: 'apartment',
       value: 67000.0,
       address,
     });

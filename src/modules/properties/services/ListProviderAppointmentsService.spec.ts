@@ -19,13 +19,13 @@ describe('ListPropertiesByTypeService', () => {
 
   it('should be able to list the properties by type', async () => {
     let properties = await listPropertiesByType.execute({
-      type: 'apartamento',
+      type: 'apartment',
     });
 
     expect(properties).toEqual([]);
 
     const property1 = await fakePropertiesRepository.create({
-      type: 'apartamento',
+      type: 'apartment',
       value: 67000.0,
       address: {
         id: 'test',
@@ -44,20 +44,20 @@ describe('ListPropertiesByTypeService', () => {
     });
 
     properties = await listPropertiesByType.execute({
-      type: 'apartamento',
+      type: 'apartment',
     });
     expect(properties).toEqual([]);
 
-    fakeCacheProvider.invalidate(`properties:apartamento`);
+    fakeCacheProvider.invalidate(`properties:apartment`);
 
     properties = await listPropertiesByType.execute({
-      type: 'apartamento',
+      type: 'apartment',
     });
 
     expect(properties).toEqual([classToClass(property1)]);
 
     const property2 = await fakePropertiesRepository.create({
-      type: 'casa',
+      type: 'home',
       value: 167000.0,
       address: {
         id: 'test',
@@ -80,11 +80,11 @@ describe('ListPropertiesByTypeService', () => {
     expect(properties).toEqual([property1, property2]);
 
     properties = await listPropertiesByType.execute({
-      type: 'casa',
+      type: 'home',
     });
 
     expect(properties).toEqual([classToClass(property2)]);
 
-    fakeCacheProvider.invalidate(`properties:casa`);
+    fakeCacheProvider.invalidate(`properties:home`);
   });
 });

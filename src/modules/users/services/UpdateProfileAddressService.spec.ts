@@ -24,7 +24,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'usuario',
+      type: 'user',
     });
 
     const updatedUser = await updateProfileAddress.execute({
@@ -45,7 +45,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'usuario',
+      type: 'user',
     });
 
     await updateProfileAddress.execute({
@@ -75,7 +75,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'usuario',
+      type: 'user',
     });
 
     const updatedUser = await updateProfileAddress.execute({
@@ -103,7 +103,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'usuario',
+      type: 'user',
     });
 
     await expect(

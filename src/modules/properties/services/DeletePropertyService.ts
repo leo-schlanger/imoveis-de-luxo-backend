@@ -2,7 +2,6 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppErrors';
 
-import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IPropertiesRepository from '../repositories/IPropertiesRepository';
 
@@ -16,9 +15,6 @@ class DeletePropertyService {
     @inject('PropertiesRepository')
     private propertiesRepository: IPropertiesRepository,
 
-    @inject('AdressesRepository')
-    private adressesRepository: IAdressesRepository,
-
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
@@ -31,8 +27,6 @@ class DeletePropertyService {
     }
 
     await this.cacheProvider.invalidate(`properties:${property.type}`);
-
-    await this.adressesRepository.delete(property.address_id);
 
     // TODO: pode ter limpeza de cache de endereço também mais para frente
 

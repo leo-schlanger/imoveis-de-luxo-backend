@@ -5,7 +5,7 @@ export default class CreateAdvertisement1592321886448
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'advertisement',
+        name: 'advertisements',
         columns: [
           {
             name: 'id',
@@ -29,6 +29,13 @@ export default class CreateAdvertisement1592321886448
           {
             name: 'description',
             type: 'varchar',
+            isNullable: true,
+          },
+          {
+            enum: ['purchase', 'tenancy'],
+            name: 'type',
+            type: 'enum',
+            enumName: 'advertisement_type_enum',
           },
           {
             name: 'address_visible',
@@ -72,10 +79,12 @@ export default class CreateAdvertisement1592321886448
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('advertisement', 'AdProperty');
+    await queryRunner.dropForeignKey('advertisements', 'AdProperty');
 
-    await queryRunner.dropForeignKey('advertisement', 'AdUser');
+    await queryRunner.dropForeignKey('advertisements', 'AdUser');
 
-    await queryRunner.dropTable('advertisement');
+    await queryRunner.dropTable('advertisements');
+
+    await queryRunner.query(`DROP TYPE "advertisement_type_enum"`);
   }
 }

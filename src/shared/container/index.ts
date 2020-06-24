@@ -12,6 +12,9 @@ import PropertiesRepository from '@modules/properties/infra/typeorm/repositories
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
+import IAdvertisementsRepository from '@modules/advertisements/repositories/IAdvertisementsRepository';
+import AdvertisementsRepository from '@modules/advertisements/infra/typeorm/repositories/AdvertisementsRepository';
+
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
@@ -31,6 +34,11 @@ container.registerSingleton<IPropertiesRepository>(
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
+);
+
+container.registerSingleton<IAdvertisementsRepository>(
+  'AdvertisementsRepository',
+  AdvertisementsRepository,
 );
 
 container.registerSingleton<IUserTokensRepository>(

@@ -35,7 +35,7 @@ describe('AuthenticateUser', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '23434',
-      type: 'usuario',
+      type: 'user',
     });
 
     const response = await authenticateUser.execute({
@@ -68,7 +68,7 @@ describe('AuthenticateUser', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '23434',
-      type: 'usuario',
+      type: 'user',
     });
 
     await expect(

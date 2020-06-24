@@ -32,18 +32,18 @@ describe('UpdateProperty', () => {
     });
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartamento',
+      type: 'apartment',
       value: 67000.0,
       address,
     });
 
     const updatedProperty = await updateProperty.execute({
       property_id: property.id,
-      type: 'casa',
+      type: 'home',
       value: 88000.0,
     });
 
-    expect(updatedProperty.type).toBe('casa');
+    expect(updatedProperty.type).toBe('home');
     expect(updatedProperty.value).toBe(88000.0);
   });
 
@@ -57,14 +57,14 @@ describe('UpdateProperty', () => {
     });
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartamento',
+      type: 'apartment',
       value: 67000.0,
       address,
     });
 
     const updatedProperty = await updateProperty.execute({
       property_id: property.id,
-      type: 'apartamento',
+      type: 'apartment',
       value: 67000.0,
       postal_code: '11111-111',
     });
@@ -88,7 +88,7 @@ describe('UpdateProperty', () => {
     await fakeAdressesRepository.delete(address.id);
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartamento',
+      type: 'apartment',
       value: 67000.0,
       address,
     });
@@ -96,7 +96,7 @@ describe('UpdateProperty', () => {
     await expect(
       updateProperty.execute({
         property_id: property.id,
-        type: 'apartamento',
+        type: 'apartment',
         value: 67000.0,
         postal_code: '11111-111',
       }),
@@ -107,7 +107,7 @@ describe('UpdateProperty', () => {
     await expect(
       updateProperty.execute({
         property_id: 'non-existing-property',
-        type: 'apartamento',
+        type: 'apartment',
         value: 67000.0,
         country: 'Brasil',
         state: 'Rio de Janeiro',

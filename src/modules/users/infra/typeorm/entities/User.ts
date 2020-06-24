@@ -13,9 +13,9 @@ import uploadConfig from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 
-export type UserTypeEnum = 'adm' | 'anunciante' | 'usuario';
+export type UserTypeEnum = 'adm' | 'advertiser' | 'user';
 
-export type UserStatusEnum = 'novo' | 'ativo' | 'inativo';
+export type UserStatusEnum = 'new' | 'active' | 'inactive';
 
 @Entity('users')
 class User {

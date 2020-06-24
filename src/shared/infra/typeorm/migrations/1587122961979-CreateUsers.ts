@@ -57,13 +57,13 @@ export default class CreateUsers1587122961979 implements MigrationInterface {
             isNullable: true,
           },
           {
-            enum: ['novo', 'inativo', 'ativo'],
+            enum: ['new', 'inactive', 'active'],
             name: 'status',
             type: 'enum',
             enumName: 'user_status_enum',
           },
           {
-            enum: ['adm', 'anunciante', 'usuario'],
+            enum: ['adm', 'advertiser', 'user'],
             name: 'type',
             type: 'enum',
             enumName: 'user_type_enum',
