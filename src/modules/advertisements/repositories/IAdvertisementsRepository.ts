@@ -2,9 +2,10 @@ import ICreateAdvertisementDTO from '@modules/advertisements/dtos/ICreateAdverti
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../infra/typeorm/entities/Advertisement';
+import IShowAdvertisementsDTO from '../dtos/IShowAdvertisemetsDTO';
 
 export default interface IAdvertisementsRepository {
-  show(): Promise<Advertisement[]>;
+  show(data: IShowAdvertisementsDTO): Promise<Advertisement[]>;
   findById(id: string): Promise<Advertisement | undefined>;
   findByProperty(property_id: string): Promise<Advertisement | undefined>;
   filterByType(

@@ -6,11 +6,13 @@ import ICreateAdvertisementDTO from '@modules/advertisements/dtos/ICreateAdverti
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../../infra/typeorm/entities/Advertisement';
+import IShowAdvertisementsDTO from '../../dtos/IShowAdvertisemetsDTO';
 
 class FakeAdvertisementsRepository implements IAdvertisementsRepository {
   private advertisements: Advertisement[] = [];
 
-  public async show(): Promise<Advertisement[]> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public async show(data: IShowAdvertisementsDTO): Promise<Advertisement[]> {
     return this.advertisements;
   }
 

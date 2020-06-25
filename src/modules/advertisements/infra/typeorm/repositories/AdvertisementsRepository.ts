@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import IAdvertisementsRepository from '@modules/advertisements/repositories/IAdvertisementsRepository';
 import ICreateAdvertisementDTO from '@modules/advertisements/dtos/ICreateAdvertisementDTO';
+import IShowAdvertisementsDTO from '@modules/advertisements/dtos/IShowAdvertisemetsDTO';
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../entities/Advertisement';
@@ -13,8 +14,17 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
     this.ormRepository = getRepository(Advertisement);
   }
 
-  public async show(): Promise<Advertisement[]> {
-    return this.ormRepository.find();
+  public async show({
+    per_page = 20,
+    page = 1,
+    filter,
+  }: IShowAdvertisementsDTO): Promise<Advertisement[]> {
+    return this.ormRepository.find({
+      where: filter,
+      take: per_page,
+      skip: (page - 1) * per_page,
+      cache: true,
+    });
   }
 
   public async findById(id: string): Promise<Advertisement | undefined> {
