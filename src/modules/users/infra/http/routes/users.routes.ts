@@ -4,10 +4,10 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
 
+import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
+
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
-
-import ensureAuthenticated from '../middleware/ensureAuthenticated';
 
 const usersRouter = Router();
 const usersController = new UsersController();
