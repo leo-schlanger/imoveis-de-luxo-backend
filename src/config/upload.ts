@@ -45,7 +45,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'app-gobarber-uploads',
+      bucket: 'app-imoveisdeluxo-uploads',
     },
   },
 } as IUploadConfig;

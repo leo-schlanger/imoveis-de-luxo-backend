@@ -19,13 +19,13 @@ export default class CreateAdvertisementMedia1592322746581
             type: 'uuid',
           },
           {
-            enum: ['foto', 'video'],
+            enum: ['photo', 'video'],
             name: 'type',
             type: 'enum',
             enumName: 'media_type_enum',
           },
           {
-            name: 'url',
+            name: 'name',
             type: 'varchar',
           },
           {

@@ -5,12 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
   JoinColumn,
 } from 'typeorm';
 
 import { Exclude } from 'class-transformer';
 import Property from '@modules/properties/infra/typeorm/entities/Property';
 import User from '@modules/users/infra/typeorm/entities/User';
+import Media from './Media';
 
 export type AdvertisementTypeEnum = 'purchase' | 'tenancy';
 
@@ -49,6 +51,10 @@ class Advertisement {
 
   @Column('enum', { name: 'type' })
   type: AdvertisementTypeEnum;
+
+  @OneToMany(() => Media, media => media.advertisement_id, { eager: true })
+  @JoinColumn({ name: 'id' })
+  gallery: Media[];
 
   @CreateDateColumn()
   created_at: Date;

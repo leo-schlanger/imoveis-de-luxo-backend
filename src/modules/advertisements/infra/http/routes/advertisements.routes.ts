@@ -3,12 +3,17 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 
+// TODO: repensar rotas de atualização da galeria
+// import multer from 'multer';
+// import uploadConfig from '@config/upload';
+
 import AdvertisementsController from '../controllers/AdvertisementsController';
 import AdvertisementAddressController from '../controllers/AdvertisementAddressController';
 
 const advertisementsRouter = Router();
 const advertisementsController = new AdvertisementsController();
 const advertisementAddressController = new AdvertisementAddressController();
+// const upload = multer(uploadConfig.multer);
 
 advertisementsRouter.use(ensureAuthenticated);
 
@@ -84,5 +89,13 @@ advertisementsRouter.delete(
   }),
   advertisementsController.update,
 );
+
+// TODO: Desenvolver a parte de upload de imagems da galeria de anúncios
+// advertisementsRouter.put(
+//   '/:advertisement_id/gallery',
+//   ensureAuthenticated,
+//   upload.array('gallery'),
+//   AdvertisementGalleryController.update,
+// );
 
 export default advertisementsRouter;
