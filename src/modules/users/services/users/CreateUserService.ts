@@ -3,9 +3,9 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppErrors';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
-import User, { UserTypeEnum } from '../infra/typeorm/entities/User';
-import IUsersRepository from '../repositories/IUsersRepository';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import User, { UserTypeEnum } from '../../infra/typeorm/entities/User';
+import IUsersRepository from '../../repositories/IUsersRepository';
+import IHashProvider from '../../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
   name: string;

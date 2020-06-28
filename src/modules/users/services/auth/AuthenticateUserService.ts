@@ -4,9 +4,9 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppErrors';
 
-import User from '../infra/typeorm/entities/User';
-import IUsersRepository from '../repositories/IUsersRepository';
-import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+import User from '../../infra/typeorm/entities/User';
+import IUsersRepository from '../../repositories/IUsersRepository';
+import IHashProvider from '../../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
   email: string;
@@ -47,7 +47,7 @@ class AuthenticateUserService {
     const { secret, expiresIn } = authConfig.jwt;
 
     const token = sign({}, secret, {
-      subject: user.id,
+      subject: JSON.stringify({ id: user.id, type: user.type }),
       expiresIn,
     });
 

@@ -6,6 +6,7 @@ import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 
 import User from '../../infra/typeorm/entities/User';
 
+// TODO: implementar métodos faltantes
 class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 

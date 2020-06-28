@@ -7,14 +7,18 @@ import {
 
 export default class CreateUserPlan1592321391670 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.addColumn(
-      'users',
+    await queryRunner.addColumns('users', [
       new TableColumn({
         name: 'plan_id',
         type: 'uuid',
         isNullable: true,
       }),
-    );
+      new TableColumn({
+        name: 'plan_status',
+        type: 'boolean',
+        isNullable: true,
+      }),
+    ]);
 
     await queryRunner.createForeignKey(
       'users',
@@ -33,5 +37,7 @@ export default class CreateUserPlan1592321391670 implements MigrationInterface {
     await queryRunner.dropForeignKey('users', 'PlanUsers');
 
     await queryRunner.dropColumn('users', 'plan_id');
+
+    await queryRunner.dropColumn('users', 'plan_status');
   }
 }

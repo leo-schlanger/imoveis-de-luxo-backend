@@ -10,6 +10,11 @@ interface ITokenPayload {
   sub: string;
 }
 
+interface ITokenSubjectJsonFormat {
+  id: string;
+  type: string;
+}
+
 export default function ensureAuthenticated(
   request: Request,
   response: Response,
@@ -28,9 +33,9 @@ export default function ensureAuthenticated(
 
     const { sub } = decoded as ITokenPayload;
 
-    request.user = {
-      id: sub,
-    };
+    const userInfos: ITokenSubjectJsonFormat = JSON.parse(sub);
+
+    request.user = userInfos;
 
     return next();
   } catch (err) {

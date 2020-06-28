@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppErrors';
 
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import UpdateProfileAddressService from './UpdateProfileAddressService';
 
 let fakeUsersRepository: FakeUsersRepository;

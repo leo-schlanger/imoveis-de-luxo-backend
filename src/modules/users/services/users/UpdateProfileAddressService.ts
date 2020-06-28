@@ -5,8 +5,8 @@ import AppError from '@shared/errors/AppErrors';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
 
-import User from '../infra/typeorm/entities/User';
-import IUsersRepository from '../repositories/IUsersRepository';
+import User from '../../infra/typeorm/entities/User';
+import IUsersRepository from '../../repositories/IUsersRepository';
 
 interface IRequest {
   user_id: string;

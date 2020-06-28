@@ -12,6 +12,7 @@ import uploadConfig from '@config/upload';
 
 import { Exclude, Expose } from 'class-transformer';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
+import Plan from './Plan';
 
 export type UserTypeEnum = 'adm' | 'advertiser' | 'user';
 
@@ -63,6 +64,17 @@ class User {
   @ManyToOne(() => Address, { eager: true })
   @JoinColumn({ name: 'address_id' })
   address: Address;
+
+  @Column()
+  @Exclude()
+  plan_id: string;
+
+  @ManyToOne(() => Plan, { eager: true })
+  @JoinColumn({ name: 'plan_id' })
+  plan: Plan;
+
+  @Column()
+  plan_status: boolean;
 
   @CreateDateColumn()
   created_at: Date;

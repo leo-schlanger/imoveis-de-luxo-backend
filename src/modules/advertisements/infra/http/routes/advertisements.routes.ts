@@ -87,7 +87,7 @@ advertisementsRouter.delete(
       advertisement_id: Joi.string().uuid().required(),
     },
   }),
-  advertisementsController.update,
+  advertisementsController.delete,
 );
 
 // TODO: Desenvolver a parte de upload de imagems da galeria de anúncios

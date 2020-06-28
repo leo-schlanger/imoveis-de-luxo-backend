@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import UpdateProfileAddressService from '@modules/users/services/UpdateProfileAddressService';
+import UpdateProfileAddressService from '@modules/users/services/users/UpdateProfileAddressService';
 
 export default class UserAddressController {
   public async update(request: Request, response: Response): Promise<Response> {

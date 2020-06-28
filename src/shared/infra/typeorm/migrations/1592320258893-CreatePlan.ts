@@ -18,6 +18,11 @@ export default class CreatePlan1592320258893 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'description',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'quantity_properties',
             type: 'numeric',
           },
@@ -33,10 +38,6 @@ export default class CreatePlan1592320258893 implements MigrationInterface {
             name: 'value',
             type: 'decimal',
             scale: 2,
-          },
-          {
-            name: 'status',
-            type: 'boolean',
           },
           {
             name: 'created_at',
