@@ -22,9 +22,9 @@ class UpdateUserPlanService {
   ) {}
 
   public async execute({ user_id, plan_id }: IRequest): Promise<User> {
-    const findPlan = await this.plansRepository.findById(plan_id);
+    const plan = await this.plansRepository.findById(plan_id);
 
-    if (!findPlan) {
+    if (!plan) {
       throw new AppError('Plan not found');
     }
 
@@ -38,7 +38,7 @@ class UpdateUserPlanService {
       throw new AppError('Only advertiser have plan', 401);
     }
 
-    Object.assign(user, { plan_id, plan_status: true });
+    Object.assign(user, { plan_id, plan_status: true, plan });
 
     return this.usersRepository.save(user);
   }
