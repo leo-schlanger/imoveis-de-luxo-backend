@@ -24,6 +24,7 @@ class CreateUserService {
     @inject('HashProvider')
     private hashProvider: IHashProvider,
 
+    // TODO: pensar na listagem de usuários
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
@@ -51,7 +52,7 @@ class CreateUserService {
       type,
     });
 
-    await this.cacheProvider.invalidatePrefix('providers-list');
+    await this.cacheProvider.invalidatePrefix('users-list');
 
     return user;
   }

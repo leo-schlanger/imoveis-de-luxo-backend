@@ -8,6 +8,7 @@ import UpdatePlanService from '@modules/users/services/plans/UpdatePlanService';
 import DeletePlanService from '@modules/users/services/plans/DeletePlanService';
 import ShowPlansService from '@modules/users/services/plans/ShowPlansService';
 
+// TODO: ajustar a autorização do usuário nos serviços e retirar do controle
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
     const showPlans = container.resolve(ShowPlansService);

@@ -7,10 +7,12 @@ import uploadConfig from '@config/upload';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 
 import UsersController from '../controllers/UsersController';
+import UserPlanController from '../controllers/UserPlanController';
 import UserAvatarController from '../controllers/UserAvatarController';
 
 const usersRouter = Router();
 const usersController = new UsersController();
+const userPlanController = new UserPlanController();
 const userAvatarController = new UserAvatarController();
 const upload = multer(uploadConfig.multer);
 
@@ -26,6 +28,12 @@ usersRouter.post(
     },
   }),
   usersController.create,
+);
+
+usersRouter.put(
+  '/plan/:plan_id',
+  ensureAuthenticated,
+  userPlanController.update,
 );
 
 usersRouter.patch(
