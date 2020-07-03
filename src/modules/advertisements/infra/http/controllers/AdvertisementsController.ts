@@ -44,11 +44,13 @@ export default class AdvertisementsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { advertisement_id } = request.params;
+    const user_id = request.user.id;
     const { title, type, description, address_visible } = request.body;
 
     const updateAdvertisement = container.resolve(UpdateAdvertisementService);
 
     const advertisement = await updateAdvertisement.execute({
+      user_id,
       advertisement_id,
       title,
       type,
@@ -61,10 +63,12 @@ export default class AdvertisementsController {
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { advertisement_id } = request.params;
+    const user_id = request.user.id;
 
     const deleteAdvertisement = container.resolve(DeleteAdvertisementService);
 
     await deleteAdvertisement.execute({
+      user_id,
       id: advertisement_id,
     });
 

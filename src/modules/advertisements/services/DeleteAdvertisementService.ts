@@ -6,6 +6,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository';
 
 interface IRequest {
+  user_id: string;
   id: string;
 }
 
@@ -20,11 +21,15 @@ class DeleteAdvertisementService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ id }: IRequest): Promise<void> {
+  public async execute({ user_id, id }: IRequest): Promise<void> {
     const advertisement = await this.advertisementsRepository.findById(id);
 
     if (!advertisement) {
       throw new AppError('Advertisement not found');
+    }
+
+    if (advertisement.user_id !== user_id) {
+      throw new AppError('Unauthorized user', 401);
     }
 
     // TODO: pode ter limpeza de cache de lista também mais para frente

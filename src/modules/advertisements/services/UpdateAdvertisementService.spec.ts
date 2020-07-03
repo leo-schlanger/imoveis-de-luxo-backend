@@ -28,6 +28,7 @@ describe('UpdateAdvertisement', () => {
     });
 
     const updatedAdvertisement = await updateAdvertisement.execute({
+      user_id: 'user',
       advertisement_id: advertisement.id,
       type: 'tenancy',
       address_visible: false,
@@ -47,6 +48,7 @@ describe('UpdateAdvertisement', () => {
     });
 
     const updatedAdvertisement = await updateAdvertisement.execute({
+      user_id: 'user',
       advertisement_id: advertisement.id,
       type: 'purchase',
       address_visible: true,
@@ -58,9 +60,31 @@ describe('UpdateAdvertisement', () => {
     expect(updatedAdvertisement.description).toBe('Description');
   });
 
+  it('should not be able to update with non-responsible user', async () => {
+    const advertisement = await fakeAdvertisementsRepository.create({
+      type: 'purchase',
+      property_id: 'property',
+      user_id: 'user',
+      title: 'My property',
+      address_visible: true,
+    });
+
+    await expect(
+      updateAdvertisement.execute({
+        user_id: 'other-user',
+        advertisement_id: advertisement.id,
+        type: 'purchase',
+        address_visible: true,
+        title: 'New title',
+        description: 'Description',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('should not be able to update the address from non-existing advertisement', async () => {
     await expect(
       updateAdvertisement.execute({
+        user_id: 'user',
         advertisement_id: 'non-existing-advertisement',
         type: 'purchase',
         address_visible: true,

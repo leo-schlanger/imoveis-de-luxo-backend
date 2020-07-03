@@ -22,7 +22,7 @@ export default class ProfileController {
     const user_type = request.user.type;
 
     if (user_type !== 'adm') {
-      throw new AppError('Unauthorized user.', 400);
+      throw new AppError('Unauthorized user.', 401);
     }
 
     const {
@@ -52,7 +52,7 @@ export default class ProfileController {
     const user_type = request.user.type;
 
     if (user_type !== 'adm') {
-      throw new AppError('Unauthorized user.', 400);
+      throw new AppError('Unauthorized user.', 401);
     }
 
     const { plan_id } = request.params;
@@ -85,7 +85,7 @@ export default class ProfileController {
     const user_type = request.user.type;
 
     if (user_type !== 'adm') {
-      throw new AppError('Unauthorized user.', 400);
+      throw new AppError('Unauthorized user.', 401);
     }
 
     const { plan_id } = request.params;

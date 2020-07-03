@@ -8,6 +8,7 @@ import Advertisement from '../infra/typeorm/entities/Advertisement';
 import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository';
 
 interface IRequest {
+  user_id: string;
   advertisement_id: string;
   country?: string;
   state?: string;
@@ -31,6 +32,7 @@ class UpdateAdvertisementAddressService {
   ) {}
 
   public async execute({
+    user_id,
     advertisement_id,
     ...rest
   }: IRequest): Promise<Advertisement> {
@@ -40,6 +42,10 @@ class UpdateAdvertisementAddressService {
 
     if (!advertisement) {
       throw new AppError('Advertisement not found.');
+    }
+
+    if (advertisement.user_id !== user_id) {
+      throw new AppError('Unauthorized user', 401);
     }
 
     const address = await this.adressesRepository.findById(

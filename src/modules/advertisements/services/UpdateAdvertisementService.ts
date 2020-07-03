@@ -9,6 +9,7 @@ import Advertisement, {
 import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository';
 
 interface IRequest {
+  user_id: string;
   advertisement_id: string;
   title?: string;
   description?: string;
@@ -28,6 +29,7 @@ class UpdateAdvertisementService {
   ) {}
 
   public async execute({
+    user_id,
     advertisement_id,
     title,
     description,
@@ -40,6 +42,10 @@ class UpdateAdvertisementService {
 
     if (!advertisement) {
       throw new AppError('Advertisement not found.');
+    }
+
+    if (advertisement.user_id !== user_id) {
+      throw new AppError('Unauthorized user', 401);
     }
 
     if (advertisement.type !== type) {
