@@ -21,7 +21,7 @@ class Media {
   advertisement_id: string;
 
   @Column()
-  name: string;
+  filename: string;
 
   @Column('enum', { name: 'type' })
   type: MediaTypeEnum;
@@ -36,11 +36,11 @@ class Media {
   getMediaUrl(): string {
     switch (uploadConfig.driver) {
       case 'disk':
-        return `${process.env.APP_API_URL}/files/${this.name}`;
+        return `${process.env.APP_API_URL}/files/${this.filename}`;
       case 's3':
-        return `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${this.name}`;
+        return `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${this.filename}`;
       default:
-        return this.name;
+        return this.filename;
     }
   }
 }

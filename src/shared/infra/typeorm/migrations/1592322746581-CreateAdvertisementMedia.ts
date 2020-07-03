@@ -25,7 +25,7 @@ export default class CreateAdvertisementMedia1592322746581
             enumName: 'media_type_enum',
           },
           {
-            name: 'name',
+            name: 'filename',
             type: 'varchar',
           },
           {

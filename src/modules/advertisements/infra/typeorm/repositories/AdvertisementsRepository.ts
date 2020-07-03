@@ -63,7 +63,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
     address_visible = true,
     type,
   }: ICreateAdvertisementDTO): Promise<Advertisement> {
-    const property = this.ormRepository.create({
+    const advertisement = this.ormRepository.create({
       title,
       description,
       property_id,
@@ -72,9 +72,9 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
       type,
     });
 
-    await this.ormRepository.save(property);
+    await this.ormRepository.save(advertisement);
 
-    return property;
+    return advertisement;
   }
 
   public async delete(id: string): Promise<void> {

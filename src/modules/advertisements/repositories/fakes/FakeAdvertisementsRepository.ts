@@ -64,6 +64,7 @@ class FakeAdvertisementsRepository implements IAdvertisementsRepository {
         user_id,
         address_visible,
         type,
+        gallery: [],
       },
     );
 

@@ -15,8 +15,6 @@ const advertisementsController = new AdvertisementsController();
 const advertisementAddressController = new AdvertisementAddressController();
 // const upload = multer(uploadConfig.multer);
 
-advertisementsRouter.use(ensureAuthenticated);
-
 advertisementsRouter.get(
   '/:advertisement_id',
   celebrate({
@@ -27,6 +25,36 @@ advertisementsRouter.get(
   advertisementsController.show,
 );
 
+advertisementsRouter.use(ensureAuthenticated);
+
+advertisementsRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      title: Joi.string().required(),
+      description: Joi.string(),
+      address_visible: Joi.boolean(),
+      type: Joi.string().required(),
+      property: {
+        address: {
+          country: Joi.string().required(),
+          state: Joi.string().required(),
+          postal_code: Joi.string().required(),
+          neighborhood: Joi.string().required(),
+          address: Joi.string().required(),
+          sub_neighborhood: Joi.string(),
+          number: Joi.string(),
+          complement: Joi.string(),
+          description: Joi.string(),
+        },
+        type: Joi.string().required(),
+        value: Joi.number().required(),
+      },
+    },
+  }),
+  advertisementsController.create,
+);
+
 advertisementsRouter.put(
   '/:advertisement_id',
   celebrate({
@@ -34,7 +62,6 @@ advertisementsRouter.put(
       advertisement_id: Joi.string().uuid().required(),
     },
     [Segments.BODY]: {
-      user_id: Joi.string().required(),
       title: Joi.string().required(),
       description: Joi.string(),
       address_visible: Joi.boolean(),

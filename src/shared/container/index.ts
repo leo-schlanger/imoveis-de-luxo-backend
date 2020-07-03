@@ -18,6 +18,9 @@ import PlansRepository from '@modules/users/infra/typeorm/repositories/PlansRepo
 import IAdvertisementsRepository from '@modules/advertisements/repositories/IAdvertisementsRepository';
 import AdvertisementsRepository from '@modules/advertisements/infra/typeorm/repositories/AdvertisementsRepository';
 
+import IMediaRepository from '@modules/advertisements/repositories/IMediaRepository';
+import MediaRepository from '@modules/advertisements/infra/typeorm/repositories/MediaRepository';
+
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
@@ -47,6 +50,11 @@ container.registerSingleton<IPlansRepository>(
 container.registerSingleton<IAdvertisementsRepository>(
   'AdvertisementsRepository',
   AdvertisementsRepository,
+);
+
+container.registerSingleton<IMediaRepository>(
+  'MediaRepository',
+  MediaRepository,
 );
 
 container.registerSingleton<IUserTokensRepository>(
