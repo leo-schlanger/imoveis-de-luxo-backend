@@ -3,17 +3,18 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 
-// TODO: repensar rotas de atualização da galeria
-// import multer from 'multer';
-// import uploadConfig from '@config/upload';
+import multer from 'multer';
+import uploadConfig from '@config/upload';
 
 import AdvertisementsController from '../controllers/AdvertisementsController';
+import AdvertisementMediaController from '../controllers/AdvertisementMediaController';
 import AdvertisementAddressController from '../controllers/AdvertisementAddressController';
 
 const advertisementsRouter = Router();
 const advertisementsController = new AdvertisementsController();
+const advertisementMediaController = new AdvertisementMediaController();
 const advertisementAddressController = new AdvertisementAddressController();
-// const upload = multer(uploadConfig.multer);
+const upload = multer(uploadConfig.multer);
 
 advertisementsRouter.get(
   '/:advertisement_id',
@@ -117,12 +118,16 @@ advertisementsRouter.delete(
   advertisementsController.delete,
 );
 
-// TODO: Desenvolver a parte de upload de imagems da galeria de anúncios
-// advertisementsRouter.put(
-//   '/:advertisement_id/gallery',
-//   ensureAuthenticated,
-//   upload.array('gallery'),
-//   AdvertisementGalleryController.update,
-// );
+advertisementsRouter.put(
+  '/:advertisement_id/gallery/:type',
+  celebrate({
+    [Segments.PARAMS]: {
+      advertisement_id: Joi.string().uuid().required(),
+      type: Joi.string().valid('photo', 'video').required,
+    },
+  }),
+  upload.array('gallery'),
+  advertisementMediaController.update,
+);
 
 export default advertisementsRouter;
