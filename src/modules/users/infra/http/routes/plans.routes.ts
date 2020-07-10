@@ -27,10 +27,10 @@ plansRouter.post(
 );
 
 plansRouter.put(
-  '/:plain_id',
+  '/:plan_id',
   celebrate({
     [Segments.PARAMS]: {
-      plain_id: Joi.string().uuid().required(),
+      plan_id: Joi.string().uuid().required(),
     },
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -45,10 +45,10 @@ plansRouter.put(
 );
 
 plansRouter.delete(
-  '/:plain_id',
+  '/:plan_id',
   celebrate({
     [Segments.PARAMS]: {
-      plain_id: Joi.string().uuid().required(),
+      plan_id: Joi.string().uuid().required(),
     },
   }),
   plansController.delete,
