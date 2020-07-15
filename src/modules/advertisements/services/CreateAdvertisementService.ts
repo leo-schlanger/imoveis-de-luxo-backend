@@ -7,6 +7,7 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IPropertiesRepository from '@modules/properties/repositories/IPropertiesRepository';
 import { PropertyTypeEnum } from '@modules/properties/infra/typeorm/entities/Property';
 import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../infra/typeorm/entities/Advertisement';
@@ -69,7 +70,7 @@ class CreateAdvertisementService {
       throw new AppError('User not found');
     }
 
-    if (userAd.type !== 'advertiser') {
+    if (userAd.type !== UserTypeEnum.ADVERTISER) {
       throw new AppError('User cannot run ads');
     }
 

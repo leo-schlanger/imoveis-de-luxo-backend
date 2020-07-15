@@ -14,9 +14,17 @@ import { Exclude, Expose } from 'class-transformer';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import Plan from './Plan';
 
-export type UserTypeEnum = 'adm' | 'advertiser' | 'user';
+export enum UserTypeEnum {
+  ADM = 'adm',
+  ADVERTISER = 'advertiser',
+  USER = 'user',
+}
 
-export type UserStatusEnum = 'new' | 'active' | 'inactive';
+export enum UserStatusEnum {
+  NEW = 'new',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+}
 
 @Entity('users')
 class User {
