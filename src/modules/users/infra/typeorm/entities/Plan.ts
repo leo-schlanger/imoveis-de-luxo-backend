@@ -12,12 +12,13 @@ import {
   Float,
   Int,
   GraphQLISODateTime,
+  ID,
 } from 'type-graphql';
 
 @ObjectType()
 @Entity('plans')
 class Plan extends BaseEntity {
-  @Field()
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

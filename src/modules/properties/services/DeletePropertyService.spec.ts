@@ -5,6 +5,7 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 import FakePropertiesRepository from '../repositories/fakes/FakePropertiesRepository';
 
 import DeletePropertyService from './DeletePropertyService';
+import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
 
 let fakePropertiesRepository: FakePropertiesRepository;
 let fakeAdressesRepository: FakeAdressesRepository;
@@ -32,7 +33,7 @@ describe('deleteProperty', () => {
     });
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       address,
     });

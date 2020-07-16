@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppErrors';
 
 import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import FakeUserTokensRepository from '../../repositories/fakes/FakeUserTokensRepository';
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
@@ -31,7 +32,7 @@ describe('SendForgotPasswordEmail', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await sendForgotPasswordEmail.execute({
@@ -58,7 +59,7 @@ describe('SendForgotPasswordEmail', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await sendForgotPasswordEmail.execute({

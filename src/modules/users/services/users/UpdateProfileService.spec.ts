@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppErrors';
 
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import UpdateProfileService from './UpdateProfileService';
@@ -24,7 +25,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfile.execute({
@@ -43,7 +44,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfile.execute({
@@ -62,7 +63,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfile.execute({
@@ -83,7 +84,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfile.execute({
@@ -102,7 +103,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfile.execute({
@@ -121,7 +122,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const user = await fakeUsersRepository.create({
@@ -129,7 +130,7 @@ describe('UpdateProfile', () => {
       email: 'test@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(
@@ -147,7 +148,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfile.execute({
@@ -167,7 +168,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(
@@ -186,7 +187,7 @@ describe('UpdateProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(

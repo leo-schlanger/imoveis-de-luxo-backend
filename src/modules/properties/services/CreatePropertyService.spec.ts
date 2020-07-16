@@ -5,6 +5,7 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 import FakePropertiesRepository from '../repositories/fakes/FakePropertiesRepository';
 
 import CreatePropertyService from './CreatePropertyService';
+import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
 
 let fakePropertiesRepository: FakePropertiesRepository;
 let fakeAdressesRepository: FakeAdressesRepository;
@@ -25,7 +26,7 @@ describe('CreateProperty', () => {
 
   it('should be able to create a new property', async () => {
     const property = await createProperty.execute({
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       country: 'Brasil',
       state: 'Rio de Janeiro',
@@ -39,7 +40,7 @@ describe('CreateProperty', () => {
 
   it('should not be able to create a new property with same address', async () => {
     await createProperty.execute({
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       country: 'Brasil',
       state: 'Rio de Janeiro',
@@ -50,7 +51,7 @@ describe('CreateProperty', () => {
 
     await expect(
       createProperty.execute({
-        type: 'apartment',
+        type: PropertyTypeEnum.APARTMENT,
         value: 67000.0,
         country: 'Brasil',
         state: 'Rio de Janeiro',

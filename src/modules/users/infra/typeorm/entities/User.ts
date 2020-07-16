@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { Field, GraphQLTimestamp, ObjectType } from 'type-graphql';
 
 import uploadConfig from '@config/upload';
 

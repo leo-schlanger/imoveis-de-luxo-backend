@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppErrors';
 
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import FakeUserTokensRepository from '../../repositories/fakes/FakeUserTokensRepository';
 import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
@@ -29,7 +30,7 @@ describe('ResetPasswordService', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
@@ -72,7 +73,7 @@ describe('ResetPasswordService', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const { token } = await fakeUserTokensRepository.generate(user.id);

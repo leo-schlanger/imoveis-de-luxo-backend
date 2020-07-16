@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppErrors';
 
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import UpdateUserAvatarService from './UpdateUserAvatarService';
 
@@ -24,7 +25,7 @@ describe('UpdateUserAvatar', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await updateUserAvatar.execute({
@@ -52,7 +53,7 @@ describe('UpdateUserAvatar', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await updateUserAvatar.execute({

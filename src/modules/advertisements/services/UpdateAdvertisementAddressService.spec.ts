@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppErrors';
 
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
 import FakePropertiesRepository from '@modules/properties/repositories/fakes/FakePropertiesRepository';
+import { PropertyTypeEnum } from '@modules/properties/infra/typeorm/entities/Property';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import UpdateAdvertisementAddressService from './UpdateAdvertisementAddressService';
 
@@ -34,7 +35,7 @@ describe('UpdateAdvertisementAddress', () => {
 
     const property = await fakePropertiesRepository.create({
       value: 55500.9,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       address,
     });
 
@@ -76,7 +77,7 @@ describe('UpdateAdvertisementAddress', () => {
 
     const property = await fakePropertiesRepository.create({
       value: 55500.9,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       address,
     });
 
@@ -114,7 +115,7 @@ describe('UpdateAdvertisementAddress', () => {
 
     const property = await fakePropertiesRepository.create({
       value: 55500.9,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       address,
     });
 

@@ -14,6 +14,8 @@ import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppErrors';
 import { PlanResolver } from '@modules/users/infra/graphql/resolvers/PlanResolver';
 import { AddressResolver } from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
+import { PropertyResolver } from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
+
 import rateLimiter from './middlewares/rateLimiter';
 
 import routes from './routes';
@@ -56,6 +58,7 @@ import '@shared/container';
         // UserResolver
         PlanResolver,
         AddressResolver,
+        PropertyResolver,
       ],
     }),
     context: ({ req, res }) => ({ req, res }),

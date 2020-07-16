@@ -5,7 +5,7 @@ import { Resolver, Mutation, Arg, Query, InputType, Field } from 'type-graphql';
 import Address from '../../typeorm/entities/Address';
 
 @InputType()
-class AddressInput {
+export class AddressInput {
   @Field()
   country: string;
 
@@ -35,7 +35,7 @@ class AddressInput {
 }
 
 @InputType()
-class AddressUpdateInput {
+export class AddressUpdateInput {
   @Field({ nullable: true })
   country: string;
 

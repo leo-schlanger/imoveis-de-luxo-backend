@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppErrors';
 
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakePlansRepository from '../../repositories/fakes/FakePlansRepository';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import UpdateUserPlanService from './UpdateUserPlanService';
@@ -24,7 +25,7 @@ describe('UpdateUserPlan', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'advertiser',
+      type: UserTypeEnum.ADVERTISER,
     });
 
     const plan = await fakePlansRepository.create({
@@ -50,7 +51,7 @@ describe('UpdateUserPlan', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const plan = await fakePlansRepository.create({
@@ -92,7 +93,7 @@ describe('UpdateUserPlan', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(

@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppErrors';
 
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../../providers/HashProvider/fakes/FakeHashProvider';
 import CreateUserService from './CreateUserService';
@@ -28,7 +29,7 @@ describe('CreateUser', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '123456',
-      type: 'adm',
+      type: UserTypeEnum.ADM,
     });
 
     expect(user).toHaveProperty('id');
@@ -40,7 +41,7 @@ describe('CreateUser', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '123456',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(
@@ -49,7 +50,7 @@ describe('CreateUser', () => {
         email: 'johndoe@example.com',
         password: '123456',
         phone: '123456',
-        type: 'user',
+        type: UserTypeEnum.USER,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

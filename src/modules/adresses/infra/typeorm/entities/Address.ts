@@ -7,12 +7,12 @@ import {
   BaseEntity,
 } from 'typeorm';
 
-import { Field, ObjectType, GraphQLISODateTime } from 'type-graphql';
+import { Field, ObjectType, GraphQLISODateTime, ID } from 'type-graphql';
 
 @ObjectType()
 @Entity('address')
 class Address extends BaseEntity {
-  @Field()
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
