@@ -10,11 +10,11 @@ import PropertyUpdateInput from '../inputs/PropertyUpdateInput';
 export default class PropertyResolver {
   @Mutation(() => Property)
   async createProperty(
-    @Arg('options', () => PropertyInput) options: PropertyInput,
+    @Arg('data', () => PropertyInput) data: PropertyInput,
   ): Promise<Property> {
-    const address = await Address.create(options.address).save();
+    const address = await Address.create(data.address).save();
     const property = await Property.create({
-      ...options,
+      ...data,
       address,
       address_id: address.id,
     }).save();
@@ -24,9 +24,9 @@ export default class PropertyResolver {
   @Mutation(() => Property)
   async updateProperty(
     @Arg('id', () => String) id: string,
-    @Arg('input', () => PropertyUpdateInput) input: PropertyUpdateInput,
+    @Arg('data', () => PropertyUpdateInput) data: PropertyUpdateInput,
   ): Promise<Property | undefined> {
-    await Property.update({ id }, input);
+    await Property.update({ id }, data);
     return Property.findOne(id);
   }
 

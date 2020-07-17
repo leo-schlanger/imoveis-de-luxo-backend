@@ -17,7 +17,7 @@ import AppError from '@shared/errors/AppErrors';
 import UserResolver from '@modules/users/infra/graphql/resolvers/UserResolver';
 import PlanResolver from '@modules/users/infra/graphql/resolvers/PlanResolver';
 import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
-import { PropertyResolver } from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
+import PropertyResolver from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
 
 import rateLimiter from './middlewares/rateLimiter';
 
