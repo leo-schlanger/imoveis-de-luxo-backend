@@ -14,7 +14,7 @@ import {
 import Plan from '../../typeorm/entities/Plan';
 
 @InputType()
-class PlanInput {
+export class PlanInput {
   @Field()
   name: string;
 
@@ -35,7 +35,7 @@ class PlanInput {
 }
 
 @InputType()
-class PlanUpdateInput {
+export class PlanUpdateInput {
   @Field({ nullable: true })
   name: string;
 

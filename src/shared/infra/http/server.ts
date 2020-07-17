@@ -12,6 +12,7 @@ import { buildSchema } from 'type-graphql';
 
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppErrors';
+import { UserResolver } from '@modules/users/infra/graphql/resolvers/UserResolver';
 import { PlanResolver } from '@modules/users/infra/graphql/resolvers/PlanResolver';
 import { AddressResolver } from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
 import { PropertyResolver } from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
@@ -55,13 +56,13 @@ import '@shared/container';
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [
-        // UserResolver
+        UserResolver,
         PlanResolver,
         AddressResolver,
         PropertyResolver,
       ],
     }),
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req, res }) => ({ req, res, user: req.user }),
   });
 
   apolloServer.applyMiddleware({ app, cors: false });

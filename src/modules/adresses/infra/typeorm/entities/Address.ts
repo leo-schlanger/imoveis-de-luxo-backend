@@ -32,7 +32,7 @@ class Address extends BaseEntity {
   @Column()
   neighborhood: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column()
   sub_neighborhood: string;
 
@@ -40,15 +40,15 @@ class Address extends BaseEntity {
   @Column()
   address: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column()
   number: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column()
   complement: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column()
   description: string;
 
