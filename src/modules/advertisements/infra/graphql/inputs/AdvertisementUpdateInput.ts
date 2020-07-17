@@ -3,7 +3,7 @@ import PropertyInput from '@modules/properties/infra/graphql/inputs/PropertyInpu
 import { AdvertisementTypeEnum } from '../../typeorm/entities/Advertisement';
 
 @InputType()
-export default class UserUpdateInput {
+export default class AdvertisementUpdateInput {
   @Field(() => PropertyInput, { nullable: true })
   property: PropertyInput;
 
