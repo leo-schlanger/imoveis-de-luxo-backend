@@ -18,6 +18,8 @@ import UserResolver from '@modules/users/infra/graphql/resolvers/UserResolver';
 import PlanResolver from '@modules/users/infra/graphql/resolvers/PlanResolver';
 import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
 import PropertyResolver from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
+import MediaResolver from '@modules/advertisements/infra/graphql/resolvers/MediaResolver';
+import AdvertisementResolver from '@modules/advertisements/infra/graphql/resolvers/AdvertisementResolver';
 
 import rateLimiter from './middlewares/rateLimiter';
 
@@ -62,6 +64,8 @@ import '@shared/container';
         PlanResolver,
         AddressResolver,
         PropertyResolver,
+        MediaResolver,
+        AdvertisementResolver,
       ],
     }),
     context: ({ req, res }) => ({ req, res, user: req.user }),

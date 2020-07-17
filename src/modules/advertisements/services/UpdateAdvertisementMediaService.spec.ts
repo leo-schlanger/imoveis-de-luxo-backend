@@ -4,6 +4,8 @@ import FakeStorageProvider from '@shared/container/providers/StorageProvider/fak
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import FakeMediaRepository from '../repositories/fakes/FakeMediaRepository';
 import UpdateAdvertisementMediaService from './UpdateAdvertisementMediaService';
+import { MediaTypeEnum } from '../infra/typeorm/entities/Media';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakeMediaRepository: FakeMediaRepository;
@@ -27,7 +29,7 @@ describe('UpdateAdvertisementMedia', () => {
       property_id: 'property',
       title: 'title',
       user_id: 'user',
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
     });
 
     await fakeAdvertisementsRepository.save(advertisement);
@@ -37,7 +39,7 @@ describe('UpdateAdvertisementMedia', () => {
     let advertisementUpdated = await updateAdvertisementMedia.execute({
       advertisement_id: advertisement.id,
       user_id: advertisement.user_id,
-      type: 'photo',
+      type: MediaTypeEnum.PHOTO,
       gallery: ['media1', 'media2'],
     });
 
@@ -46,7 +48,7 @@ describe('UpdateAdvertisementMedia', () => {
     advertisementUpdated = await updateAdvertisementMedia.execute({
       advertisement_id: advertisement.id,
       user_id: advertisement.user_id,
-      type: 'video',
+      type: MediaTypeEnum.VIDEO,
       gallery: ['media3'],
     });
 
@@ -58,7 +60,7 @@ describe('UpdateAdvertisementMedia', () => {
     advertisementUpdated = await updateAdvertisementMedia.execute({
       advertisement_id: advertisement.id,
       user_id: advertisement.user_id,
-      type: 'photo',
+      type: MediaTypeEnum.PHOTO,
       gallery: ['media4'],
     });
 
@@ -72,7 +74,7 @@ describe('UpdateAdvertisementMedia', () => {
       property_id: 'property',
       title: 'title',
       user_id: 'user',
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
     });
 
     await fakeAdvertisementsRepository.save(advertisement);
@@ -83,7 +85,7 @@ describe('UpdateAdvertisementMedia', () => {
       updateAdvertisementMedia.execute({
         advertisement_id: advertisement.id,
         user_id: 'invalid-user',
-        type: 'photo',
+        type: MediaTypeEnum.PHOTO,
         gallery: ['media1', 'media2'],
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -94,7 +96,7 @@ describe('UpdateAdvertisementMedia', () => {
       updateAdvertisementMedia.execute({
         advertisement_id: 'non-existing-advertisement',
         user_id: 'invalid-user',
-        type: 'photo',
+        type: MediaTypeEnum.PHOTO,
         gallery: ['media1', 'media2'],
       }),
     ).rejects.toBeInstanceOf(AppError);

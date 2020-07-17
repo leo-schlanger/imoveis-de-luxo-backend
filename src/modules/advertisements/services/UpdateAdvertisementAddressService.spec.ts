@@ -5,6 +5,7 @@ import FakePropertiesRepository from '@modules/properties/repositories/fakes/Fak
 import { PropertyTypeEnum } from '@modules/properties/infra/typeorm/entities/Property';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import UpdateAdvertisementAddressService from './UpdateAdvertisementAddressService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakeAdressesRepository: FakeAdressesRepository;
@@ -40,7 +41,7 @@ describe('UpdateAdvertisementAddress', () => {
     });
 
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: property.id,
       user_id: 'user',
       title: 'My property',
@@ -82,7 +83,7 @@ describe('UpdateAdvertisementAddress', () => {
     });
 
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: property.id,
       user_id: 'user',
       title: 'My property',
@@ -120,7 +121,7 @@ describe('UpdateAdvertisementAddress', () => {
     });
 
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: property.id,
       user_id: 'user',
       title: 'My property',

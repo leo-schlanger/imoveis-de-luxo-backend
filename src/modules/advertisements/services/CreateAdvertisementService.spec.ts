@@ -9,6 +9,7 @@ import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 
 import CreateAdvertisementService from './CreateAdvertisementService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakePropertiesRepository: FakePropertiesRepository;
@@ -45,7 +46,7 @@ describe('CreateAdvertisement', () => {
     const advertisement = await createAdvertisement.execute({
       title: 'My title',
       user_id: user.id,
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property: {
         value: 44555.55,
         type: PropertyTypeEnum.APARTMENT,
@@ -75,7 +76,7 @@ describe('CreateAdvertisement', () => {
       createAdvertisement.execute({
         title: 'My title',
         user_id: user.id,
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         property: {
           value: 44555.55,
           type: PropertyTypeEnum.APARTMENT,
@@ -96,7 +97,7 @@ describe('CreateAdvertisement', () => {
       createAdvertisement.execute({
         title: 'My title',
         user_id: 'invalid-id',
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         property: {
           value: 44555.55,
           type: PropertyTypeEnum.APARTMENT,
@@ -124,7 +125,7 @@ describe('CreateAdvertisement', () => {
     await createAdvertisement.execute({
       title: 'My title',
       user_id: user.id,
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property: {
         value: 44555.55,
         type: PropertyTypeEnum.APARTMENT,
@@ -142,7 +143,7 @@ describe('CreateAdvertisement', () => {
       createAdvertisement.execute({
         title: 'My title',
         user_id: user.id,
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         property: {
           value: 44555.55,
           type: PropertyTypeEnum.APARTMENT,

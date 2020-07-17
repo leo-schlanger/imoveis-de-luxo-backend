@@ -4,6 +4,7 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 
 import DeleteAdvertisementService from './DeleteAdvertisementService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakeCacheProvider: FakeCacheProvider;
@@ -24,7 +25,7 @@ describe('deleteAdvertisement', () => {
       property_id: 'property',
       title: 'title',
       user_id: 'user',
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
     });
 
     await fakeAdvertisementsRepository.save(advertisement);
@@ -53,7 +54,7 @@ describe('deleteAdvertisement', () => {
       property_id: 'property',
       title: 'title',
       user_id: 'user',
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
     });
 
     await fakeAdvertisementsRepository.save(advertisement);
