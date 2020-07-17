@@ -1,85 +1,36 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable max-classes-per-file */
-import {
-  Resolver,
-  Mutation,
-  Arg,
-  Query,
-  InputType,
-  Field,
-  Int,
-  Float,
-} from 'type-graphql';
+import { Resolver, Mutation, Arg, Query } from 'type-graphql';
+
 import Plan from '../../typeorm/entities/Plan';
-
-@InputType()
-export class PlanInput {
-  @Field()
-  name: string;
-
-  @Field({ nullable: true })
-  description: string;
-
-  @Field(() => Int)
-  quantity_properties: number;
-
-  @Field(() => Int)
-  quantity_photos: number;
-
-  @Field(() => Int)
-  quantity_videos: number;
-
-  @Field(() => Float)
-  value: number;
-}
-
-@InputType()
-export class PlanUpdateInput {
-  @Field({ nullable: true })
-  name: string;
-
-  @Field({ nullable: true })
-  description: string;
-
-  @Field(() => Int, { nullable: true })
-  quantity_properties: number;
-
-  @Field(() => Int, { nullable: true })
-  quantity_photos: number;
-
-  @Field(() => Int, { nullable: true })
-  quantity_videos: number;
-
-  @Field(() => Float, { nullable: true })
-  value: number;
-}
+import PlanInput from '../inputs/PlanInput';
+import PlanUpdateInput from '../inputs/PlanUpdateInput';
 
 @Resolver()
-export class PlanResolver {
+export default class PlanResolver {
   @Mutation(() => Plan)
-  async createPlan(@Arg('options', () => PlanInput) options: PlanInput) {
-    const plan = await Plan.create(options).save();
+  async createPlan(
+    @Arg('data', () => PlanInput) data: PlanInput,
+  ): Promise<Plan> {
+    const plan = await Plan.create(data).save();
     return plan;
   }
 
   @Mutation(() => Plan)
   async updatePlan(
     @Arg('id', () => String) id: string,
-    @Arg('input', () => PlanUpdateInput) input: PlanUpdateInput,
-  ) {
-    await Plan.update({ id }, input);
+    @Arg('data', () => PlanUpdateInput) data: PlanUpdateInput,
+  ): Promise<Plan | undefined> {
+    await Plan.update({ id }, data);
     return Plan.findOne(id);
   }
 
   @Mutation(() => Boolean)
-  async deletePlan(@Arg('id', () => String) id: string) {
+  async deletePlan(@Arg('id', () => String) id: string): Promise<boolean> {
     await Plan.delete({ id });
     return true;
   }
 
   @Query(() => [Plan])
-  plans() {
+  plans(): Promise<Plan[]> {
     return Plan.find();
   }
 }

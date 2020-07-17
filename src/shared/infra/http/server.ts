@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import 'reflect-metadata';
 import 'dotenv/config';
 
@@ -12,9 +13,10 @@ import { buildSchema } from 'type-graphql';
 
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppErrors';
-import { UserResolver } from '@modules/users/infra/graphql/resolvers/UserResolver';
-import { PlanResolver } from '@modules/users/infra/graphql/resolvers/PlanResolver';
-import { AddressResolver } from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
+
+import UserResolver from '@modules/users/infra/graphql/resolvers/UserResolver';
+import PlanResolver from '@modules/users/infra/graphql/resolvers/PlanResolver';
+import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
 import { PropertyResolver } from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
 
 import rateLimiter from './middlewares/rateLimiter';
@@ -36,7 +38,7 @@ import '@shared/container';
   app.use(errors());
 
   app.use(
-    (err: Error, request: Request, response: Response, _: NextFunction) => {
+    (err: Error, _request: Request, response: Response, _: NextFunction) => {
       if (err instanceof AppError) {
         return response.status(err.statusCode).json({
           status: 'error',

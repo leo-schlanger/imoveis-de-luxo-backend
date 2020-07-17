@@ -1,128 +1,18 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable max-classes-per-file */
-import { Resolver, Mutation, Arg, Query, InputType, Field } from 'type-graphql';
+import { Resolver, Mutation, Arg, Query } from 'type-graphql';
 import uploadConfig from '@config/upload';
-import Address from '@modules/adresses/infra/typeorm/entities/Address';
-import {
-  AddressInput,
-  AddressUpdateInput,
-} from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
-import User, {
-  UserStatusEnum,
-  UserTypeEnum,
-} from '../../typeorm/entities/User';
-import Plan from '../../typeorm/entities/Plan';
-import { PlanInput, PlanUpdateInput } from './PlanResolver';
 
-@InputType()
-class UserInput {
-  @Field()
-  name: string;
-
-  @Field({ nullable: true })
-  responsible: string;
-
-  @Field({ nullable: true })
-  description: string;
-
-  @Field({ nullable: true })
-  creci: string;
-
-  @Field()
-  email: string;
-
-  @Field()
-  phone: string;
-
-  @Field({ nullable: true })
-  secondary_phone: string;
-
-  @Field(() => UserStatusEnum)
-  status: UserStatusEnum;
-
-  @Field(() => UserTypeEnum)
-  type: UserTypeEnum;
-
-  @Field()
-  password: string;
-
-  @Field({ nullable: true })
-  avatar: string;
-
-  @Field({ nullable: true })
-  address_id: string;
-
-  @Field(() => AddressInput, { nullable: true })
-  address: AddressInput;
-
-  @Field({ nullable: true })
-  plan_id: string;
-
-  @Field(() => PlanInput, { nullable: true })
-  plan: PlanInput;
-
-  @Field(() => Boolean)
-  plan_status: boolean;
-}
-
-@InputType()
-class UserUpdateInput {
-  @Field({ nullable: true })
-  name: string;
-
-  @Field({ nullable: true })
-  responsible: string;
-
-  @Field({ nullable: true })
-  description: string;
-
-  @Field({ nullable: true })
-  creci: string;
-
-  @Field({ nullable: true })
-  email: string;
-
-  @Field({ nullable: true })
-  phone: string;
-
-  @Field({ nullable: true })
-  secondary_phone: string;
-
-  @Field(() => UserStatusEnum, { nullable: true })
-  status: UserStatusEnum;
-
-  @Field(() => UserTypeEnum, { nullable: true })
-  type: UserTypeEnum;
-
-  @Field({ nullable: true })
-  password: string;
-
-  @Field({ nullable: true })
-  avatar: string;
-
-  @Field({ nullable: true })
-  address_id: string;
-
-  @Field(() => AddressUpdateInput, { nullable: true })
-  address: AddressUpdateInput;
-
-  @Field({ nullable: true })
-  plan_id: string;
-
-  @Field(() => PlanUpdateInput, { nullable: true })
-  plan: PlanUpdateInput;
-
-  @Field(() => Boolean, { nullable: true })
-  plan_status: boolean;
-}
+import User from '../../typeorm/entities/User';
+import UserInput from '../inputs/UserInput';
+import UserUpdateInput from '../inputs/UserUpdateInput';
 
 @Resolver()
-export class UserResolver {
+export default class UserResolver {
   @Mutation(() => User)
-  async createUser(@Arg('options', () => UserInput) options: UserInput) {
-    const user = await User.create(options).save();
+  async createUser(
+    @Arg('data', () => UserInput) data: UserInput,
+  ): Promise<User> {
+    const user = await User.create(data).save();
 
     return user;
   }
@@ -130,20 +20,20 @@ export class UserResolver {
   @Mutation(() => User)
   async updateUser(
     @Arg('id', () => String) id: string,
-    @Arg('input', () => UserUpdateInput) input: UserUpdateInput,
-  ) {
-    await User.update({ id }, input);
+    @Arg('data', () => UserUpdateInput) data: UserUpdateInput,
+  ): Promise<User | undefined> {
+    await User.update({ id }, data);
     return User.findOne(id);
   }
 
   @Mutation(() => Boolean)
-  async deleteUser(@Arg('id', () => String) id: string) {
+  async deleteUser(@Arg('id', () => String) id: string): Promise<boolean> {
     await User.delete({ id });
     return true;
   }
 
   @Query(() => [User])
-  async users() {
+  async users(): Promise<User[]> {
     let usersList = await User.find();
 
     usersList = usersList.map(user => {
