@@ -7,6 +7,7 @@ import CreatePlanService from '@modules/users/services/plans/CreatePlanService';
 import UpdatePlanService from '@modules/users/services/plans/UpdatePlanService';
 import DeletePlanService from '@modules/users/services/plans/DeletePlanService';
 import ShowPlansService from '@modules/users/services/plans/ShowPlansService';
+import { UserTypeEnum } from '../../typeorm/entities/User';
 
 // TODO: ajustar a autorização do usuário nos serviços e retirar do controle
 export default class ProfileController {
@@ -21,7 +22,7 @@ export default class ProfileController {
   public async create(request: Request, response: Response): Promise<Response> {
     const user_type = request.user.type;
 
-    if (user_type !== 'adm') {
+    if (user_type !== UserTypeEnum.ADM) {
       throw new AppError('Unauthorized user.', 401);
     }
 
@@ -51,7 +52,7 @@ export default class ProfileController {
   public async update(request: Request, response: Response): Promise<Response> {
     const user_type = request.user.type;
 
-    if (user_type !== 'adm') {
+    if (user_type !== UserTypeEnum.ADM) {
       throw new AppError('Unauthorized user.', 401);
     }
 
@@ -84,7 +85,7 @@ export default class ProfileController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const user_type = request.user.type;
 
-    if (user_type !== 'adm') {
+    if (user_type !== UserTypeEnum.ADM) {
       throw new AppError('Unauthorized user.', 401);
     }
 

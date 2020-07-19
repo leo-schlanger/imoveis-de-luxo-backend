@@ -2,8 +2,10 @@ import AppError from '@shared/errors/AppErrors';
 
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
 import FakePropertiesRepository from '@modules/properties/repositories/fakes/FakePropertiesRepository';
+import { PropertyTypeEnum } from '@modules/properties/infra/typeorm/entities/Property';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import UpdateAdvertisementAddressService from './UpdateAdvertisementAddressService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakeAdressesRepository: FakeAdressesRepository;
@@ -34,12 +36,12 @@ describe('UpdateAdvertisementAddress', () => {
 
     const property = await fakePropertiesRepository.create({
       value: 55500.9,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       address,
     });
 
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: property.id,
       user_id: 'user',
       title: 'My property',
@@ -76,12 +78,12 @@ describe('UpdateAdvertisementAddress', () => {
 
     const property = await fakePropertiesRepository.create({
       value: 55500.9,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       address,
     });
 
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: property.id,
       user_id: 'user',
       title: 'My property',
@@ -114,12 +116,12 @@ describe('UpdateAdvertisementAddress', () => {
 
     const property = await fakePropertiesRepository.create({
       value: 55500.9,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       address,
     });
 
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: property.id,
       user_id: 'user',
       title: 'My property',

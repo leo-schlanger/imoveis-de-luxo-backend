@@ -4,31 +4,54 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  BaseEntity,
 } from 'typeorm';
 
 import uploadConfig from '@config/upload';
 
 import { Expose } from 'class-transformer';
+import {
+  registerEnumType,
+  ObjectType,
+  Field,
+  ID,
+  GraphQLISODateTime,
+} from 'type-graphql';
 
-export type MediaTypeEnum = 'photo' | 'video';
+export enum MediaTypeEnum {
+  PHOTO = 'photo',
+  VIDEO = 'video',
+}
 
+registerEnumType(MediaTypeEnum, {
+  name: 'MediaTypeEnum',
+  description: 'Medias to publish advertisement.',
+});
+
+@ObjectType()
 @Entity('media')
-class Media {
+class Media extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column()
   advertisement_id: string;
 
+  @Field()
   @Column()
   filename: string;
 
+  @Field(() => MediaTypeEnum)
   @Column('enum', { name: 'type' })
   type: MediaTypeEnum;
 
+  @Field(() => GraphQLISODateTime)
   @CreateDateColumn()
   created_at: Date;
 
+  @Field(() => GraphQLISODateTime)
   @UpdateDateColumn()
   updated_at: Date;
 

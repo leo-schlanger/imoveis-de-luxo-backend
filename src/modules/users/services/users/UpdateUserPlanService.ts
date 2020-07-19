@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppErrors';
 
-import User from '../../infra/typeorm/entities/User';
+import User, { UserTypeEnum } from '../../infra/typeorm/entities/User';
 import IUsersRepository from '../../repositories/IUsersRepository';
 import IPlansRepository from '../../repositories/IPlansRepository';
 
@@ -34,7 +34,7 @@ class UpdateUserPlanService {
       throw new AppError('Only authenticated users can change plan', 401);
     }
 
-    if (user.type !== 'advertiser') {
+    if (user.type !== UserTypeEnum.ADVERTISER) {
       throw new AppError('Only advertiser have plan', 401);
     }
 

@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppErrors';
 
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import ShowProfileService from './ShowProfileService';
 
@@ -18,7 +19,7 @@ describe('ShowProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const profile = await showProfile.execute({

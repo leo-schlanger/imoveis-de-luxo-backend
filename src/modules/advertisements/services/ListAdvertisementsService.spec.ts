@@ -2,6 +2,7 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 import { classToClass } from 'class-transformer';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import ListAdvertisementsService from './ListAdvertisementsService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let listAdvertisements: ListAdvertisementsService;
@@ -26,7 +27,7 @@ describe('ListAdvertisementsService', () => {
       user_id: 'user_id',
       property_id: 'property_id',
       title: 'test1',
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
     });
 
     properties = await listAdvertisements.execute({});
@@ -36,7 +37,7 @@ describe('ListAdvertisementsService', () => {
       user_id: 'user_id',
       property_id: 'property_id',
       title: 'test2',
-      type: 'tenancy',
+      type: AdvertisementTypeEnum.TENANCY,
     });
 
     properties = await fakeAdvertisementsRepository.show({});

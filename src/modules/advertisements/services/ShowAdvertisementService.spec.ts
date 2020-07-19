@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppErrors';
 
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import ShowAdvertisementService from './ShowAdvertisementService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let showAdvertisement: ShowAdvertisementService;
@@ -18,7 +19,7 @@ describe('ShowAdvertisement', () => {
     const advertisementExample = await fakeAdvertisementsRepository.create({
       title: 'My title',
       user_id: 'id',
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: 'id',
     });
 

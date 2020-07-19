@@ -7,17 +7,36 @@ import {
   ManyToOne,
   OneToMany,
   JoinColumn,
+  BaseEntity,
 } from 'typeorm';
+
+import {
+  registerEnumType,
+  ObjectType,
+  Field,
+  ID,
+  GraphQLISODateTime,
+} from 'type-graphql';
 
 import { Exclude } from 'class-transformer';
 import Property from '@modules/properties/infra/typeorm/entities/Property';
 import User from '@modules/users/infra/typeorm/entities/User';
 import Media from './Media';
 
-export type AdvertisementTypeEnum = 'purchase' | 'tenancy';
+export enum AdvertisementTypeEnum {
+  PURCHASE = 'purchase',
+  TENANCY = 'tenancy',
+}
 
+registerEnumType(AdvertisementTypeEnum, {
+  name: 'AdvertisementTypeEnum',
+  description: 'Advertisements type.',
+});
+
+@ObjectType()
 @Entity('users')
-class Advertisement {
+class Advertisement extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -25,6 +44,7 @@ class Advertisement {
   @Exclude()
   property_id: string;
 
+  @Field(() => Property)
   @ManyToOne(() => Property, { eager: true })
   @JoinColumn({ name: 'property_id' })
   property: Property;
@@ -33,32 +53,41 @@ class Advertisement {
   @Exclude()
   user_id: string;
 
+  @Field(() => User)
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
+  @Field()
   @Column()
   title: string;
 
+  @Field()
   @Column()
   description: string;
 
+  @Field(() => Boolean)
   @Column()
   address_visible: boolean;
 
+  @Field(() => Boolean)
   @Column()
   status: boolean;
 
+  @Field(() => AdvertisementTypeEnum)
   @Column('enum', { name: 'type' })
   type: AdvertisementTypeEnum;
 
+  @Field(() => [Media])
   @OneToMany(() => Media, media => media.advertisement_id, { eager: true })
   @JoinColumn({ name: 'id' })
   gallery: Media[];
 
+  @Field(() => GraphQLISODateTime)
   @CreateDateColumn()
   created_at: Date;
 
+  @Field(() => GraphQLISODateTime)
   @UpdateDateColumn()
   updated_at: Date;
 }

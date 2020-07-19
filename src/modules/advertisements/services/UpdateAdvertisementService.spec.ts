@@ -3,6 +3,7 @@ import AppError from '@shared/errors/AppErrors';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import UpdateAdvertisementService from './UpdateAdvertisementService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakeCacheProvider: FakeCacheProvider;
@@ -20,7 +21,7 @@ describe('UpdateAdvertisement', () => {
 
   it('should be able to update a new type and visible address', async () => {
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: 'property',
       user_id: 'user',
       title: 'My property',
@@ -30,7 +31,7 @@ describe('UpdateAdvertisement', () => {
     const updatedAdvertisement = await updateAdvertisement.execute({
       user_id: 'user',
       advertisement_id: advertisement.id,
-      type: 'tenancy',
+      type: AdvertisementTypeEnum.TENANCY,
       address_visible: false,
     });
 
@@ -40,7 +41,7 @@ describe('UpdateAdvertisement', () => {
 
   it('should be able to update a new title and description', async () => {
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: 'property',
       user_id: 'user',
       title: 'My property',
@@ -50,7 +51,7 @@ describe('UpdateAdvertisement', () => {
     const updatedAdvertisement = await updateAdvertisement.execute({
       user_id: 'user',
       advertisement_id: advertisement.id,
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       address_visible: true,
       title: 'New title',
       description: 'Description',
@@ -62,7 +63,7 @@ describe('UpdateAdvertisement', () => {
 
   it('should not be able to update with non-responsible user', async () => {
     const advertisement = await fakeAdvertisementsRepository.create({
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property_id: 'property',
       user_id: 'user',
       title: 'My property',
@@ -73,7 +74,7 @@ describe('UpdateAdvertisement', () => {
       updateAdvertisement.execute({
         user_id: 'other-user',
         advertisement_id: advertisement.id,
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         address_visible: true,
         title: 'New title',
         description: 'Description',
@@ -86,7 +87,7 @@ describe('UpdateAdvertisement', () => {
       updateAdvertisement.execute({
         user_id: 'user',
         advertisement_id: 'non-existing-advertisement',
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         address_visible: true,
         title: 'New title',
         description: 'Description',

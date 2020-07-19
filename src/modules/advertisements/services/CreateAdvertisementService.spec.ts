@@ -4,9 +4,12 @@ import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdr
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakePropertiesRepository from '@modules/properties/repositories/fakes/FakePropertiesRepository';
+import { PropertyTypeEnum } from '@modules/properties/infra/typeorm/entities/Property';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 
 import CreateAdvertisementService from './CreateAdvertisementService';
+import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakePropertiesRepository: FakePropertiesRepository;
@@ -37,16 +40,16 @@ describe('CreateAdvertisement', () => {
       email: 'joedoe@example.com',
       password: '123456',
       phone: '2222222222',
-      type: 'advertiser',
+      type: UserTypeEnum.ADVERTISER,
     });
 
     const advertisement = await createAdvertisement.execute({
       title: 'My title',
       user_id: user.id,
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property: {
         value: 44555.55,
-        type: 'apartment',
+        type: PropertyTypeEnum.APARTMENT,
         address: {
           state: 'Brasil',
           country: 'Rio de Janeiro',
@@ -66,17 +69,17 @@ describe('CreateAdvertisement', () => {
       email: 'joedoe@example.com',
       password: '123456',
       phone: '2222222222',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(
       createAdvertisement.execute({
         title: 'My title',
         user_id: user.id,
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         property: {
           value: 44555.55,
-          type: 'apartment',
+          type: PropertyTypeEnum.APARTMENT,
           address: {
             state: 'Brasil',
             country: 'Rio de Janeiro',
@@ -94,10 +97,10 @@ describe('CreateAdvertisement', () => {
       createAdvertisement.execute({
         title: 'My title',
         user_id: 'invalid-id',
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         property: {
           value: 44555.55,
-          type: 'apartment',
+          type: PropertyTypeEnum.APARTMENT,
           address: {
             state: 'Brasil',
             country: 'Rio de Janeiro',
@@ -116,16 +119,16 @@ describe('CreateAdvertisement', () => {
       email: 'joedoe@example.com',
       password: '123456',
       phone: '2222222222',
-      type: 'advertiser',
+      type: UserTypeEnum.ADVERTISER,
     });
 
     await createAdvertisement.execute({
       title: 'My title',
       user_id: user.id,
-      type: 'purchase',
+      type: AdvertisementTypeEnum.PURCHASE,
       property: {
         value: 44555.55,
-        type: 'apartment',
+        type: PropertyTypeEnum.APARTMENT,
         address: {
           state: 'Brasil',
           country: 'Rio de Janeiro',
@@ -140,10 +143,10 @@ describe('CreateAdvertisement', () => {
       createAdvertisement.execute({
         title: 'My title',
         user_id: user.id,
-        type: 'purchase',
+        type: AdvertisementTypeEnum.PURCHASE,
         property: {
           value: 44555.55,
-          type: 'apartment',
+          type: PropertyTypeEnum.APARTMENT,
           address: {
             state: 'Brasil',
             country: 'Rio de Janeiro',

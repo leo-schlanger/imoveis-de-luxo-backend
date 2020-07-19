@@ -6,7 +6,15 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  BaseEntity,
 } from 'typeorm';
+import {
+  Field,
+  ObjectType,
+  registerEnumType,
+  ID,
+  GraphQLISODateTime,
+} from 'type-graphql';
 
 import uploadConfig from '@config/upload';
 
@@ -14,71 +22,109 @@ import { Exclude, Expose } from 'class-transformer';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import Plan from './Plan';
 
-export type UserTypeEnum = 'adm' | 'advertiser' | 'user';
+export enum UserTypeEnum {
+  ADM = 'adm',
+  ADVERTISER = 'advertiser',
+  USER = 'user',
+}
 
-export type UserStatusEnum = 'new' | 'active' | 'inactive';
+registerEnumType(UserTypeEnum, {
+  name: 'UserTypeEnum',
+  description: 'Users type.',
+});
 
+export enum UserStatusEnum {
+  NEW = 'new',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+}
+
+registerEnumType(UserStatusEnum, {
+  name: 'UserStatusEnum',
+  description: 'Users status.',
+});
+
+@ObjectType()
 @Entity('users')
-class User {
+class User extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column()
   name: string;
 
+  @Field({ nullable: true })
   @Column()
   responsible: string;
 
+  @Field({ nullable: true })
   @Column()
   description: string;
 
+  @Field({ nullable: true })
   @Column()
   creci: string;
 
+  @Field()
   @Column()
   email: string;
 
+  @Field()
   @Column()
   phone: string;
 
+  @Field({ nullable: true })
   @Column()
   secondary_phone: string;
 
+  @Field(() => UserStatusEnum)
   @Column('enum', { name: 'status' })
   status: UserStatusEnum;
 
+  @Field(() => UserTypeEnum)
   @Column('enum', { name: 'type' })
   type: UserTypeEnum;
 
+  @Field()
   @Column()
   @Exclude()
   password: string;
 
+  @Field({ nullable: true })
   @Column()
   avatar: string;
 
+  @Field({ nullable: true })
   @Column()
   @Exclude()
   address_id: string;
 
+  @Field(() => Address, { nullable: true })
   @ManyToOne(() => Address, { eager: true })
   @JoinColumn({ name: 'address_id' })
   address: Address;
 
+  @Field({ nullable: true })
   @Column()
   @Exclude()
   plan_id: string;
 
+  @Field(() => Plan, { nullable: true })
   @ManyToOne(() => Plan, { eager: true })
   @JoinColumn({ name: 'plan_id' })
   plan: Plan;
 
+  @Field(() => Boolean)
   @Column()
   plan_status: boolean;
 
+  @Field(() => GraphQLISODateTime)
   @CreateDateColumn()
   created_at: Date;
 
+  @Field(() => GraphQLISODateTime)
   @UpdateDateColumn()
   updated_at: Date;
 

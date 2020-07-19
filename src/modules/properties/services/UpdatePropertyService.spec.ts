@@ -4,6 +4,7 @@ import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdr
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakePropertiesRepository from '../repositories/fakes/FakePropertiesRepository';
 import UpdatePropertyService from './UpdatePropertyService';
+import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
 
 let fakePropertiesRepository: FakePropertiesRepository;
 let fakeAdressesRepository: FakeAdressesRepository;
@@ -32,14 +33,14 @@ describe('UpdateProperty', () => {
     });
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       address,
     });
 
     const updatedProperty = await updateProperty.execute({
       property_id: property.id,
-      type: 'home',
+      type: PropertyTypeEnum.HOME,
       value: 88000.0,
     });
 
@@ -57,14 +58,14 @@ describe('UpdateProperty', () => {
     });
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       address,
     });
 
     const updatedProperty = await updateProperty.execute({
       property_id: property.id,
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       postal_code: '11111-111',
     });
@@ -88,7 +89,7 @@ describe('UpdateProperty', () => {
     await fakeAdressesRepository.delete(address.id);
 
     const property = await fakePropertiesRepository.create({
-      type: 'apartment',
+      type: PropertyTypeEnum.APARTMENT,
       value: 67000.0,
       address,
     });
@@ -96,7 +97,7 @@ describe('UpdateProperty', () => {
     await expect(
       updateProperty.execute({
         property_id: property.id,
-        type: 'apartment',
+        type: PropertyTypeEnum.APARTMENT,
         value: 67000.0,
         postal_code: '11111-111',
       }),
@@ -107,7 +108,7 @@ describe('UpdateProperty', () => {
     await expect(
       updateProperty.execute({
         property_id: 'non-existing-property',
-        type: 'apartment',
+        type: PropertyTypeEnum.APARTMENT,
         value: 67000.0,
         country: 'Brasil',
         state: 'Rio de Janeiro',

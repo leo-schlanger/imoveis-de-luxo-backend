@@ -6,49 +6,72 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  BaseEntity,
 } from 'typeorm';
+import {
+  Field,
+  ObjectType,
+  GraphQLISODateTime,
+  Float,
+  registerEnumType,
+  ID,
+} from 'type-graphql';
 
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import { Exclude } from 'class-transformer';
 
-export type PropertyTypeEnum =
-  | 'home'
-  | 'apartment'
-  | 'penthouse'
-  | 'grange'
-  | 'farm'
-  | 'terrain'
-  | 'shed'
-  | 'corporate'
-  | 'office'
-  | 'store'
-  | 'hotel'
-  | 'inn'
-  | 'island'
-  | 'customized';
+export enum PropertyTypeEnum {
+  HOME = 'home',
+  APARTMENT = 'apartment',
+  PENTHOUSE = 'penthouse',
+  GRANGE = 'grange',
+  FARM = 'farm',
+  TERRAIN = 'terrain',
+  SHED = 'shed',
+  CORPORATE = 'corporate',
+  OFFICE = 'office',
+  STORE = 'store',
+  HOTEL = 'hotel',
+  INN = 'inn',
+  ISLAND = 'island',
+  CUSTOMIZED = 'customized',
+}
 
+registerEnumType(PropertyTypeEnum, {
+  name: 'PropertyTypeEnum',
+  description: 'Properties type.',
+});
+
+@ObjectType()
 @Entity('properties')
-class Property {
+class Property extends BaseEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column()
   @Exclude()
   address_id: string;
 
+  @Field(() => Address)
   @ManyToOne(() => Address, { eager: true })
   @JoinColumn({ name: 'address_id' })
   address: Address;
 
+  @Field(() => PropertyTypeEnum)
   @Column('enum', { name: 'type' })
   type: PropertyTypeEnum;
 
+  @Field(() => Float)
   @Column('decimal', { scale: 2 })
   value: number;
 
+  @Field(() => GraphQLISODateTime)
   @CreateDateColumn()
   created_at: Date;
 
+  @Field(() => GraphQLISODateTime)
   @UpdateDateColumn()
   updated_at: Date;
 }

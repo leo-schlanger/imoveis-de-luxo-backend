@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppErrors';
 
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import FakeUsersRepository from '../../repositories/fakes/FakeUsersRepository';
 import UpdateProfileAddressService from './UpdateProfileAddressService';
 
@@ -24,7 +25,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfileAddress.execute({
@@ -45,7 +46,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await updateProfileAddress.execute({
@@ -75,7 +76,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     const updatedUser = await updateProfileAddress.execute({
@@ -103,7 +104,7 @@ describe('UpdateAddressProfile', () => {
       email: 'johndoe@example.com',
       password: '123456',
       phone: '21321321',
-      type: 'user',
+      type: UserTypeEnum.USER,
     });
 
     await expect(
