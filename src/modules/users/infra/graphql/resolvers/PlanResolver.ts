@@ -1,5 +1,6 @@
-import { Resolver, Mutation, Arg, Query } from 'type-graphql';
+import { Resolver, Mutation, Arg, Query, UseMiddleware } from 'type-graphql';
 
+import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
 import Plan from '../../typeorm/entities/Plan';
 import PlanInput from '../inputs/PlanInput';
 import PlanUpdateInput from '../inputs/PlanUpdateInput';
@@ -7,6 +8,7 @@ import PlanUpdateInput from '../inputs/PlanUpdateInput';
 @Resolver()
 export default class PlanResolver {
   @Mutation(() => Plan)
+  @UseMiddleware(isAuth)
   async createPlan(
     @Arg('data', () => PlanInput) data: PlanInput,
   ): Promise<Plan> {
@@ -15,6 +17,7 @@ export default class PlanResolver {
   }
 
   @Mutation(() => Plan)
+  @UseMiddleware(isAuth)
   async updatePlan(
     @Arg('id', () => String) id: string,
     @Arg('data', () => PlanUpdateInput) data: PlanUpdateInput,
@@ -24,6 +27,7 @@ export default class PlanResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async deletePlan(@Arg('id', () => String) id: string): Promise<boolean> {
     await Plan.delete({ id });
     return true;
