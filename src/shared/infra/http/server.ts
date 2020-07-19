@@ -68,7 +68,7 @@ import '@shared/container';
         AdvertisementResolver,
       ],
     }),
-    context: ({ req, res }) => ({ req, res, user: req.user }),
+    context: ({ req, res }) => ({ req, res }),
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
