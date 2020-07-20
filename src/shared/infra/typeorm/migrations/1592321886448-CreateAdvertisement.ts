@@ -40,10 +40,12 @@ export default class CreateAdvertisement1592321886448
           {
             name: 'address_visible',
             type: 'boolean',
+            default: true,
           },
           {
             name: 'status',
             type: 'boolean',
+            default: false,
           },
           {
             name: 'created_at',

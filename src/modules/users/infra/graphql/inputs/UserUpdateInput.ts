@@ -1,7 +1,6 @@
 import { InputType, Field } from 'type-graphql';
 import AddressUpdateInput from '@modules/adresses/infra/graphql/inputs/AddressUpdateInput';
 import { UserStatusEnum, UserTypeEnum } from '../../typeorm/entities/User';
-import PlanUpdateInput from './PlanUpdateInput';
 
 @InputType()
 export default class UserUpdateInput {
@@ -38,17 +37,11 @@ export default class UserUpdateInput {
   @Field({ nullable: true })
   avatar: string;
 
-  @Field({ nullable: true })
-  address_id: string;
-
   @Field(() => AddressUpdateInput, { nullable: true })
   address: AddressUpdateInput;
 
   @Field({ nullable: true })
   plan_id: string;
-
-  @Field(() => PlanUpdateInput, { nullable: true })
-  plan: PlanUpdateInput;
 
   @Field(() => Boolean, { nullable: true })
   plan_status: boolean;
