@@ -40,8 +40,10 @@ export default class UserResolver {
   async updateUser(
     @Arg('id', () => String) id: string,
     @Arg('data', () => UserUpdateInput)
-    { address, plan_id, ...rest }: UserUpdateInput,
+    data: UserUpdateInput,
   ): Promise<User | undefined> {
+    const { address, plan_id, ...rest } = data;
+
     const user = await User.findOne(id);
 
     if (!user) {
