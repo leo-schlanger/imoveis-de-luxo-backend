@@ -14,6 +14,7 @@ import { buildSchema } from 'type-graphql';
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppErrors';
 
+import SessionResolver from '@modules/users/infra/graphql/resolvers/SessionResolver';
 import UserResolver from '@modules/users/infra/graphql/resolvers/UserResolver';
 import PlanResolver from '@modules/users/infra/graphql/resolvers/PlanResolver';
 import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
@@ -61,6 +62,7 @@ import '@shared/container';
     schema: await buildSchema({
       resolvers: [
         UserResolver,
+        SessionResolver,
         PlanResolver,
         AddressResolver,
         PropertyResolver,

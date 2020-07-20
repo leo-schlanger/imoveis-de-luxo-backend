@@ -79,15 +79,14 @@ class User extends BaseEntity {
   @Column()
   secondary_phone: string;
 
-  @Field(() => UserStatusEnum)
-  @Column('enum', { name: 'status' })
+  @Field(() => UserStatusEnum, { defaultValue: UserStatusEnum.NEW })
+  @Column('enum', { name: 'status', default: UserStatusEnum.NEW })
   status: UserStatusEnum;
 
   @Field(() => UserTypeEnum)
   @Column('enum', { name: 'type' })
   type: UserTypeEnum;
 
-  @Field()
   @Column()
   @Exclude()
   password: string;
@@ -96,7 +95,6 @@ class User extends BaseEntity {
   @Column()
   avatar: string;
 
-  @Field({ nullable: true })
   @Column()
   @Exclude()
   address_id: string;
@@ -106,7 +104,6 @@ class User extends BaseEntity {
   @JoinColumn({ name: 'address_id' })
   address: Address;
 
-  @Field({ nullable: true })
   @Column()
   @Exclude()
   plan_id: string;
@@ -116,8 +113,8 @@ class User extends BaseEntity {
   @JoinColumn({ name: 'plan_id' })
   plan: Plan;
 
-  @Field(() => Boolean)
-  @Column()
+  @Field(() => Boolean, { defaultValue: false })
+  @Column(() => Boolean)
   plan_status: boolean;
 
   @Field(() => GraphQLISODateTime)

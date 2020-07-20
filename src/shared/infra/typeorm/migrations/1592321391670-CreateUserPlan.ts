@@ -16,7 +16,7 @@ export default class CreateUserPlan1592321391670 implements MigrationInterface {
       new TableColumn({
         name: 'plan_status',
         type: 'boolean',
-        isNullable: true,
+        default: false,
       }),
     ]);
 

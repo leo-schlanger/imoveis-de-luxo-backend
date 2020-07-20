@@ -6,62 +6,73 @@ import {
   Query,
   // Ctx
 } from 'type-graphql';
-import { compare } from 'bcryptjs';
 
 import uploadConfig from '@config/upload';
-import authConfig from '@config/auth';
-
-import { sign } from 'jsonwebtoken';
 // import MyContext from '@shared/infra/graphql/types/MyContext';
+import Address from '@modules/adresses/infra/typeorm/entities/Address';
+import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
+import BCryptHashProvider from '@modules/users/providers/HashProvider/implementations/BCryptHashProvider';
 import User from '../../typeorm/entities/User';
 import UserInput from '../inputs/UserInput';
 import UserUpdateInput from '../inputs/UserUpdateInput';
+import Plan from '../../typeorm/entities/Plan';
 
 @Resolver()
 export default class UserResolver {
+  private hash: IHashProvider;
+
+  constructor() {
+    this.hash = new BCryptHashProvider();
+  }
+
   @Mutation(() => User)
   async createUser(
     @Arg('data', () => UserInput) data: UserInput,
   ): Promise<User> {
-    const user = await User.create(data).save();
+    const user = User.create(data);
 
-    return user;
-  }
+    user.password = await this.hash.generateHash(data.password);
 
-  @Mutation(() => String)
-  async login(
-    @Arg('email', () => String) email: string,
-    @Arg('password', () => String) password: string,
-    // @Ctx() { req }: MyContext,
-  ): Promise<string> {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      throw new Error('Incorrect email/password combination.');
-    }
-
-    const passwordMatched = await compare(password, user.password);
-
-    if (!passwordMatched) {
-      throw new Error('Incorrect email/password combination.');
-    }
-
-    const { secret, expiresIn } = authConfig.jwt;
-
-    const token = sign({}, secret, {
-      subject: JSON.stringify({ id: user.id, type: user.type }),
-      expiresIn,
-    });
-
-    return token;
+    return user.save();
   }
 
   @Mutation(() => User)
   async updateUser(
     @Arg('id', () => String) id: string,
-    @Arg('data', () => UserUpdateInput) data: UserUpdateInput,
+    @Arg('data', () => UserUpdateInput)
+    { address, plan_id, ...rest }: UserUpdateInput,
   ): Promise<User | undefined> {
-    await User.update({ id }, data);
+    const user = await User.findOne(id);
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (address) {
+      const newAddress = user.address_id
+        ? (await Address.update({ id: user.address_id }, user.address)) &&
+          (await Address.findOne(user.address_id))
+        : await Address.create(user.address).save();
+
+      if (!newAddress) {
+        throw new Error('Invalid address params or invalid id');
+      }
+
+      Object.assign(user, { address: newAddress, address_id: newAddress.id });
+    }
+
+    if (plan_id) {
+      const findPlan = await Plan.findOne(plan_id);
+
+      if (!findPlan) {
+        throw new Error('Invalid plan id');
+      }
+
+      Object.assign(user, { plan: findPlan, plan_id });
+    }
+    await user.save();
+
+    await User.update({ id }, rest);
     return User.findOne(id);
   }
 

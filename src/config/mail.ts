@@ -12,8 +12,8 @@ export default {
   driver: process.env.MAIL_DRIVER || 'ethereal',
   defaults: {
     from: {
-      email: 'leoschlanger@gmail.com',
-      name: 'Leo Schlanger',
+      email: 'contato@imoveisdeluxo.com.br',
+      name: 'Imóveis de luxo',
     },
   },
 } as IMailConfig;
