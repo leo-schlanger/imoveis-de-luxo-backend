@@ -26,10 +26,10 @@ describe('CreateAdvertisement', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeCacheProvider = new FakeCacheProvider();
     createAdvertisement = new CreateAdvertisementService(
-      fakeUsersRepository,
       fakeAdressesRepository,
-      fakeAdvertisementsRepository,
+      fakeUsersRepository,
       fakePropertiesRepository,
+      fakeAdvertisementsRepository,
       fakeCacheProvider,
     );
   });
@@ -50,13 +50,11 @@ describe('CreateAdvertisement', () => {
       property: {
         value: 44555.55,
         type: PropertyTypeEnum.APARTMENT,
-        address: {
-          state: 'Brasil',
-          country: 'Rio de Janeiro',
-          postal_code: '22222-222',
-          neighborhood: 'Copacabana',
-          address: 'Barata Ribeiro',
-        },
+        state: 'Brasil',
+        country: 'Rio de Janeiro',
+        postal_code: '22222-222',
+        neighborhood: 'Copacabana',
+        address: 'Barata Ribeiro',
       },
     });
 
@@ -80,13 +78,11 @@ describe('CreateAdvertisement', () => {
         property: {
           value: 44555.55,
           type: PropertyTypeEnum.APARTMENT,
-          address: {
-            state: 'Brasil',
-            country: 'Rio de Janeiro',
-            postal_code: '22222-222',
-            neighborhood: 'Copacabana',
-            address: 'Barata Ribeiro',
-          },
+          state: 'Brasil',
+          country: 'Rio de Janeiro',
+          postal_code: '22222-222',
+          neighborhood: 'Copacabana',
+          address: 'Barata Ribeiro',
         },
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -101,13 +97,11 @@ describe('CreateAdvertisement', () => {
         property: {
           value: 44555.55,
           type: PropertyTypeEnum.APARTMENT,
-          address: {
-            state: 'Brasil',
-            country: 'Rio de Janeiro',
-            postal_code: '22222-222',
-            neighborhood: 'Copacabana',
-            address: 'Barata Ribeiro',
-          },
+          state: 'Brasil',
+          country: 'Rio de Janeiro',
+          postal_code: '22222-222',
+          neighborhood: 'Copacabana',
+          address: 'Barata Ribeiro',
         },
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -129,13 +123,11 @@ describe('CreateAdvertisement', () => {
       property: {
         value: 44555.55,
         type: PropertyTypeEnum.APARTMENT,
-        address: {
-          state: 'Brasil',
-          country: 'Rio de Janeiro',
-          postal_code: '22222-222',
-          neighborhood: 'Copacabana',
-          address: 'Barata Ribeiro',
-        },
+        state: 'Brasil',
+        country: 'Rio de Janeiro',
+        postal_code: '22222-222',
+        neighborhood: 'Copacabana',
+        address: 'Barata Ribeiro',
       },
     });
 
@@ -147,13 +139,11 @@ describe('CreateAdvertisement', () => {
         property: {
           value: 44555.55,
           type: PropertyTypeEnum.APARTMENT,
-          address: {
-            state: 'Brasil',
-            country: 'Rio de Janeiro',
-            postal_code: '22222-222',
-            neighborhood: 'Copacabana',
-            address: 'Barata Ribeiro',
-          },
+          state: 'Brasil',
+          country: 'Rio de Janeiro',
+          postal_code: '22222-222',
+          neighborhood: 'Copacabana',
+          address: 'Barata Ribeiro',
         },
       }),
     ).rejects.toBeInstanceOf(AppError);

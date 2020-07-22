@@ -8,9 +8,6 @@ export default class AdvertisementInput {
   property: PropertyInput;
 
   @Field()
-  user_id: string;
-
-  @Field()
   title: string;
 
   @Field({ nullable: true })
