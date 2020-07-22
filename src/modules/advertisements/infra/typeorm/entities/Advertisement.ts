@@ -34,7 +34,7 @@ registerEnumType(AdvertisementTypeEnum, {
 });
 
 @ObjectType()
-@Entity('users')
+@Entity('advertisements')
 class Advertisement extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
@@ -78,10 +78,10 @@ class Advertisement extends BaseEntity {
   @Column('enum', { name: 'type' })
   type: AdvertisementTypeEnum;
 
-  @Field(() => [Media])
-  @OneToMany(() => Media, media => media.advertisement_id, { eager: true })
-  @JoinColumn({ name: 'id' })
-  gallery: Media[];
+  // @Field(() => [Media])
+  // @OneToMany(() => Media, media => media.advertisement_id, { eager: true })
+  // @JoinColumn({ name: 'id' })
+  // gallery: Media[];
 
   @Field(() => GraphQLISODateTime)
   @CreateDateColumn()

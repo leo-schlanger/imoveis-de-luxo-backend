@@ -20,17 +20,15 @@ interface IRequest {
   address_visible?: boolean;
   type: AdvertisementTypeEnum;
   property: {
-    address: {
-      country: string;
-      state: string;
-      postal_code: string;
-      neighborhood: string;
-      address: string;
-      sub_neighborhood?: string;
-      number?: string;
-      complement?: string;
-      description?: string;
-    };
+    country: string;
+    state: string;
+    postal_code: string;
+    neighborhood: string;
+    address: string;
+    sub_neighborhood?: string;
+    number?: string;
+    complement?: string;
+    description?: string;
     type: PropertyTypeEnum;
     value: number;
   };
@@ -39,17 +37,17 @@ interface IRequest {
 @injectable()
 class CreateAdvertisementService {
   constructor(
-    @inject('UserRepository')
-    private userRepository: IUsersRepository,
-
     @inject('AdressesRepository')
     private adressesRepository: IAdressesRepository,
 
-    @inject('AdvertisementsRepository')
-    private advertisementsRepository: IAdvertisementsRepository,
+    @inject('UsersRepository')
+    private userRepository: IUsersRepository,
 
     @inject('PropertiesRepository')
     private propertiesRepository: IPropertiesRepository,
+
+    @inject('AdvertisementsRepository')
+    private advertisementsRepository: IAdvertisementsRepository,
 
     // TODO: Implementar limpeza de cache ao criar novo anúncio
     @inject('CacheProvider')
@@ -64,6 +62,7 @@ class CreateAdvertisementService {
     address_visible,
     property,
   }: IRequest): Promise<Advertisement> {
+    const { type: propertyTypes, value, ...rest } = property;
     const userAd = await this.userRepository.findById(user_id);
 
     if (!userAd) {
@@ -74,24 +73,18 @@ class CreateAdvertisementService {
       throw new AppError('User cannot run ads');
     }
 
-    const findProperty = await this.propertiesRepository.findByAddress({
-      address: property.address.address,
-      postal_code: property.address.postal_code,
-      state: property.address.state,
-      country: property.address.country,
-      neighborhood: property.address.neighborhood,
-    });
+    const findProperty = await this.propertiesRepository.findByAddress(rest);
 
     if (findProperty) {
       throw new AppError('This Advertisement already exists');
     }
 
-    const address = await this.adressesRepository.create(property.address);
+    const address = await this.adressesRepository.create(rest);
 
     const propertyCreated = await this.propertiesRepository.create({
       address,
-      type: property.type,
-      value: property.value,
+      type: propertyTypes,
+      value,
     });
 
     const advertisement = await this.advertisementsRepository.create({

@@ -9,12 +9,37 @@ import uploadConfig from '@config/upload';
 import AdvertisementsController from '../controllers/AdvertisementsController';
 import AdvertisementMediaController from '../controllers/AdvertisementMediaController';
 import AdvertisementAddressController from '../controllers/AdvertisementAddressController';
+import AdvertisementListController from '../controllers/AdvertisementListControler';
 
 const advertisementsRouter = Router();
 const advertisementsController = new AdvertisementsController();
+const advertisementListController = new AdvertisementListController();
 const advertisementMediaController = new AdvertisementMediaController();
 const advertisementAddressController = new AdvertisementAddressController();
 const upload = multer(uploadConfig.multer);
+
+advertisementsRouter.get(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      per_page: Joi.number(),
+      page: Joi.number(),
+      filter: Joi.object({
+        type: Joi.string().required(),
+        property: Joi.object({
+          type: Joi.string().required(),
+          address: Joi.object({
+            country: Joi.string(),
+            state: Joi.string(),
+            neighborhood: Joi.string(),
+            address: Joi.string(),
+          }),
+        }),
+      }),
+    },
+  }),
+  advertisementListController.show,
+);
 
 advertisementsRouter.get(
   '/:advertisement_id',
@@ -37,17 +62,15 @@ advertisementsRouter.post(
       address_visible: Joi.boolean(),
       type: Joi.string().required(),
       property: {
-        address: {
-          country: Joi.string().required(),
-          state: Joi.string().required(),
-          postal_code: Joi.string().required(),
-          neighborhood: Joi.string().required(),
-          address: Joi.string().required(),
-          sub_neighborhood: Joi.string(),
-          number: Joi.string(),
-          complement: Joi.string(),
-          description: Joi.string(),
-        },
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        postal_code: Joi.string().required(),
+        neighborhood: Joi.string().required(),
+        address: Joi.string().required(),
+        sub_neighborhood: Joi.string(),
+        number: Joi.string(),
+        complement: Joi.string(),
+        description: Joi.string(),
         type: Joi.string().required(),
         value: Joi.number().required(),
       },

@@ -39,7 +39,7 @@ class UpdatePlanService {
 
     Object.assign(plan, rest);
 
-    plan.save();
+    this.plansRepository.save(plan);
 
     return plan;
   }

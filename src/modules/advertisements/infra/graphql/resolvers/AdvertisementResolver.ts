@@ -1,8 +1,19 @@
 /* eslint-disable no-param-reassign */
-import { Resolver, Mutation, Arg, Query, UseMiddleware } from 'type-graphql';
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  Query,
+  UseMiddleware,
+  Ctx,
+} from 'type-graphql';
 // import uploadConfig from '@config/upload';
 
 import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
+import { container } from 'tsyringe';
+import CreateAdvertisementService from '@modules/advertisements/services/CreateAdvertisementService';
+import MyContext from '@shared/infra/graphql/types/MyContext';
+import ListAdvertisementsService from '@modules/advertisements/services/ListAdvertisementsService';
 import Advertisement from '../../typeorm/entities/Advertisement';
 import AdvertisementInput from '../inputs/AdvertisementInput';
 import AdvertisementUpdateInput from '../inputs/AdvertisementUpdateInput';
@@ -13,8 +24,15 @@ export default class AdvertisementResolver {
   @UseMiddleware(isAuth)
   async createAdvertisement(
     @Arg('data', () => AdvertisementInput) data: AdvertisementInput,
+    @Ctx() context: MyContext,
   ): Promise<Advertisement> {
-    const advertisement = await Advertisement.create(data).save();
+    const { id } = context.req.user;
+    const createAdvertisement = container.resolve(CreateAdvertisementService);
+
+    const advertisement = await createAdvertisement.execute({
+      user_id: id,
+      ...data,
+    });
 
     return advertisement;
   }
@@ -25,7 +43,12 @@ export default class AdvertisementResolver {
     @Arg('id', () => String) id: string,
     @Arg('data', () => AdvertisementUpdateInput) data: AdvertisementUpdateInput,
   ): Promise<Advertisement | undefined> {
-    await Advertisement.update({ id }, data);
+    const { property, ...rest } = data;
+    const { type, value, ...address } = property;
+    await Advertisement.update(
+      { id },
+      { ...rest, property: { type, value, address } },
+    );
     return Advertisement.findOne(id);
   }
 
@@ -40,24 +63,8 @@ export default class AdvertisementResolver {
 
   @Query(() => [Advertisement])
   async Advertisements(): Promise<Advertisement[]> {
-    const advertisementsList = await Advertisement.find();
+    const advertisementsList = container.resolve(ListAdvertisementsService);
 
-    // advertisementsList = advertisementsList.map(advertisement => {
-    //   if (advertisement.avatar) {
-    //     switch (uploadConfig.driver) {
-    //       case 'disk':
-    //         advertisement.avatar = `${process.env.APP_API_URL}/files/${advertisement.avatar}`;
-    //         break;
-    //       case 's3':
-    //         advertisement.avatar = `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${advertisement.avatar}`;
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    //   return advertisement;
-    // });
-
-    return advertisementsList;
+    return advertisementsList.execute({});
   }
 }

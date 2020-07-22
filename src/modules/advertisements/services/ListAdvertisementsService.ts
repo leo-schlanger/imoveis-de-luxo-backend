@@ -36,7 +36,7 @@ class ListAdvertisementsService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(data: IRequest): Promise<Advertisement[] | undefined> {
+  public async execute(data: IRequest): Promise<Advertisement[]> {
     const advertisements = await this.advertisementsRepository.show(data);
 
     return classToClass(advertisements);

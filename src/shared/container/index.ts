@@ -37,14 +37,14 @@ container.registerSingleton<IPropertiesRepository>(
   PropertiesRepository,
 );
 
-container.registerSingleton<IUsersRepository>(
-  'UsersRepository',
-  UsersRepository,
-);
-
 container.registerSingleton<IPlansRepository>(
   'PlansRepository',
   PlansRepository,
+);
+
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository',
+  UsersRepository,
 );
 
 container.registerSingleton<IAdvertisementsRepository>(
