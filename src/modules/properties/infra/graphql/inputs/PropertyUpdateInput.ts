@@ -3,10 +3,7 @@ import AddressUpdateInput from '@modules/adresses/infra/graphql/inputs/AddressUp
 import { PropertyTypeEnum } from '../../typeorm/entities/Property';
 
 @InputType()
-export default class PropertyUpdateInput {
-  @Field(() => AddressUpdateInput, { nullable: true })
-  address: AddressUpdateInput;
-
+export default class PropertyUpdateInput extends AddressUpdateInput {
   @Field(() => PropertyTypeEnum, { nullable: true })
   type: PropertyTypeEnum;
 

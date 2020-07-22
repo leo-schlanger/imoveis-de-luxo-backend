@@ -1,7 +1,8 @@
 import { InputType, Field, Int, Float } from 'type-graphql';
+import ICreatePlanDTO from '@modules/users/dtos/ICreatePlanDTO';
 
 @InputType()
-export default class PlanInput {
+export default class PlanInput implements ICreatePlanDTO {
   @Field()
   name: string;
 

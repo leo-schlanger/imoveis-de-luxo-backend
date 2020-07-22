@@ -1,4 +1,4 @@
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import Address from '../infra/typeorm/entities/Address';
 import IAdressesRepository from '../repositories/IAdressesRepository';
@@ -15,6 +15,7 @@ interface IRequest {
   description?: string;
 }
 
+@injectable()
 class CreateAddressService {
   constructor(
     @inject('AdressesRepository')

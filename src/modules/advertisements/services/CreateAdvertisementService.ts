@@ -70,7 +70,7 @@ class CreateAdvertisementService {
       throw new AppError('User not found');
     }
 
-    if (userAd.type !== UserTypeEnum.ADVERTISER) {
+    if (userAd.type === UserTypeEnum.USER) {
       throw new AppError('User cannot run ads');
     }
 

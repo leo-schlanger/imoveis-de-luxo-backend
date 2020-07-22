@@ -2,6 +2,9 @@ import { Resolver, Mutation, Arg, Query, UseMiddleware } from 'type-graphql';
 
 import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
 
+import { container } from 'tsyringe';
+import CreateAddressService from '@modules/adresses/services/CreateAddressService';
+import UpdateAddressService from '@modules/adresses/services/UpdateAddressService';
 import Address from '../../typeorm/entities/Address';
 import AddressInput from '../inputs/AddressInput';
 import AddressUpdateInput from '../inputs/AddressUpdateInput';
@@ -13,7 +16,8 @@ export default class AddressResolver {
   async createAddress(
     @Arg('data', () => AddressInput) data: AddressInput,
   ): Promise<Address> {
-    const address = await Address.create(data).save();
+    const createAddress = container.resolve(CreateAddressService);
+    const address = await createAddress.execute(data);
     return address;
   }
 
@@ -23,8 +27,12 @@ export default class AddressResolver {
     @Arg('id', () => String) id: string,
     @Arg('data', () => AddressUpdateInput) data: AddressUpdateInput,
   ): Promise<Address | undefined> {
-    await Address.update({ id }, data);
-    return Address.findOne(id);
+    const updateAddress = container.resolve(UpdateAddressService);
+    const updatedAddress = await updateAddress.execute({
+      address_id: id,
+      ...data,
+    });
+    return updatedAddress;
   }
 
   @Mutation(() => Boolean)
