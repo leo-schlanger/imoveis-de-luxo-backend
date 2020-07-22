@@ -10,8 +10,8 @@ import {
 import uploadConfig from '@config/upload';
 // import MyContext from '@shared/infra/graphql/types/MyContext';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
-import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
-import BCryptHashProvider from '@modules/users/providers/HashProvider/implementations/BCryptHashProvider';
+import { container } from 'tsyringe';
+import CreateUserService from '@modules/users/services/users/CreateUserService';
 import User from '../../typeorm/entities/User';
 import UserInput from '../inputs/UserInput';
 import UserUpdateInput from '../inputs/UserUpdateInput';
@@ -19,21 +19,15 @@ import Plan from '../../typeorm/entities/Plan';
 
 @Resolver()
 export default class UserResolver {
-  private hash: IHashProvider;
-
-  constructor() {
-    this.hash = new BCryptHashProvider();
-  }
-
   @Mutation(() => User)
   async createUser(
     @Arg('data', () => UserInput) data: UserInput,
   ): Promise<User> {
-    const user = User.create(data);
+    const createUser = container.resolve(CreateUserService);
 
-    user.password = await this.hash.generateHash(data.password);
+    const user = await createUser.execute(data);
 
-    return user.save();
+    return user;
   }
 
   @Mutation(() => User)

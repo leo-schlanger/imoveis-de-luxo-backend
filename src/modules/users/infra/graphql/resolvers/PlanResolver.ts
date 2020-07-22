@@ -1,6 +1,13 @@
 import { Resolver, Mutation, Arg, Query, UseMiddleware } from 'type-graphql';
 
 import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
+import { container } from 'tsyringe';
+
+import CreatePlanService from '@modules/users/services/plans/CreatePlanService';
+import UpdatePlanService from '@modules/users/services/plans/UpdatePlanService';
+import DeletePlanService from '@modules/users/services/plans/DeletePlanService';
+import ShowPlanService from '@modules/users/services/plans/ShowPlansService';
+
 import Plan from '../../typeorm/entities/Plan';
 import PlanInput from '../inputs/PlanInput';
 import PlanUpdateInput from '../inputs/PlanUpdateInput';
@@ -12,7 +19,8 @@ export default class PlanResolver {
   async createPlan(
     @Arg('data', () => PlanInput) data: PlanInput,
   ): Promise<Plan> {
-    const plan = await Plan.create(data).save();
+    const createPlan = container.resolve(CreatePlanService);
+    const plan = await createPlan.execute(data);
     return plan;
   }
 
@@ -22,19 +30,22 @@ export default class PlanResolver {
     @Arg('id', () => String) id: string,
     @Arg('data', () => PlanUpdateInput) data: PlanUpdateInput,
   ): Promise<Plan | undefined> {
-    await Plan.update({ id }, data);
-    return Plan.findOne(id);
+    const updatePlan = container.resolve(UpdatePlanService);
+    const updatedPlan = await updatePlan.execute({ plan_id: id, ...data });
+    return updatedPlan;
   }
 
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async deletePlan(@Arg('id', () => String) id: string): Promise<boolean> {
-    await Plan.delete({ id });
+    const deletePlan = container.resolve(DeletePlanService);
+    await deletePlan.execute({ plan_id: id });
     return true;
   }
 
   @Query(() => [Plan])
   plans(): Promise<Plan[]> {
-    return Plan.find();
+    const showPlans = container.resolve(ShowPlanService);
+    return showPlans.execute();
   }
 }

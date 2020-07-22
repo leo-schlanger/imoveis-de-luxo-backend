@@ -3,10 +3,7 @@ import AddressInput from '@modules/adresses/infra/graphql/inputs/AddressInput';
 import { PropertyTypeEnum } from '../../typeorm/entities/Property';
 
 @InputType()
-export default class PropertyInput {
-  @Field(() => AddressInput)
-  address: AddressInput;
-
+export default class PropertyInput extends AddressInput {
   @Field(() => PropertyTypeEnum)
   type: PropertyTypeEnum;
 

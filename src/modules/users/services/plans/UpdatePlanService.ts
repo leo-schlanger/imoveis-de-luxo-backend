@@ -16,7 +16,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreatePlanService {
+class UpdatePlanService {
   constructor(
     @inject('PlansRepository')
     private plansRepository: IPlansRepository,
@@ -39,8 +39,10 @@ class CreatePlanService {
 
     Object.assign(plan, rest);
 
+    plan.save();
+
     return plan;
   }
 }
 
-export default CreatePlanService;
+export default UpdatePlanService;
