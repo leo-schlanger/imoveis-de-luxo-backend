@@ -7,6 +7,7 @@ export default interface IMediaRepository {
   findById(id: string): Promise<Media | undefined>;
   findByAdvertisement(advertisement_id: string): Promise<Media[] | undefined>;
   create(data: ICreateMediaDTO): Promise<Media>;
+  createWithoutSave(data: ICreateMediaDTO): Media;
   delete(id: string): Promise<void>;
   save(Media: Media): Promise<Media>;
 }

@@ -67,21 +67,20 @@ class Advertisement extends BaseEntity {
   description: string;
 
   @Field(() => Boolean)
-  @Column()
+  @Column(() => Boolean)
   address_visible: boolean;
 
   @Field(() => Boolean)
-  @Column()
+  @Column(() => Boolean)
   status: boolean;
 
   @Field(() => AdvertisementTypeEnum)
   @Column('enum', { name: 'type' })
   type: AdvertisementTypeEnum;
 
-  // @Field(() => [Media])
-  // @OneToMany(() => Media, media => media.advertisement_id, { eager: true })
-  // @JoinColumn({ name: 'id' })
-  // gallery: Media[];
+  @Field(() => [Media])
+  @OneToMany(() => Media, media => media.advertisement, { eager: true })
+  gallery: Media[];
 
   @Field(() => GraphQLISODateTime)
   @CreateDateColumn()

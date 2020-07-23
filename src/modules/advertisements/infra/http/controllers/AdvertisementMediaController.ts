@@ -32,7 +32,7 @@ export default class AdvertisementMediaController {
       });
 
       return response.json(classToClass(advertisement));
-    } catch {
+    } catch (err) {
       return response.status(400).json('Upload media error');
     }
   }

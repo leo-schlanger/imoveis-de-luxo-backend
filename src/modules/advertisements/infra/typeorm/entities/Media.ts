@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import uploadConfig from '@config/upload';
@@ -17,6 +19,7 @@ import {
   ID,
   GraphQLISODateTime,
 } from 'type-graphql';
+import Advertisement from './Advertisement';
 
 export enum MediaTypeEnum {
   PHOTO = 'photo',
@@ -38,6 +41,10 @@ class Media extends BaseEntity {
   @Field()
   @Column()
   advertisement_id: string;
+
+  @ManyToOne(() => Advertisement, advertisement => advertisement.gallery)
+  @JoinColumn({ name: 'advertisement_id' })
+  advertisement: Advertisement;
 
   @Field()
   @Column()
