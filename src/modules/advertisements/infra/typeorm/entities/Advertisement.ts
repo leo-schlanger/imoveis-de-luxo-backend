@@ -67,11 +67,11 @@ class Advertisement extends BaseEntity {
   description: string;
 
   @Field(() => Boolean)
-  @Column()
+  @Column(() => Boolean)
   address_visible: boolean;
 
   @Field(() => Boolean)
-  @Column()
+  @Column(() => Boolean)
   status: boolean;
 
   @Field(() => AdvertisementTypeEnum)

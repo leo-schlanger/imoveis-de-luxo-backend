@@ -17,6 +17,7 @@ import ListAdvertisementsService from '@modules/advertisements/services/ListAdve
 import Advertisement from '../../typeorm/entities/Advertisement';
 import AdvertisementInput from '../inputs/AdvertisementInput';
 import AdvertisementUpdateInput from '../inputs/AdvertisementUpdateInput';
+import AdvertisementListInput from '../inputs/AdvertisementListInput';
 
 @Resolver()
 export default class AdvertisementResolver {
@@ -62,9 +63,11 @@ export default class AdvertisementResolver {
   }
 
   @Query(() => [Advertisement])
-  async Advertisements(): Promise<Advertisement[]> {
+  async Advertisements(
+    @Arg('filter', () => AdvertisementListInput) filter: AdvertisementListInput,
+  ): Promise<Advertisement[]> {
     const advertisementsList = container.resolve(ListAdvertisementsService);
 
-    return advertisementsList.execute({});
+    return advertisementsList.execute(filter);
   }
 }
