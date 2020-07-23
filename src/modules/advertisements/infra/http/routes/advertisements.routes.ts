@@ -9,7 +9,7 @@ import uploadConfig from '@config/upload';
 import AdvertisementsController from '../controllers/AdvertisementsController';
 import AdvertisementMediaController from '../controllers/AdvertisementMediaController';
 import AdvertisementAddressController from '../controllers/AdvertisementAddressController';
-import AdvertisementListController from '../controllers/AdvertisementListControler';
+import AdvertisementListController from '../controllers/AdvertisementListController';
 
 const advertisementsRouter = Router();
 const advertisementsController = new AdvertisementsController();
@@ -146,7 +146,7 @@ advertisementsRouter.put(
   celebrate({
     [Segments.PARAMS]: {
       advertisement_id: Joi.string().uuid().required(),
-      type: Joi.string().valid('photo', 'video').required,
+      type: Joi.string().valid('photo', 'video').required(),
     },
   }),
   upload.array('gallery'),

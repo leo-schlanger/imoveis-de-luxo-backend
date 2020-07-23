@@ -49,6 +49,20 @@ class MediaRepository implements IMediaRepository {
     return media;
   }
 
+  public createWithoutSave({
+    advertisement_id,
+    filename,
+    type,
+  }: ICreateMediaDTO): Media {
+    const media = this.ormRepository.create({
+      advertisement_id,
+      filename,
+      type,
+    });
+
+    return media;
+  }
+
   public async delete(id: string): Promise<void> {
     await this.ormRepository.delete(id);
   }

@@ -49,6 +49,26 @@ class MediaRepository implements IMediaRepository {
     return media;
   }
 
+  public createWithoutSave({
+    advertisement_id,
+    filename,
+    type,
+  }: ICreateMediaDTO): Media {
+    const media = new Media();
+
+    Object.assign(
+      media,
+      { id: uuid() },
+      {
+        advertisement_id,
+        filename,
+        type,
+      },
+    );
+
+    return media;
+  }
+
   public async delete(id: string): Promise<void> {
     const newList = this.media.filter(media => media.id !== id);
 

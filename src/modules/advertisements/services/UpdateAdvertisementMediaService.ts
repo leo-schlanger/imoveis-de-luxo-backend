@@ -60,17 +60,22 @@ class UpdateAdvertisementMediaService {
       });
     }
 
-    gallery.forEach(async name => {
-      const filename = await this.storageProvider.saveFile(name);
-      const media = await this.mediaRepository.create({
+    const mediaList = gallery.map(name => {
+      const media = this.mediaRepository.createWithoutSave({
         advertisement_id,
-        filename,
+        filename: name,
         type,
       });
       advertisement.gallery.push(media);
+      return media;
     });
 
-    return this.advertisementsRepository.save(advertisement);
+    mediaList.forEach(async media => {
+      await this.storageProvider.saveFile(media.filename);
+      await this.mediaRepository.save(media);
+    });
+
+    return advertisement;
   }
 }
 
