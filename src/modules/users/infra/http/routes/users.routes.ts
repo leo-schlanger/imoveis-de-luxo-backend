@@ -9,12 +9,44 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 import UsersController from '../controllers/UsersController';
 import UserPlanController from '../controllers/UserPlanController';
 import UserAvatarController from '../controllers/UserAvatarController';
+import UserListController from '../controllers/UserListController';
 
 const usersRouter = Router();
 const usersController = new UsersController();
 const userPlanController = new UserPlanController();
 const userAvatarController = new UserAvatarController();
+const userListController = new UserListController();
 const upload = multer(uploadConfig.multer);
+
+usersRouter.get(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      except_user_id: Joi.string(),
+      per_page: Joi.number(),
+      page: Joi.number(),
+      filter: Joi.object({
+        name: Joi.string(),
+        responsible: Joi.string(),
+        creci: Joi.string(),
+        email: Joi.string(),
+        status: Joi.string(),
+        type: Joi.string().required(),
+        address: Joi.object({
+          country: Joi.string(),
+          state: Joi.string(),
+          neighborhood: Joi.string(),
+          address: Joi.string(),
+        }),
+        plan: Joi.object({
+          name: Joi.string(),
+        }),
+        plan_status: Joi.boolean(),
+      }),
+    },
+  }),
+  userListController.show,
+);
 
 usersRouter.post(
   '/',

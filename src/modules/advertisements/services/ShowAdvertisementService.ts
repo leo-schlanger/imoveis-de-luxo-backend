@@ -17,13 +17,15 @@ class ShowAdvertisementService {
   ) {}
 
   public async execute({ advertisement_id }: IRequest): Promise<Advertisement> {
-    const user = await this.advertisementsRepository.findById(advertisement_id);
+    const advertisement = await this.advertisementsRepository.findById(
+      advertisement_id,
+    );
 
-    if (!user) {
-      throw new AppError('User not found.');
+    if (!advertisement) {
+      throw new AppError('Advertisement not found.');
     }
 
-    return user;
+    return advertisement;
   }
 }
 
