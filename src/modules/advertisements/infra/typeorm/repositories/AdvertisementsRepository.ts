@@ -19,12 +19,44 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
     page = 1,
     filter,
   }: IShowAdvertisementsDTO): Promise<Advertisement[]> {
-    return this.ormRepository.find({
-      where: filter,
-      take: per_page,
-      skip: (page - 1) * per_page,
-      cache: true,
-    });
+    const adList = this.ormRepository
+      .createQueryBuilder('advertisement')
+      .leftJoinAndSelect('advertisement.property', 'property')
+      .leftJoinAndSelect('property.address', 'address');
+
+    if (filter) {
+      const { type, property } = filter;
+
+      if (type) {
+        adList.andWhere('advertisement.type = :type', { type });
+      }
+
+      if (property) {
+        const { type: propertyType, address } = property;
+
+        if (propertyType) {
+          adList.andWhere('property.type = :propertyType', {
+            propertyType,
+          });
+        }
+
+        if (address) {
+          const addressFields = Object.entries(address);
+
+          addressFields.map(field =>
+            adList.andWhere(`address.${field[0]} = :${field[0]}`, {
+              [field[0]]: field[1],
+            }),
+          );
+        }
+      }
+    }
+
+    return adList
+      .skip((page - 1) * per_page)
+      .take(per_page)
+      .addOrderBy('advertisement.created_at', 'DESC')
+      .getMany();
   }
 
   public async findById(id: string): Promise<Advertisement | undefined> {

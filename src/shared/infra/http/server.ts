@@ -14,11 +14,11 @@ import { buildSchema } from 'type-graphql';
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppErrors';
 
+// import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
+// import PropertyResolver from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
 import SessionResolver from '@modules/users/infra/graphql/resolvers/SessionResolver';
 import UserResolver from '@modules/users/infra/graphql/resolvers/UserResolver';
 import PlanResolver from '@modules/users/infra/graphql/resolvers/PlanResolver';
-import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
-import PropertyResolver from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
 import MediaResolver from '@modules/advertisements/infra/graphql/resolvers/MediaResolver';
 import AdvertisementResolver from '@modules/advertisements/infra/graphql/resolvers/AdvertisementResolver';
 
@@ -64,11 +64,12 @@ import '@shared/container';
         UserResolver,
         SessionResolver,
         PlanResolver,
-        AddressResolver,
-        PropertyResolver,
+        // AddressResolver,
+        // PropertyResolver,
         MediaResolver,
         AdvertisementResolver,
       ],
+      validate: false,
     }),
     context: ({ req, res }) => ({ req, res }),
   });

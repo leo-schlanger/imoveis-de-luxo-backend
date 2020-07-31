@@ -1,8 +1,8 @@
-import { getRepository, Repository, Not } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
+import IFindAllUsersDTO from '@modules/users/dtos/IFindAllUsersDTO';
 
 import User, { UserStatusEnum, UserTypeEnum } from '../entities/User';
 
@@ -13,22 +13,60 @@ class UsersRepository implements IUsersRepository {
     this.ormRepository = getRepository(User);
   }
 
-  public async findAllProviders({
+  public async findAllUsers({
     except_user_id,
-  }: IFindAllProvidersDTO): Promise<User[]> {
-    let users: User[];
+    page = 1,
+    per_page = 20,
+    filter,
+  }: IFindAllUsersDTO): Promise<User[]> {
+    const users = this.ormRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'address')
+      .leftJoinAndSelect('user.plan', 'plan');
 
     if (except_user_id) {
-      users = await this.ormRepository.find({
-        where: {
-          id: Not(except_user_id),
-        },
-      });
-    } else {
-      users = await this.ormRepository.find();
+      users.andWhere('user.id != :except_user_id', { except_user_id });
     }
 
-    return users;
+    if (filter) {
+      const { plan, address, ...user } = filter;
+
+      if (user) {
+        const userFields = Object.entries(user);
+
+        userFields.map(field =>
+          users.andWhere(`user.${field[0]} = :${field[0]}`, {
+            [field[0]]: field[1],
+          }),
+        );
+      }
+
+      if (address) {
+        const addressFields = Object.entries(address);
+
+        addressFields.map(field =>
+          users.andWhere(`address.${field[0]} = :${`address_${field[0]}`}`, {
+            [`address_${field[0]}`]: field[1],
+          }),
+        );
+      }
+
+      if (plan) {
+        const planFields = Object.entries(plan);
+
+        planFields.map(field =>
+          users.andWhere(`plan.${field[0]} = :${`plan_${field[0]}`}`, {
+            [`plan_${field[0]}`]: field[1],
+          }),
+        );
+      }
+    }
+
+    return users
+      .skip((page - 1) * per_page)
+      .take(per_page)
+      .addOrderBy('user.created_at', 'DESC')
+      .getMany();
   }
 
   public async findById(id: string): Promise<User | undefined> {
