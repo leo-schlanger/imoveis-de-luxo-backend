@@ -17,7 +17,7 @@ export default interface IFindAllUsersDTO {
       neighborhood?: string;
       address?: string;
     };
-    plan: {
+    plan?: {
       name?: string;
     };
     plan_status?: boolean;

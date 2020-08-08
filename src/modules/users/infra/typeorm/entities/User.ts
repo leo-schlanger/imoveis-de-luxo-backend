@@ -125,6 +125,9 @@ class User extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @Field({ nullable: true })
+  avatar_url: string;
+
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
     if (!this.avatar) {

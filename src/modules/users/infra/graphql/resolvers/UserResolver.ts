@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
   Resolver,
   Mutation,
@@ -7,15 +6,16 @@ import {
   // Ctx
 } from 'type-graphql';
 
-import uploadConfig from '@config/upload';
 // import MyContext from '@shared/infra/graphql/types/MyContext';
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/users/CreateUserService';
+import ListUsersService from '@modules/users/services/users/ListUsersService';
 import User from '../../typeorm/entities/User';
 import UserInput from '../inputs/UserInput';
 import UserUpdateInput from '../inputs/UserUpdateInput';
 import Plan from '../../typeorm/entities/Plan';
+import UserListInput from '../inputs/UserListInput';
 
 @Resolver()
 export default class UserResolver {
@@ -79,24 +79,12 @@ export default class UserResolver {
   }
 
   @Query(() => [User])
-  async users(): Promise<User[]> {
-    let usersList = await User.find();
+  async users(
+    @Arg('data', () => UserListInput) data: UserListInput,
+  ): Promise<User[]> {
+    const listUsers = container.resolve(ListUsersService);
 
-    usersList = usersList.map(user => {
-      if (user.avatar) {
-        switch (uploadConfig.driver) {
-          case 'disk':
-            user.avatar = `${process.env.APP_API_URL}/files/${user.avatar}`;
-            break;
-          case 's3':
-            user.avatar = `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${user.avatar}`;
-            break;
-          default:
-            break;
-        }
-      }
-      return user;
-    });
+    const usersList = await listUsers.execute(data);
 
     return usersList;
   }
