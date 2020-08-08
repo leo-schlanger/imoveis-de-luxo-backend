@@ -1,5 +1,57 @@
+/* eslint-disable max-classes-per-file */
 import { InputType, Field } from 'type-graphql';
 import { UserStatusEnum, UserTypeEnum } from '../../typeorm/entities/User';
+
+@InputType()
+class UserAddress {
+  @Field({ nullable: true })
+  country: string;
+
+  @Field({ nullable: true })
+  state: string;
+
+  @Field({ nullable: true })
+  neighborhood: string;
+
+  @Field({ nullable: true })
+  address: string;
+}
+
+@InputType()
+class UserPlan {
+  @Field({ nullable: true })
+  name: string;
+}
+
+@InputType()
+class UserFilter {
+  @Field({ nullable: true })
+  name: string;
+
+  @Field({ nullable: true })
+  responsible: string;
+
+  @Field({ nullable: true })
+  creci: string;
+
+  @Field({ nullable: true })
+  email: string;
+
+  @Field(() => UserStatusEnum, { nullable: true })
+  status: UserStatusEnum;
+
+  @Field(() => UserTypeEnum, { nullable: true })
+  type: UserTypeEnum;
+
+  @Field({ nullable: true })
+  address: UserAddress;
+
+  @Field({ nullable: true })
+  plan: UserPlan;
+
+  @Field({ nullable: true })
+  plan_status: boolean;
+}
 
 @InputType()
 export default class UserListInput {
@@ -13,22 +65,5 @@ export default class UserListInput {
   page: number;
 
   @Field({ nullable: true })
-  filter: {
-    name?: string;
-    responsible?: string;
-    creci?: string;
-    email?: string;
-    status?: UserStatusEnum;
-    type?: UserTypeEnum;
-    address?: {
-      country: string;
-      state?: string;
-      neighborhood?: string;
-      address?: string;
-    };
-    plan?: {
-      name: string;
-    };
-    plan_status?: boolean;
-  };
+  filter: UserFilter;
 }
