@@ -5,17 +5,21 @@ import {
   Query,
   // Ctx
 } from 'type-graphql';
+import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 // import MyContext from '@shared/infra/graphql/types/MyContext';
-import Address from '@modules/adresses/infra/typeorm/entities/Address';
-import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/users/CreateUserService';
 import ListUsersService from '@modules/users/services/users/ListUsersService';
-import User from '../../typeorm/entities/User';
-import UserInput from '../inputs/UserInput';
-import UserUpdateInput from '../inputs/UserUpdateInput';
-import Plan from '../../typeorm/entities/Plan';
+import UpdateProfileAddressService from '@modules/users/services/users/UpdateProfileAddressService';
+import UpdateUserPlanService from '@modules/users/services/users/UpdateUserPlanService';
+import UpdateProfileService from '@modules/users/services/users/UpdateProfileService';
+import UpdateUserAvatarService from '@modules/users/services/users/UpdateUserAvatarService';
+
 import UserListInput from '../inputs/UserListInput';
+import UserUpdateInput from '../inputs/UserUpdateInput';
+import UserInput from '../inputs/UserInput';
+import User from '../../typeorm/entities/User';
 
 @Resolver()
 export default class UserResolver {
@@ -27,7 +31,7 @@ export default class UserResolver {
 
     const user = await createUser.execute(data);
 
-    return user;
+    return classToClass(user);
   }
 
   @Mutation(() => User)
@@ -36,7 +40,12 @@ export default class UserResolver {
     @Arg('data', () => UserUpdateInput)
     data: UserUpdateInput,
   ): Promise<User | undefined> {
-    const { address, plan_id, ...rest } = data;
+    const { address, plan_id, avatar, ...rest } = data;
+
+    const updateUserAddress = container.resolve(UpdateProfileAddressService);
+    const updateUserPlan = container.resolve(UpdateUserPlanService);
+    const updateUserProfile = container.resolve(UpdateProfileService);
+    const updateUserAvatar = container.resolve(UpdateUserAvatarService);
 
     const user = await User.findOne(id);
 
@@ -44,32 +53,29 @@ export default class UserResolver {
       throw new Error('User not found');
     }
 
+    let newUser: User;
+
     if (address) {
-      const newAddress = user.address_id
-        ? (await Address.update({ id: user.address_id }, user.address)) &&
-          (await Address.findOne(user.address_id))
-        : await Address.create(user.address).save();
-
-      if (!newAddress) {
-        throw new Error('Invalid address params or invalid id');
-      }
-
-      Object.assign(user, { address: newAddress, address_id: newAddress.id });
+      newUser = await updateUserAddress.execute({
+        user_id: user.id,
+        ...address,
+      });
     }
 
     if (plan_id) {
-      const findPlan = await Plan.findOne(plan_id);
-
-      if (!findPlan) {
-        throw new Error('Invalid plan id');
-      }
-
-      Object.assign(user, { plan: findPlan, plan_id });
+      newUser = await updateUserPlan.execute({ user_id: user.id, plan_id });
     }
-    await user.save();
 
-    await User.update({ id }, rest);
-    return User.findOne(id);
+    if (avatar) {
+      newUser = await updateUserAvatar.execute({
+        user_id: user.id,
+        avatarFilename: avatar,
+      });
+    }
+
+    newUser = await updateUserProfile.execute({ user_id: user.id, ...rest });
+
+    return newUser;
   }
 
   @Mutation(() => Boolean)
@@ -86,6 +92,6 @@ export default class UserResolver {
 
     const usersList = await listUsers.execute(data);
 
-    return usersList;
+    return classToClass(usersList);
   }
 }

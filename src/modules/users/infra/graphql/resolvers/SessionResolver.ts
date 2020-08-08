@@ -5,6 +5,7 @@ import AuthenticateUserService from '@modules/users/services/auth/AuthenticateUs
 import { container } from 'tsyringe';
 import MyContext from '@shared/infra/graphql/types/MyContext';
 import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
+import { classToClass } from 'class-transformer';
 import User from '../../typeorm/entities/User';
 
 @Resolver()
@@ -30,6 +31,6 @@ export default class SessionResolver {
       throw new Error('User not found');
     }
 
-    return user;
+    return classToClass(user);
   }
 }
