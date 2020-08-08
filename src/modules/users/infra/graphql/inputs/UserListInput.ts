@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { InputType, Field } from 'type-graphql';
+import { InputType, Field, Int } from 'type-graphql';
 import { UserStatusEnum, UserTypeEnum } from '../../typeorm/entities/User';
 
 @InputType()
@@ -58,10 +58,10 @@ export default class UserListInput {
   @Field({ nullable: true })
   except_user_id: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   per_page: number;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   page: number;
 
   @Field({ nullable: true })

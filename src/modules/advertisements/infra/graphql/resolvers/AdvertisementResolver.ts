@@ -14,6 +14,7 @@ import { container } from 'tsyringe';
 import CreateAdvertisementService from '@modules/advertisements/services/CreateAdvertisementService';
 import MyContext from '@shared/infra/graphql/types/MyContext';
 import ListAdvertisementsService from '@modules/advertisements/services/ListAdvertisementsService';
+import { classToClass } from 'class-transformer';
 import Advertisement from '../../typeorm/entities/Advertisement';
 import AdvertisementInput from '../inputs/AdvertisementInput';
 import AdvertisementUpdateInput from '../inputs/AdvertisementUpdateInput';
@@ -63,11 +64,13 @@ export default class AdvertisementResolver {
   }
 
   @Query(() => [Advertisement])
-  async Advertisements(
-    @Arg('filter', () => AdvertisementListInput) filter: AdvertisementListInput,
+  async advertisements(
+    @Arg('data', () => AdvertisementListInput) data: AdvertisementListInput,
   ): Promise<Advertisement[]> {
     const advertisementsList = container.resolve(ListAdvertisementsService);
 
-    return advertisementsList.execute(filter);
+    const list = await advertisementsList.execute(data);
+
+    return classToClass(list);
   }
 }

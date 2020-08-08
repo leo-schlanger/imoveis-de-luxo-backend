@@ -21,6 +21,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
   }: IShowAdvertisementsDTO): Promise<Advertisement[]> {
     const adList = this.ormRepository
       .createQueryBuilder('advertisement')
+      .leftJoinAndSelect('advertisement.user', 'user')
       .leftJoinAndSelect('advertisement.property', 'property')
       .leftJoinAndSelect('property.address', 'address');
 
