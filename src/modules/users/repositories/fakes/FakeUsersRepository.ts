@@ -12,14 +12,14 @@ class FakeUsersRepository implements IUsersRepository {
 
   public async findAllUsers({
     except_user_id,
-  }: IFindAllUsersDTO): Promise<User[]> {
+  }: IFindAllUsersDTO): Promise<[User[], number]> {
     let { users } = this;
 
     if (except_user_id) {
       users = this.users.filter(user => user.id !== except_user_id);
     }
 
-    return users;
+    return [users, users.length];
   }
 
   public async findById(id: string): Promise<User | undefined> {
