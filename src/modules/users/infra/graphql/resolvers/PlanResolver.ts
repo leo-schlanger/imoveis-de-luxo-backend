@@ -43,6 +43,13 @@ export default class PlanResolver {
     return true;
   }
 
+  @Query(() => Plan)
+  async getPlanById(
+    @Arg('id', () => String) id: string,
+  ): Promise<Plan | undefined> {
+    return Plan.findOne(id);
+  }
+
   @Query(() => [Plan])
   plans(): Promise<Plan[]> {
     const showPlans = container.resolve(ShowPlanService);

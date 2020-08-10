@@ -84,6 +84,13 @@ export default class UserResolver {
     return true;
   }
 
+  @Query(() => User)
+  async getUserById(
+    @Arg('id', () => String) id: string,
+  ): Promise<User | undefined> {
+    return User.findOne(id);
+  }
+
   @Query(() => [User])
   async users(
     @Arg('data', () => UserListInput) data: UserListInput,

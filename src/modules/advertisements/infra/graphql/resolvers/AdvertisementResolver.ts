@@ -63,6 +63,13 @@ export default class AdvertisementResolver {
     return true;
   }
 
+  @Query(() => Advertisement)
+  async getAdvertisementById(
+    @Arg('id', () => String) id: string,
+  ): Promise<Advertisement | undefined> {
+    return Advertisement.findOne(id);
+  }
+
   @Query(() => [Advertisement])
   async advertisements(
     @Arg('data', () => AdvertisementListInput) data: AdvertisementListInput,
