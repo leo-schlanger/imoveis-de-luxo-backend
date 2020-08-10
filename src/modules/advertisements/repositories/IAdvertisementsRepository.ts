@@ -5,7 +5,7 @@ import Advertisement, {
 import IShowAdvertisementsDTO from '../dtos/IShowAdvertisemetsDTO';
 
 export default interface IAdvertisementsRepository {
-  show(data: IShowAdvertisementsDTO): Promise<Advertisement[]>;
+  show(data: IShowAdvertisementsDTO): Promise<[Advertisement[], number]>;
   findById(id: string): Promise<Advertisement | undefined>;
   findByProperty(property_id: string): Promise<Advertisement | undefined>;
   filterByType(

@@ -66,11 +66,11 @@ export default class AdvertisementResolver {
   @Query(() => [Advertisement])
   async advertisements(
     @Arg('data', () => AdvertisementListInput) data: AdvertisementListInput,
-  ): Promise<Advertisement[]> {
+  ): Promise<[Advertisement[], number]> {
     const advertisementsList = container.resolve(ListAdvertisementsService);
 
     const list = await advertisementsList.execute(data);
 
-    return classToClass(list);
+    return [classToClass(list[0]), list[1]];
   }
 }

@@ -18,7 +18,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
     per_page = 20,
     page = 1,
     filter,
-  }: IShowAdvertisementsDTO): Promise<Advertisement[]> {
+  }: IShowAdvertisementsDTO): Promise<[Advertisement[], number]> {
     const adList = this.ormRepository
       .createQueryBuilder('advertisement')
       .leftJoinAndSelect('advertisement.user', 'user')
@@ -57,7 +57,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
       .skip((page - 1) * per_page)
       .take(per_page)
       .addOrderBy('advertisement.created_at', 'DESC')
-      .getMany();
+      .getManyAndCount();
   }
 
   public async findById(id: string): Promise<Advertisement | undefined> {
