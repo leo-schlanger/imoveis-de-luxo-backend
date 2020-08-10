@@ -18,7 +18,7 @@ class UsersRepository implements IUsersRepository {
     page = 1,
     per_page = 20,
     filter,
-  }: IFindAllUsersDTO): Promise<User[]> {
+  }: IFindAllUsersDTO): Promise<[User[], number]> {
     const users = this.ormRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.address', 'address')
@@ -66,7 +66,7 @@ class UsersRepository implements IUsersRepository {
       .skip((page - 1) * per_page)
       .take(per_page)
       .addOrderBy('user.created_at', 'DESC')
-      .getMany();
+      .getManyAndCount();
   }
 
   public async findById(id: string): Promise<User | undefined> {

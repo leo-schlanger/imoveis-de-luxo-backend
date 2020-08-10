@@ -12,6 +12,6 @@ export default class AdvertisementListController {
 
     const advertisements = await listAdvertisement.execute(data);
 
-    return response.json(classToClass(advertisements));
+    return response.json(classToClass(advertisements[0]));
   }
 }

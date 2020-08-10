@@ -4,7 +4,7 @@ import User from '../infra/typeorm/entities/User';
 
 // TODO: Colocar os métodos faltantes já implementados no UsersRepository
 export default interface IUsersRepository {
-  findAllUsers(data: IFindAllUsersDTO): Promise<User[]>;
+  findAllUsers(data: IFindAllUsersDTO): Promise<[User[], number]>;
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
   create(data: ICreateUserDTO): Promise<User>;

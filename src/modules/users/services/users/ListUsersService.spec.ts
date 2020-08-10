@@ -14,9 +14,9 @@ describe('ListUsers', () => {
   });
 
   it('should be able to list users', async () => {
-    const users = await listUsers.execute({});
+    let users = await listUsers.execute({});
 
-    expect(users).toEqual([]);
+    expect(users).toEqual([[], 0]);
 
     const user1 = await fakeUsersRepository.create({
       name: 'John Doe',
@@ -34,6 +34,8 @@ describe('ListUsers', () => {
       type: UserTypeEnum.USER,
     });
 
-    expect(users).toEqual([user1, user2]);
+    users = await listUsers.execute({});
+
+    expect(users).toEqual([[user1, user2], 2]);
   });
 });

@@ -1,8 +1,12 @@
+/* eslint-disable max-classes-per-file */
 import {
   Resolver,
   Mutation,
   Arg,
   Query,
+  ObjectType,
+  Field,
+  Int,
   // Ctx
 } from 'type-graphql';
 import { container } from 'tsyringe';
@@ -20,6 +24,15 @@ import UserListInput from '../inputs/UserListInput';
 import UserUpdateInput from '../inputs/UserUpdateInput';
 import UserInput from '../inputs/UserInput';
 import User from '../../typeorm/entities/User';
+
+@ObjectType('UserList')
+class UserList {
+  @Field(() => [User])
+  list: User[];
+
+  @Field(() => Int)
+  total: number;
+}
 
 @Resolver()
 export default class UserResolver {
@@ -84,14 +97,21 @@ export default class UserResolver {
     return true;
   }
 
-  @Query(() => [User])
+  @Query(() => User)
+  async getUserById(
+    @Arg('id', () => String) id: string,
+  ): Promise<User | undefined> {
+    return User.findOne(id);
+  }
+
+  @Query(() => UserList)
   async users(
     @Arg('data', () => UserListInput) data: UserListInput,
-  ): Promise<User[]> {
+  ): Promise<UserList> {
     const listUsers = container.resolve(ListUsersService);
 
     const usersList = await listUsers.execute(data);
 
-    return classToClass(usersList);
+    return { list: classToClass(usersList[0]), total: usersList[1] };
   }
 }

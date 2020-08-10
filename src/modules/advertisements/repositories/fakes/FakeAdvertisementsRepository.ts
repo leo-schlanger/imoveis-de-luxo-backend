@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { uuid } from 'uuidv4';
 
 import IAdvertisementsRepository from '@modules/advertisements/repositories/IAdvertisementsRepository';
@@ -12,8 +13,10 @@ class FakeAdvertisementsRepository implements IAdvertisementsRepository {
   private advertisements: Advertisement[] = [];
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async show(data: IShowAdvertisementsDTO): Promise<Advertisement[]> {
-    return this.advertisements;
+  public async show(
+    data: IShowAdvertisementsDTO,
+  ): Promise<[Advertisement[], number]> {
+    return [this.advertisements, this.advertisements.length];
   }
 
   public async findById(id: string): Promise<Advertisement | undefined> {
