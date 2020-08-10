@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-param-reassign */
 import {
   Resolver,
@@ -6,6 +7,9 @@ import {
   Query,
   UseMiddleware,
   Ctx,
+  ObjectType,
+  Field,
+  Int,
 } from 'type-graphql';
 // import uploadConfig from '@config/upload';
 
@@ -19,6 +23,15 @@ import Advertisement from '../../typeorm/entities/Advertisement';
 import AdvertisementInput from '../inputs/AdvertisementInput';
 import AdvertisementUpdateInput from '../inputs/AdvertisementUpdateInput';
 import AdvertisementListInput from '../inputs/AdvertisementListInput';
+
+@ObjectType('AdvertisementList')
+class AdvertisementList {
+  @Field(() => [Advertisement])
+  list: Advertisement[];
+
+  @Field(() => Int)
+  total: number;
+}
 
 @Resolver()
 export default class AdvertisementResolver {
@@ -70,14 +83,14 @@ export default class AdvertisementResolver {
     return Advertisement.findOne(id);
   }
 
-  @Query(() => [Advertisement])
+  @Query(() => AdvertisementList)
   async advertisements(
     @Arg('data', () => AdvertisementListInput) data: AdvertisementListInput,
-  ): Promise<[Advertisement[], number]> {
+  ): Promise<AdvertisementList> {
     const advertisementsList = container.resolve(ListAdvertisementsService);
 
     const list = await advertisementsList.execute(data);
 
-    return [classToClass(list[0]), list[1]];
+    return { list: classToClass(list[0]), total: list[1] };
   }
 }
