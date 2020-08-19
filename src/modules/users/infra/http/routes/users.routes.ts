@@ -48,6 +48,16 @@ usersRouter.get(
   userListController.show,
 );
 
+usersRouter.get(
+  '/:user_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      user_id: Joi.string().uuid().required(),
+    },
+  }),
+  usersController.show,
+);
+
 usersRouter.post(
   '/',
   celebrate({
