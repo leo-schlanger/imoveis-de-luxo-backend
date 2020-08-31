@@ -7,6 +7,7 @@ import {
   ObjectType,
   Field,
   Int,
+  UseMiddleware,
   // Ctx
 } from 'type-graphql';
 import { container } from 'tsyringe';
@@ -20,6 +21,7 @@ import UpdateUserPlanService from '@modules/users/services/users/UpdateUserPlanS
 import UpdateProfileService from '@modules/users/services/users/UpdateProfileService';
 import UpdateUserAvatarService from '@modules/users/services/users/UpdateUserAvatarService';
 
+import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
 import UserListInput from '../inputs/UserListInput';
 import UserUpdateInput from '../inputs/UserUpdateInput';
 import UserInput from '../inputs/UserInput';
@@ -48,6 +50,7 @@ export default class UserResolver {
   }
 
   @Mutation(() => User)
+  @UseMiddleware(isAuth)
   async updateUser(
     @Arg('id', () => String) id: string,
     @Arg('data', () => UserUpdateInput)
@@ -92,6 +95,7 @@ export default class UserResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async deleteUser(@Arg('id', () => String) id: string): Promise<boolean> {
     await User.delete({ id });
     return true;
