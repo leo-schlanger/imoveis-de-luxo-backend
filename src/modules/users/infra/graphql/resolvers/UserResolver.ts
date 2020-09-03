@@ -42,9 +42,16 @@ export default class UserResolver {
   async createUser(
     @Arg('data', () => UserInput) data: UserInput,
   ): Promise<User> {
+    const { responsible, secondary_phone, creci, ...rest } = data;
     const createUser = container.resolve(CreateUserService);
 
-    const user = await createUser.execute(data);
+    const user = await createUser.execute(rest);
+
+    if (responsible) user.responsible = responsible;
+    if (secondary_phone) user.secondary_phone = secondary_phone;
+    if (creci) user.creci = creci;
+
+    user.save();
 
     return classToClass(user);
   }
