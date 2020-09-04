@@ -29,7 +29,7 @@ describe('UpdateAdvertisementAddress', () => {
       state: 'Rio de Janeiro',
       neighborhood: 'Copacabana',
       postal_code: '22222-222',
-      address: 'My address',
+      street: 'My address',
       number: '23A',
       description: 'My description',
     });
@@ -54,14 +54,12 @@ describe('UpdateAdvertisementAddress', () => {
     const updatedAdvertisement = await updateAdvertisementAddress.execute({
       user_id: 'user',
       advertisement_id: advertisement.id,
-      address: 'My new address',
-      neighborhood: 'Gavea',
+      street: 'My new address',
+      neighborhood: 'Gávea',
     });
 
-    expect(updatedAdvertisement.property.address.address).toBe(
-      'My new address',
-    );
-    expect(updatedAdvertisement.property.address.neighborhood).toBe('Gavea');
+    expect(updatedAdvertisement.property.address.street).toBe('My new address');
+    expect(updatedAdvertisement.property.address.neighborhood).toBe('Gávea');
     expect(updatedAdvertisement.property.address.state).toBe('Rio de Janeiro');
   });
 
@@ -71,7 +69,7 @@ describe('UpdateAdvertisementAddress', () => {
       state: 'Rio de Janeiro',
       neighborhood: 'Copacabana',
       postal_code: '22222-222',
-      address: 'My address',
+      street: 'My address',
       number: '23A',
       description: 'My description',
     });
@@ -97,8 +95,8 @@ describe('UpdateAdvertisementAddress', () => {
       updateAdvertisementAddress.execute({
         user_id: 'other-user',
         advertisement_id: advertisement.id,
-        address: 'My new address',
-        neighborhood: 'Gavea',
+        street: 'My new address',
+        neighborhood: 'Gávea',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -109,7 +107,7 @@ describe('UpdateAdvertisementAddress', () => {
       state: 'Rio de Janeiro',
       neighborhood: 'Copacabana',
       postal_code: '22222-222',
-      address: 'My address',
+      street: 'My address',
       number: '23A',
       description: 'My description',
     });
@@ -149,7 +147,7 @@ describe('UpdateAdvertisementAddress', () => {
         country: 'Brasil',
         state: 'Rio de Janeiro',
         postal_code: '22222-222',
-        address: 'My address',
+        street: 'My address',
         neighborhood: 'Copacabana',
       }),
     ).rejects.toBeInstanceOf(AppError);

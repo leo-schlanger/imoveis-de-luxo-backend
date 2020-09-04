@@ -36,7 +36,7 @@ usersRouter.get(
           country: Joi.string(),
           state: Joi.string(),
           neighborhood: Joi.string(),
-          address: Joi.string(),
+          street: Joi.string(),
         }),
         plan: Joi.object({
           name: Joi.string(),

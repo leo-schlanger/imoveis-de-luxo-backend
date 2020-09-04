@@ -18,7 +18,7 @@ export default class AddressUpdateInput {
   sub_neighborhood: string;
 
   @Field({ nullable: true })
-  address: string;
+  street: string;
 
   @Field({ nullable: true })
   number: string;

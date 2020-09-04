@@ -17,7 +17,7 @@ class AddressFilter {
   neighborhood: string;
 
   @Field({ nullable: true })
-  address: string;
+  street: string;
 }
 
 @InputType()

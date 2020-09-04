@@ -12,7 +12,7 @@ export default interface IShowAdvertisementsDTO {
         country?: string;
         state?: string;
         neighborhood?: string;
-        address?: string;
+        street?: string;
       };
     };
   };

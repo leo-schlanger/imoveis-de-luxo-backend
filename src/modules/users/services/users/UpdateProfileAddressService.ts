@@ -15,7 +15,7 @@ interface IRequest {
   postal_code?: string;
   neighborhood?: string;
   sub_neighborhood?: string;
-  address?: string;
+  street?: string;
   number?: string;
   complement?: string;
   description?: string;
@@ -53,7 +53,7 @@ class UpdateProfileAddressService {
         !rest.state ||
         !rest.postal_code ||
         !rest.neighborhood ||
-        !rest.address
+        !rest.street
       ) {
         throw new AppError('Invalid parameters in the first registration');
       }
@@ -63,7 +63,7 @@ class UpdateProfileAddressService {
         state: rest.state,
         postal_code: rest.postal_code,
         neighborhood: rest.neighborhood,
-        address: rest.address,
+        street: rest.street,
         sub_neighborhood: rest.sub_neighborhood,
         number: rest.number,
         complement: rest.complement,

@@ -16,7 +16,7 @@ describe('CreateAddress', () => {
       state: 'Rio de Janeiro',
       neighborhood: 'Copacabana',
       postal_code: '22222-222',
-      address: 'My address',
+      street: 'My address',
     });
 
     expect(address).toHaveProperty('id');
@@ -28,7 +28,7 @@ describe('CreateAddress', () => {
       state: 'Rio de Janeiro',
       neighborhood: 'Copacabana',
       postal_code: '22222-222',
-      address: 'My address',
+      street: 'My address',
       number: '23A',
       description: 'My description',
     });

@@ -40,7 +40,7 @@ profileRouter.put(
       state: Joi.string(),
       postal_code: Joi.string(),
       neighborhood: Joi.string(),
-      address: Joi.string(),
+      street: Joi.string(),
       sub_neighborhood: Joi.string(),
       number: Joi.string(),
       complement: Joi.string(),

@@ -27,7 +27,7 @@ class PropertiesRepository implements IPropertiesRepository {
     state,
     postal_code,
     neighborhood,
-    address,
+    street,
   }: IFindByAddressDTO): Promise<Property | undefined> {
     const findProperty = await this.ormRepository.findOne({
       where: {
@@ -36,7 +36,7 @@ class PropertiesRepository implements IPropertiesRepository {
           state,
           postal_code,
           neighborhood,
-          address,
+          street,
         },
       },
     });

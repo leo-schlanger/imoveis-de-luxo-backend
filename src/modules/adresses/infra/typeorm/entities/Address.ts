@@ -38,7 +38,7 @@ class Address extends BaseEntity {
 
   @Field()
   @Column()
-  address: string;
+  street: string;
 
   @Field({ nullable: true })
   @Column()

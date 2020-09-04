@@ -3,5 +3,5 @@ export default interface IFindByAddressDTO {
   state: string;
   postal_code: string;
   neighborhood: string;
-  address: string;
+  street: string;
 }

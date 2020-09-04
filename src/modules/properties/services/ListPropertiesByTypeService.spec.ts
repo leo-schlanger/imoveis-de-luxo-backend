@@ -3,7 +3,7 @@ import { classToClass } from 'class-transformer';
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
 import FakePropertiesRepository from '../repositories/fakes/FakePropertiesRepository';
 import ListPropertiesByTypeService from './ListPropertiesByTypeService';
-import Property, { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
+import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
 
 let fakeAdressesRepository: FakeAdressesRepository;
 let fakePropertiesRepository: FakePropertiesRepository;
@@ -37,7 +37,7 @@ describe('ListPropertiesByTypeService', () => {
       complement: 'B',
       description: 'description',
       sub_neighborhood: 'example',
-      address: 'Barata Ribeiro',
+      street: 'Barata Ribeiro',
     });
 
     const property1 = await fakePropertiesRepository.create({

@@ -12,7 +12,7 @@ interface IRequest {
   postal_code?: string;
   neighborhood?: string;
   sub_neighborhood?: string;
-  address?: string;
+  street?: string;
   number?: string;
   complement?: string;
   description?: string;
@@ -32,7 +32,7 @@ class UpdateAddressService {
     postal_code,
     neighborhood,
     sub_neighborhood,
-    address,
+    street,
     number,
     complement,
     description,
@@ -63,8 +63,8 @@ class UpdateAddressService {
       searchAddress.sub_neighborhood = sub_neighborhood;
     }
 
-    if (address) {
-      searchAddress.address = address;
+    if (street) {
+      searchAddress.street = street;
     }
 
     if (number) {

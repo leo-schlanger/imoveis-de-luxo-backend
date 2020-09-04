@@ -32,7 +32,7 @@ describe('CreateProperty', () => {
       state: 'Rio de Janeiro',
       postal_code: '22222-222',
       neighborhood: 'Copacabana',
-      address: 'Barata Ribeiro',
+      street: 'Barata Ribeiro',
     });
 
     expect(property).toHaveProperty('id');
@@ -46,7 +46,7 @@ describe('CreateProperty', () => {
       state: 'Rio de Janeiro',
       postal_code: '22222-222',
       neighborhood: 'Copacabana',
-      address: 'Barata Ribeiro',
+      street: 'Barata Ribeiro',
     });
 
     await expect(
@@ -57,7 +57,7 @@ describe('CreateProperty', () => {
         state: 'Rio de Janeiro',
         postal_code: '22222-222',
         neighborhood: 'Copacabana',
-        address: 'Barata Ribeiro',
+        street: 'Barata Ribeiro',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

@@ -26,7 +26,7 @@ class FakePropertiesRepository implements IPropertiesRepository {
     state,
     postal_code,
     neighborhood,
-    address,
+    street,
   }: IFindByAddressDTO): Promise<Property | undefined> {
     const findProperty = this.properties.find(property => {
       return (
@@ -34,7 +34,7 @@ class FakePropertiesRepository implements IPropertiesRepository {
         property.address.state === state &&
         property.address.postal_code === postal_code &&
         property.address.neighborhood === neighborhood &&
-        property.address.address === address
+        property.address.street === street
       );
     });
 

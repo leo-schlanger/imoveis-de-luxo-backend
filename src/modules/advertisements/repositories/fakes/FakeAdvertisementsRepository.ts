@@ -12,7 +12,6 @@ import IShowAdvertisementsDTO from '../../dtos/IShowAdvertisemetsDTO';
 class FakeAdvertisementsRepository implements IAdvertisementsRepository {
   private advertisements: Advertisement[] = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async show(
     data: IShowAdvertisementsDTO,
   ): Promise<[Advertisement[], number]> {

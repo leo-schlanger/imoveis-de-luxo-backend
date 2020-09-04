@@ -18,7 +18,7 @@ describe('UpdateAddress', () => {
       state: 'Rio de Janeiro',
       neighborhood: 'Copacabana',
       postal_code: '22222-222',
-      address: 'My address',
+      street: 'My address',
       number: '23A',
       description: 'My description',
     });
@@ -41,22 +41,22 @@ describe('UpdateAddress', () => {
       country: 'England',
       state: 'London',
       sub_neighborhood: 'BakerStreet',
-      address: 'New address',
+      street: 'New address',
       postal_code: '555-55555',
     });
 
     expect(updatedAddress.country).toBe('England');
     expect(updatedAddress.state).toBe('London');
     expect(updatedAddress.sub_neighborhood).toBe('BakerStreet');
-    expect(updatedAddress.address).toBe('New address');
+    expect(updatedAddress.street).toBe('New address');
     expect(updatedAddress.description).toBe('New description');
     expect(updatedAddress.complement).toBe('C');
   });
 
-  it('should not be able to update address with nonexistent id', async () => {
+  it('should not be able to update address with non-exists id', async () => {
     await expect(
       updateAddress.execute({
-        address_id: 'nonexistent_id',
+        address_id: 'non-exists_id',
         neighborhood: 'Gávea',
         description: 'New description',
         complement: 'C',

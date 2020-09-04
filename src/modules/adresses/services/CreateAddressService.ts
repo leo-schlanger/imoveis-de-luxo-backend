@@ -8,7 +8,7 @@ interface IRequest {
   state: string;
   postal_code: string;
   neighborhood: string;
-  address: string;
+  street: string;
   sub_neighborhood?: string;
   number?: string;
   complement?: string;

@@ -54,7 +54,7 @@ describe('CreateAdvertisement', () => {
         country: 'Rio de Janeiro',
         postal_code: '22222-222',
         neighborhood: 'Copacabana',
-        address: 'Barata Ribeiro',
+        street: 'Barata Ribeiro',
       },
     });
 
@@ -82,7 +82,7 @@ describe('CreateAdvertisement', () => {
           country: 'Rio de Janeiro',
           postal_code: '22222-222',
           neighborhood: 'Copacabana',
-          address: 'Barata Ribeiro',
+          street: 'Barata Ribeiro',
         },
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -101,7 +101,7 @@ describe('CreateAdvertisement', () => {
           country: 'Rio de Janeiro',
           postal_code: '22222-222',
           neighborhood: 'Copacabana',
-          address: 'Barata Ribeiro',
+          street: 'Barata Ribeiro',
         },
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -127,7 +127,7 @@ describe('CreateAdvertisement', () => {
         country: 'Rio de Janeiro',
         postal_code: '22222-222',
         neighborhood: 'Copacabana',
-        address: 'Barata Ribeiro',
+        street: 'Barata Ribeiro',
       },
     });
 
@@ -143,7 +143,7 @@ describe('CreateAdvertisement', () => {
           country: 'Rio de Janeiro',
           postal_code: '22222-222',
           neighborhood: 'Copacabana',
-          address: 'Barata Ribeiro',
+          street: 'Barata Ribeiro',
         },
       }),
     ).rejects.toBeInstanceOf(AppError);

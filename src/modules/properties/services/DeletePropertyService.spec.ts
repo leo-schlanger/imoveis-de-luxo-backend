@@ -29,7 +29,7 @@ describe('deleteProperty', () => {
       state: 'Rio de Janeiro',
       postal_code: '22222-222',
       neighborhood: 'Copacabana',
-      address: 'Barata Ribeiro',
+      street: 'Barata Ribeiro',
     });
 
     const property = await fakePropertiesRepository.create({

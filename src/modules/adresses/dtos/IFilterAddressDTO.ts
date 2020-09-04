@@ -4,5 +4,5 @@ export default interface IFilterAddressDTO {
   postal_code?: string;
   neighborhood?: string;
   sub_neighborhood?: string;
-  address?: string;
+  street?: string;
 }

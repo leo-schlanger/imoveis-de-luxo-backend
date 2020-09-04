@@ -35,7 +35,7 @@ export default class CreateAddress1592310579388 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'address',
+            name: 'street',
             type: 'varchar',
           },
           {
