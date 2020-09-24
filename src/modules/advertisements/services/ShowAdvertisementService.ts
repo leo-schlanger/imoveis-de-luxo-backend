@@ -6,7 +6,7 @@ import Advertisement from '../infra/typeorm/entities/Advertisement';
 import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository';
 
 interface IRequest {
-  advertisement_id: string;
+  advertisement_id: number;
 }
 
 @injectable()

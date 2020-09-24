@@ -55,7 +55,7 @@ export default class AdvertisementResolver {
   @Mutation(() => Advertisement)
   @UseMiddleware(isAuth)
   async updateAdvertisement(
-    @Arg('id', () => String) id: string,
+    @Arg('id', () => Int) id: number,
     @Arg('data', () => AdvertisementUpdateInput) data: AdvertisementUpdateInput,
   ): Promise<Advertisement | undefined> {
     const { property, ...rest } = data;
@@ -70,7 +70,7 @@ export default class AdvertisementResolver {
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
   async deleteAdvertisement(
-    @Arg('id', () => String) id: string,
+    @Arg('id', () => Int) id: number,
   ): Promise<boolean> {
     await Advertisement.delete({ id });
     return true;
@@ -78,7 +78,7 @@ export default class AdvertisementResolver {
 
   @Query(() => Advertisement)
   async getAdvertisementById(
-    @Arg('id', () => String) id: string,
+    @Arg('id', () => Int) id: number,
   ): Promise<Advertisement | undefined> {
     return Advertisement.findOne(id);
   }

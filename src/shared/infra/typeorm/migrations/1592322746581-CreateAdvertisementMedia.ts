@@ -16,7 +16,7 @@ export default class CreateAdvertisementMedia1592322746581
           },
           {
             name: 'advertisement_id',
-            type: 'uuid',
+            type: 'int',
           },
           {
             enum: ['photo', 'video'],

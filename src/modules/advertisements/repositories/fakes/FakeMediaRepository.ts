@@ -18,7 +18,7 @@ class MediaRepository implements IMediaRepository {
   }
 
   public async findByAdvertisement(
-    advertisement_id: string,
+    advertisement_id: number,
   ): Promise<Media[] | undefined> {
     const findMedia = this.media.filter(
       media => media.advertisement_id === advertisement_id,

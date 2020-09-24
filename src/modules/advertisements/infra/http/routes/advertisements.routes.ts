@@ -45,7 +45,7 @@ advertisementsRouter.get(
   '/:advertisement_id',
   celebrate({
     [Segments.PARAMS]: {
-      advertisement_id: Joi.string().uuid().required(),
+      advertisement_id: Joi.number().required(),
     },
   }),
   advertisementsController.show,
@@ -83,7 +83,7 @@ advertisementsRouter.put(
   '/:advertisement_id',
   celebrate({
     [Segments.PARAMS]: {
-      advertisement_id: Joi.string().uuid().required(),
+      advertisement_id: Joi.number().required(),
     },
     [Segments.BODY]: {
       title: Joi.string().required(),
@@ -114,7 +114,7 @@ advertisementsRouter.put(
   '/:advertisement_id/address',
   celebrate({
     [Segments.PARAMS]: {
-      advertisement_id: Joi.string().uuid().required(),
+      advertisement_id: Joi.number().required(),
     },
     [Segments.BODY]: {
       country: Joi.string(),
@@ -135,7 +135,7 @@ advertisementsRouter.delete(
   '/:advertisement_id',
   celebrate({
     [Segments.PARAMS]: {
-      advertisement_id: Joi.string().uuid().required(),
+      advertisement_id: Joi.number().required(),
     },
   }),
   advertisementsController.delete,
@@ -145,7 +145,7 @@ advertisementsRouter.put(
   '/:advertisement_id/gallery/:type',
   celebrate({
     [Segments.PARAMS]: {
-      advertisement_id: Joi.string().uuid().required(),
+      advertisement_id: Joi.number().required(),
       type: Joi.string().valid('photo', 'video').required(),
     },
   }),

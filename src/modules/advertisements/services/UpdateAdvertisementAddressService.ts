@@ -9,7 +9,7 @@ import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository
 
 interface IRequest {
   user_id: string;
-  advertisement_id: string;
+  advertisement_id: number;
   country?: string;
   state?: string;
   postal_code?: string;

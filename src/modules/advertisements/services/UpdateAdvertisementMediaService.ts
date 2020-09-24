@@ -10,7 +10,7 @@ import IMediaRepository from '../repositories/IMediaRepository';
 
 interface IRequest {
   user_id: string;
-  advertisement_id: string;
+  advertisement_id: number;
   type: MediaTypeEnum;
   gallery: string[];
 }

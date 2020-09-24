@@ -22,7 +22,7 @@ class MediaRepository implements IMediaRepository {
   }
 
   public async findByAdvertisement(
-    advertisement_id: string,
+    advertisement_id: number,
   ): Promise<Media[] | undefined> {
     const findMedia = await this.ormRepository.find({
       where: {

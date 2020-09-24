@@ -2,7 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 
 import IAdvertisementsRepository from '@modules/advertisements/repositories/IAdvertisementsRepository';
 import ICreateAdvertisementDTO from '@modules/advertisements/dtos/ICreateAdvertisementDTO';
-import IShowAdvertisementsDTO from '@modules/advertisements/dtos/IShowAdvertisemetsDTO';
+import IShowAdvertisementsDTO from '@modules/advertisements/dtos/IShowAdvertisementsDTO';
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../entities/Advertisement';

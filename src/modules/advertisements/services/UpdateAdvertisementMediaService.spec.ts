@@ -94,7 +94,7 @@ describe('UpdateAdvertisementMedia', () => {
   it('should not be able to update advertisement gallery from non existing advertisement', async () => {
     await expect(
       updateAdvertisementMedia.execute({
-        advertisement_id: 'non-existing-advertisement',
+        advertisement_id: -1,
         user_id: 'invalid-user',
         type: MediaTypeEnum.PHOTO,
         gallery: ['media1', 'media2'],

@@ -143,7 +143,7 @@ describe('UpdateAdvertisementAddress', () => {
     await expect(
       updateAdvertisementAddress.execute({
         user_id: 'user',
-        advertisement_id: 'non-existing-advertisement',
+        advertisement_id: -1,
         country: 'Brasil',
         state: 'Rio de Janeiro',
         postal_code: '22222-222',

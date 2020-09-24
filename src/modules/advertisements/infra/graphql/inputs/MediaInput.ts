@@ -4,7 +4,7 @@ import { MediaTypeEnum } from '../../typeorm/entities/Media';
 @InputType()
 export default class MediaInput {
   @Field()
-  advertisement_id: string;
+  advertisement_id: number;
 
   @Field()
   filename: string;

@@ -34,7 +34,7 @@ describe('ShowAdvertisement', () => {
   it('should not be able to show the advertisement from non-existing advertisement', async () => {
     await expect(
       showAdvertisement.execute({
-        advertisement_id: 'non-existing-advertisement',
+        advertisement_id: -1,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

@@ -78,7 +78,7 @@ describe('deleteAdvertisement', () => {
     await expect(
       deleteAdvertisement.execute({
         user_id: 'any-user',
-        id: 'non-exists-id',
+        id: -1,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

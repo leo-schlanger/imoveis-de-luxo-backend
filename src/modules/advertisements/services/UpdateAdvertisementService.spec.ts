@@ -86,7 +86,7 @@ describe('UpdateAdvertisement', () => {
     await expect(
       updateAdvertisement.execute({
         user_id: 'user',
-        advertisement_id: 'non-existing-advertisement',
+        advertisement_id: -1,
         type: AdvertisementTypeEnum.PURCHASE,
         address_visible: true,
         title: 'New title',

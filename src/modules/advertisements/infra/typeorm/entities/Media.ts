@@ -40,7 +40,7 @@ class Media extends BaseEntity {
 
   @Field()
   @Column()
-  advertisement_id: string;
+  advertisement_id: number;
 
   @ManyToOne(() => Advertisement, advertisement => advertisement.gallery)
   @JoinColumn({ name: 'advertisement_id' })

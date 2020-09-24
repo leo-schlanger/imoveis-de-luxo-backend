@@ -1,24 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { uuid } from 'uuidv4';
-
 import IAdvertisementsRepository from '@modules/advertisements/repositories/IAdvertisementsRepository';
 import ICreateAdvertisementDTO from '@modules/advertisements/dtos/ICreateAdvertisementDTO';
 
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../../infra/typeorm/entities/Advertisement';
-import IShowAdvertisementsDTO from '../../dtos/IShowAdvertisemetsDTO';
+import IShowAdvertisementsDTO from '../../dtos/IShowAdvertisementsDTO';
 
 class FakeAdvertisementsRepository implements IAdvertisementsRepository {
   private advertisements: Advertisement[] = [];
 
   public async show(
-    data: IShowAdvertisementsDTO,
+    _data: IShowAdvertisementsDTO,
   ): Promise<[Advertisement[], number]> {
     return [this.advertisements, this.advertisements.length];
   }
 
-  public async findById(id: string): Promise<Advertisement | undefined> {
+  public async findById(id: number): Promise<Advertisement | undefined> {
     const findAdvertisement = this.advertisements.find(
       advertisement => advertisement.id === id,
     );
@@ -58,7 +55,7 @@ class FakeAdvertisementsRepository implements IAdvertisementsRepository {
 
     Object.assign(
       advertisement,
-      { id: uuid() },
+      { id: Math.random() * 100 },
       {
         title,
         description,
@@ -75,7 +72,7 @@ class FakeAdvertisementsRepository implements IAdvertisementsRepository {
     return advertisement;
   }
 
-  public async delete(id: string): Promise<void> {
+  public async delete(id: number): Promise<void> {
     const newList = this.advertisements.filter(
       advertisement => advertisement.id !== id,
     );

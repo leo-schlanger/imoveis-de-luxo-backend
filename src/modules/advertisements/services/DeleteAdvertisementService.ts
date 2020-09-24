@@ -7,7 +7,7 @@ import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository
 
 interface IRequest {
   user_id: string;
-  id: string;
+  id: number;
 }
 
 @injectable()

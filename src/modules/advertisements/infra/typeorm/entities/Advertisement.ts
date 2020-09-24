@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {
   Entity,
   Column,
@@ -37,8 +38,8 @@ registerEnumType(AdvertisementTypeEnum, {
 @Entity('advertisements')
 class Advertisement extends BaseEntity {
   @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column()
   @Exclude()

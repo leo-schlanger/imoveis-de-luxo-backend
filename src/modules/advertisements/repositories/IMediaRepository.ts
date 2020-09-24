@@ -5,7 +5,7 @@ import Media from '../infra/typeorm/entities/Media';
 export default interface IMediaRepository {
   show(): Promise<Media[]>;
   findById(id: string): Promise<Media | undefined>;
-  findByAdvertisement(advertisement_id: string): Promise<Media[] | undefined>;
+  findByAdvertisement(advertisement_id: number): Promise<Media[] | undefined>;
   create(data: ICreateMediaDTO): Promise<Media>;
   createWithoutSave(data: ICreateMediaDTO): Media;
   delete(id: string): Promise<void>;
