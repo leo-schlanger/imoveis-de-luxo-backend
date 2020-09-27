@@ -13,7 +13,9 @@ export default class AdvertisementsController {
 
     const showAdvertisement = container.resolve(ShowAdvertisementService);
 
-    const advertisement = await showAdvertisement.execute({ advertisement_id });
+    const advertisement = await showAdvertisement.execute({
+      advertisement_id: Number(advertisement_id),
+    });
 
     return response.json(classToClass(advertisement));
   }
@@ -51,7 +53,7 @@ export default class AdvertisementsController {
 
     const advertisement = await updateAdvertisement.execute({
       user_id,
-      advertisement_id,
+      advertisement_id: Number(advertisement_id),
       title,
       type,
       description,
@@ -69,7 +71,7 @@ export default class AdvertisementsController {
 
     await deleteAdvertisement.execute({
       user_id,
-      id: advertisement_id,
+      id: Number(advertisement_id),
     });
 
     return response.status(204).json();

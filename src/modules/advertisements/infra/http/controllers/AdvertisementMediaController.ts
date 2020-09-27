@@ -26,7 +26,7 @@ export default class AdvertisementMediaController {
 
       const advertisement = await updateAdvertisementMedia.execute({
         user_id,
-        advertisement_id,
+        advertisement_id: Number(advertisement_id),
         type: type as MediaTypeEnum,
         gallery,
       });
