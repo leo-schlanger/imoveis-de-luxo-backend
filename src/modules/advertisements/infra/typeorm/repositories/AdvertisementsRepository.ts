@@ -23,6 +23,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
       .createQueryBuilder('advertisement')
       .leftJoinAndSelect('advertisement.user', 'user')
       .leftJoinAndSelect('advertisement.property', 'property')
+      .leftJoinAndSelect('advertisement.gallery', 'gallery')
       .leftJoinAndSelect('property.address', 'address');
 
     if (filter) {
@@ -60,7 +61,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
       .getManyAndCount();
   }
 
-  public async findById(id: string): Promise<Advertisement | undefined> {
+  public async findById(id: number): Promise<Advertisement | undefined> {
     const findAdvertisement = await this.ormRepository.findOne(id);
 
     return findAdvertisement;
@@ -110,7 +111,7 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
     return advertisement;
   }
 
-  public async delete(id: string): Promise<void> {
+  public async delete(id: number): Promise<void> {
     await this.ormRepository.delete(id);
   }
 

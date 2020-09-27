@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import {
   Entity,
   Column,
@@ -61,6 +62,9 @@ class Media extends BaseEntity {
   @Field(() => GraphQLISODateTime)
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Field({ nullable: true })
+  url: string;
 
   @Expose({ name: 'url' })
   getMediaUrl(): string {
