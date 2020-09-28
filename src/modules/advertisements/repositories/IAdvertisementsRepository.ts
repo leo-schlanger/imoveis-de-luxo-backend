@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import ICreateAdvertisementDTO from '@modules/advertisements/dtos/ICreateAdvertisementDTO';
 import Advertisement, {
   AdvertisementTypeEnum,
