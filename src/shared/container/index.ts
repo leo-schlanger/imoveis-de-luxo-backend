@@ -9,6 +9,9 @@ import AdressesRepository from '@modules/adresses/infra/typeorm/repositories/Adr
 import IPropertiesRepository from '@modules/properties/repositories/IPropertiesRepository';
 import PropertiesRepository from '@modules/properties/infra/typeorm/repositories/PropertiesRepository';
 
+import IExtraFieldsRepository from '@modules/properties/repositories/IExtraFieldsRepository';
+import ExtraFieldsRepository from '@modules/properties/infra/typeorm/repositories/ExtraFieldsRepository';
+
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
@@ -35,6 +38,11 @@ container.registerSingleton<IAdressesRepository>(
 container.registerSingleton<IPropertiesRepository>(
   'PropertiesRepository',
   PropertiesRepository,
+);
+
+container.registerSingleton<IExtraFieldsRepository>(
+  'ExtraFieldsRepository',
+  ExtraFieldsRepository,
 );
 
 container.registerSingleton<IPlansRepository>(
