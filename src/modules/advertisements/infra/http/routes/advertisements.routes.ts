@@ -141,7 +141,7 @@ advertisementsRouter.delete(
   advertisementsController.delete,
 );
 
-advertisementsRouter.put(
+advertisementsRouter.post(
   '/:advertisement_id/gallery/:type',
   celebrate({
     [Segments.PARAMS]: {
