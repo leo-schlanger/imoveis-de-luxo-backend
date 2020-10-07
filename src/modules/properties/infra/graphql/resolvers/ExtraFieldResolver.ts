@@ -3,9 +3,11 @@ import { container } from 'tsyringe';
 import CreateExtraFieldService from '@modules/properties/services/CreateExtraFieldService';
 import UpdateExtraFieldService from '@modules/properties/services/UpdateExtraFieldService';
 import DeleteExtraFieldService from '@modules/properties/services/DeleteExtraFieldService';
+import ListExtraFieldByPropertyTypeService from '@modules/properties/services/ListExtraFieldsByPropertyTypeService';
 import ExtraField from '../../typeorm/entities/ExtraField';
 import ExtraFieldInput from '../inputs/ExtraFieldInput';
 import ExtraFieldUpdateInput from '../inputs/ExtraFieldUpdateInput';
+import { PropertyTypeEnum } from '../../typeorm/entities/Property';
 
 @Resolver()
 export default class ExtraFieldResolver {
@@ -41,7 +43,21 @@ export default class ExtraFieldResolver {
   }
 
   @Query(() => [ExtraField])
-  extraFields(): Promise<ExtraField[]> {
+  async extraFields(): Promise<ExtraField[]> {
     return ExtraField.find();
+  }
+
+  @Query(() => [ExtraField])
+  async extraFieldsByPropertyType(
+    @Arg('propertyType', () => PropertyTypeEnum) propertyType: PropertyTypeEnum,
+  ): Promise<ExtraField[] | undefined> {
+    const listExtraFieldByPropertyTypeService = container.resolve(
+      ListExtraFieldByPropertyTypeService,
+    );
+    const listExtraField = listExtraFieldByPropertyTypeService.execute({
+      type: propertyType,
+    });
+
+    return listExtraField;
   }
 }
