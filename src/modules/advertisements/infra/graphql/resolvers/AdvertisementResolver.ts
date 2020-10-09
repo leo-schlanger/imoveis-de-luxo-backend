@@ -49,7 +49,7 @@ export default class AdvertisementResolver {
       ...data,
     });
 
-    return advertisement;
+    return classToClass(advertisement);
   }
 
   @Mutation(() => Advertisement)
@@ -64,7 +64,7 @@ export default class AdvertisementResolver {
       { id },
       { ...rest, property: { type, value, address } },
     );
-    return Advertisement.findOne(id);
+    return classToClass(Advertisement.findOne(id));
   }
 
   @Mutation(() => Boolean)
@@ -80,7 +80,7 @@ export default class AdvertisementResolver {
   async getAdvertisementById(
     @Arg('id', () => Int) id: number,
   ): Promise<Advertisement | undefined> {
-    return Advertisement.findOne(id);
+    return classToClass(Advertisement.findOne(id));
   }
 
   @Query(() => AdvertisementList)
