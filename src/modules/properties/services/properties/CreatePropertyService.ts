@@ -4,8 +4,10 @@ import AppError from '@shared/errors/AppErrors';
 
 import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import Property, { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
-import IPropertiesRepository from '../repositories/IPropertiesRepository';
+import Property, {
+  PropertyTypeEnum,
+} from '../../infra/typeorm/entities/Property';
+import IPropertiesRepository from '../../repositories/IPropertiesRepository';
 
 interface IRequest {
   country: string;

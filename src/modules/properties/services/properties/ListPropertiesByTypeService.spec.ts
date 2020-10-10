@@ -1,9 +1,9 @@
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import { classToClass } from 'class-transformer';
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
-import FakePropertiesRepository from '../repositories/fakes/FakePropertiesRepository';
+import FakePropertiesRepository from '../../repositories/fakes/FakePropertiesRepository';
 import ListPropertiesByTypeService from './ListPropertiesByTypeService';
-import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
+import { PropertyTypeEnum } from '../../infra/typeorm/entities/Property';
 
 let fakeAdressesRepository: FakeAdressesRepository;
 let fakePropertiesRepository: FakePropertiesRepository;

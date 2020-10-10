@@ -3,11 +3,11 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppErrors';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
+import { PropertyTypeEnum } from '../../infra/typeorm/entities/Property';
 import ExtraField, {
   ExtraFieldTypeEnum,
-} from '../infra/typeorm/entities/ExtraField';
-import IExtraFieldsRepository from '../repositories/IExtraFieldsRepository';
+} from '../../infra/typeorm/entities/ExtraField';
+import IExtraFieldsRepository from '../../repositories/IExtraFieldsRepository';
 
 interface IRequest {
   id: string;

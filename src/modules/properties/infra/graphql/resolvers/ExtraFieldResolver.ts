@@ -1,9 +1,9 @@
 import { Resolver, Mutation, Arg, Query } from 'type-graphql';
 import { container } from 'tsyringe';
-import CreateExtraFieldService from '@modules/properties/services/CreateExtraFieldService';
-import UpdateExtraFieldService from '@modules/properties/services/UpdateExtraFieldService';
-import DeleteExtraFieldService from '@modules/properties/services/DeleteExtraFieldService';
-import ListExtraFieldByPropertyTypeService from '@modules/properties/services/ListExtraFieldsByPropertyTypeService';
+import CreateExtraFieldService from '@modules/properties/services/extrafields/CreateExtraFieldService';
+import UpdateExtraFieldService from '@modules/properties/services/extrafields/UpdateExtraFieldService';
+import DeleteExtraFieldService from '@modules/properties/services/extrafields/DeleteExtraFieldService';
+import ListExtraFieldByPropertyTypeService from '@modules/properties/services/extrafields/ListExtraFieldsByPropertyTypeService';
 import ExtraField from '../../typeorm/entities/ExtraField';
 import ExtraFieldInput from '../inputs/ExtraFieldInput';
 import ExtraFieldUpdateInput from '../inputs/ExtraFieldUpdateInput';

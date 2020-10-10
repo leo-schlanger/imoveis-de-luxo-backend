@@ -2,9 +2,9 @@ import AppError from '@shared/errors/AppErrors';
 
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import FakePropertiesRepository from '../repositories/fakes/FakePropertiesRepository';
+import FakePropertiesRepository from '../../repositories/fakes/FakePropertiesRepository';
 import UpdatePropertyService from './UpdatePropertyService';
-import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
+import { PropertyTypeEnum } from '../../infra/typeorm/entities/Property';
 
 let fakePropertiesRepository: FakePropertiesRepository;
 let fakeAdressesRepository: FakeAdressesRepository;

@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppErrors';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import IExtraFieldsRepository from '../repositories/IExtraFieldsRepository';
+import IExtraFieldsRepository from '../../repositories/IExtraFieldsRepository';
 
 interface IRequest {
   id: string;

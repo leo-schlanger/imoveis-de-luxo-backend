@@ -1,9 +1,9 @@
 import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
-import IExtraFieldsRepository from '../repositories/IExtraFieldsRepository';
-import ExtraField from '../infra/typeorm/entities/ExtraField';
+import { PropertyTypeEnum } from '../../infra/typeorm/entities/Property';
+import IExtraFieldsRepository from '../../repositories/IExtraFieldsRepository';
+import ExtraField from '../../infra/typeorm/entities/ExtraField';
 
 interface IRequest {
   type: PropertyTypeEnum;

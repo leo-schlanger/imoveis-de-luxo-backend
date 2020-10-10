@@ -1,8 +1,8 @@
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import FakeExtraFieldsRepository from '../repositories/fakes/FakeExtraFieldsRepository';
+import FakeExtraFieldsRepository from '../../repositories/fakes/FakeExtraFieldsRepository';
 import ListExtraFieldsByPropertyTypeService from './ListExtraFieldsByPropertyTypeService';
-import { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
-import { ExtraFieldTypeEnum } from '../infra/typeorm/entities/ExtraField';
+import { PropertyTypeEnum } from '../../infra/typeorm/entities/Property';
+import { ExtraFieldTypeEnum } from '../../infra/typeorm/entities/ExtraField';
 
 let fakeExtraFieldsRepository: FakeExtraFieldsRepository;
 let listExtraFieldsByPropertyType: ListExtraFieldsByPropertyTypeService;

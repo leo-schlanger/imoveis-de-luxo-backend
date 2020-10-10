@@ -1,8 +1,8 @@
 import { Resolver, Mutation, Arg, Query } from 'type-graphql';
 import { container } from 'tsyringe';
-import CreatePropertyService from '@modules/properties/services/CreatePropertyService';
-import UpdatePropertyService from '@modules/properties/services/UpdatePropertyService';
-import DeletePropertyService from '@modules/properties/services/DeletePropertyService';
+import CreatePropertyService from '@modules/properties/services/properties/CreatePropertyService';
+import UpdatePropertyService from '@modules/properties/services/properties/UpdatePropertyService';
+import DeletePropertyService from '@modules/properties/services/properties/DeletePropertyService';
 import Property from '../../typeorm/entities/Property';
 import PropertyInput from '../inputs/PropertyInput';
 import PropertyUpdateInput from '../inputs/PropertyUpdateInput';

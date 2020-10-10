@@ -2,8 +2,10 @@ import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import { classToClass } from 'class-transformer';
-import Property, { PropertyTypeEnum } from '../infra/typeorm/entities/Property';
-import IPropertiesRepository from '../repositories/IPropertiesRepository';
+import Property, {
+  PropertyTypeEnum,
+} from '../../infra/typeorm/entities/Property';
+import IPropertiesRepository from '../../repositories/IPropertiesRepository';
 
 interface IRequest {
   type: PropertyTypeEnum;
