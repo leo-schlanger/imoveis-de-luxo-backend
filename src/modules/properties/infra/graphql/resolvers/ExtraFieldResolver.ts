@@ -16,8 +16,8 @@ export default class ExtraFieldResolver {
     @Arg('data', () => ExtraFieldInput) data: ExtraFieldInput,
   ): Promise<ExtraField> {
     const createExtraField = container.resolve(CreateExtraFieldService);
-    const property = await createExtraField.execute(data);
-    return property;
+    const extraField = await createExtraField.execute(data);
+    return extraField;
   }
 
   @Mutation(() => ExtraField)

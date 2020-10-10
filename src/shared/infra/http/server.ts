@@ -17,6 +17,7 @@ import AppError from '@shared/errors/AppErrors';
 // import AddressResolver from '@modules/adresses/infra/graphql/resolvers/AddressResolver';
 // import PropertyResolver from '@modules/properties/infra/graphql/resolvers/PropertyResolver';
 import ExtraFieldResolver from '@modules/properties/infra/graphql/resolvers/ExtraFieldResolver';
+import PropertyExtraFieldValueResolver from '@modules/properties/infra/graphql/resolvers/PropertyExtraFieldResolver';
 import SessionResolver from '@modules/users/infra/graphql/resolvers/SessionResolver';
 import UserResolver from '@modules/users/infra/graphql/resolvers/UserResolver';
 import PlanResolver from '@modules/users/infra/graphql/resolvers/PlanResolver';
@@ -68,6 +69,7 @@ import '@shared/container';
         // AddressResolver,
         // PropertyResolver,
         ExtraFieldResolver,
+        PropertyExtraFieldValueResolver,
         MediaResolver,
         AdvertisementResolver,
       ],
