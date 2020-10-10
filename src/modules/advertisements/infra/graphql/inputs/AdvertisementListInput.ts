@@ -27,9 +27,6 @@ class PropertyFilter {
 
   @Field(() => AddressFilter, { nullable: true })
   address: AddressFilter;
-
-  @Field({ nullable: true })
-  user_id: string;
 }
 
 @InputType()
@@ -39,6 +36,9 @@ class Filter {
 
   @Field(() => PropertyFilter, { nullable: true })
   property: PropertyFilter;
+
+  @Field({ nullable: true })
+  user_id: string;
 }
 
 @InputType()

@@ -12,6 +12,7 @@ interface IRequest {
   per_page?: number;
   page?: number;
   filter?: {
+    user_id?: string;
     type: AdvertisementTypeEnum;
     property?: {
       type: PropertyTypeEnum;

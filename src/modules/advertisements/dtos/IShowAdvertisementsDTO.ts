@@ -5,6 +5,7 @@ export default interface IShowAdvertisementsDTO {
   per_page?: number;
   page?: number;
   filter?: {
+    user_id?: string;
     type: AdvertisementTypeEnum;
     property?: {
       type: PropertyTypeEnum;

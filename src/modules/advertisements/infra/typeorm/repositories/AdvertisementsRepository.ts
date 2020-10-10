@@ -27,7 +27,11 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
       .leftJoinAndSelect('property.address', 'address');
 
     if (filter) {
-      const { type, property } = filter;
+      const { type, property, user_id } = filter;
+
+      if (user_id) {
+        adList.andWhere('advertisement.user.id = :id', { id: user_id });
+      }
 
       if (type) {
         adList.andWhere('advertisement.type = :type', { type });
