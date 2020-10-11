@@ -17,9 +17,9 @@ import {
 import { PropertyTypeEnum } from './Property';
 
 export enum ExtraFieldTypeEnum {
-  STRING = 'string',
-  NUMBER = 'number',
-  BOOLEAN = 'boolean',
+  STRING = 'STRING',
+  NUMBER = 'NUMBER',
+  BOOLEAN = 'BOOLEAN',
 }
 
 registerEnumType(ExtraFieldTypeEnum, {
