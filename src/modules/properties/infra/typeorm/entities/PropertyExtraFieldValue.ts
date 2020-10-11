@@ -11,6 +11,7 @@ import {
 import { Field, ObjectType, GraphQLISODateTime, ID } from 'type-graphql';
 import { Exclude } from 'class-transformer';
 import ExtraField from './ExtraField';
+import Property from './Property';
 
 @ObjectType()
 @Entity('properties_extra_fields')
@@ -22,6 +23,12 @@ class PropertyExtraFieldValue extends BaseEntity {
   @Field()
   @Column()
   property_id: string;
+
+  @Field(() => Property)
+  @ManyToOne(() => Property)
+  @JoinColumn({ name: 'property_id' })
+  @Exclude()
+  Property: Property;
 
   @Field()
   @Column()
