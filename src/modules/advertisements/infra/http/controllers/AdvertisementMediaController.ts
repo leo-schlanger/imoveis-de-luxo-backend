@@ -33,7 +33,9 @@ export default class AdvertisementMediaController {
 
       return response.json(classToClass(advertisement));
     } catch (err) {
-      return response.status(400).json('Upload media error');
+      return response
+        .status(400)
+        .json({ text: 'Upload media error', error: err });
     }
   }
 }
