@@ -17,9 +17,9 @@ import {
 import { PropertyTypeEnum } from './Property';
 
 export enum ExtraFieldTypeEnum {
-  STRING = 'STRING',
-  NUMBER = 'NUMBER',
-  BOOLEAN = 'BOOLEAN',
+  STRING = 'string',
+  NUMBER = 'number',
+  BOOLEAN = 'boolean',
 }
 
 registerEnumType(ExtraFieldTypeEnum, {
@@ -38,8 +38,8 @@ class ExtraField extends BaseEntity {
   @Column()
   name: string;
 
-  @Field(() => [ExtraFieldTypeEnum])
-  @Column('enum', { name: 'type', array: true })
+  @Field(() => ExtraFieldTypeEnum)
+  @Column('enum', { name: 'extra_field_type_enum' })
   type: ExtraFieldTypeEnum;
 
   @Field(() => [PropertyTypeEnum])

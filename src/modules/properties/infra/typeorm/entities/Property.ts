@@ -7,7 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
   BaseEntity,
-  OneToMany,
+  // OneToMany,
 } from 'typeorm';
 import {
   Field,
@@ -20,7 +20,7 @@ import {
 
 import Address from '@modules/adresses/infra/typeorm/entities/Address';
 import { Exclude } from 'class-transformer';
-import PropertyExtraFieldValue from './PropertyExtraFieldValue';
+// import PropertyExtraFieldValue from './PropertyExtraFieldValue';
 
 export enum PropertyTypeEnum {
   HOME = 'home',
@@ -69,13 +69,13 @@ class Property extends BaseEntity {
   @Column('decimal', { scale: 2 })
   value: number;
 
-  @Field(() => [PropertyExtraFieldValue])
-  @OneToMany(
-    () => PropertyExtraFieldValue,
-    propertyExtraFieldValue => propertyExtraFieldValue.property_id,
-    { eager: true },
-  )
-  extraFieldValues: PropertyExtraFieldValue[];
+  // @Field(() => [PropertyExtraFieldValue])
+  // @OneToMany(
+  //   () => PropertyExtraFieldValue,
+  //   propertyExtraFieldValue => propertyExtraFieldValue.property_id,
+  //   { eager: true },
+  // )
+  // extraFieldValues: PropertyExtraFieldValue[];
 
   @Field(() => GraphQLISODateTime)
   @CreateDateColumn()
