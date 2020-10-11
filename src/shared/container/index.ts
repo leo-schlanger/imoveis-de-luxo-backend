@@ -30,6 +30,9 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
 
+import PropertyExtraFieldValuesRepository from '@modules/properties/infra/typeorm/repositories/PropertyExtraFieldValuesRepository';
+import IPropertyExtraFieldValuesRepository from '@modules/properties/repositories/IPropertyExtraFieldValuesRepository';
+
 container.registerSingleton<IAdressesRepository>(
   'AdressesRepository',
   AdressesRepository,
@@ -43,6 +46,11 @@ container.registerSingleton<IPropertiesRepository>(
 container.registerSingleton<IExtraFieldsRepository>(
   'ExtraFieldsRepository',
   ExtraFieldsRepository,
+);
+
+container.registerSingleton<IPropertyExtraFieldValuesRepository>(
+  'PropertyExtraFieldValuesRepository',
+  PropertyExtraFieldValuesRepository,
 );
 
 container.registerSingleton<IPlansRepository>(
