@@ -63,5 +63,7 @@ export default class CreateExtraFields1601319667919
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('extraFields');
+
+    await queryRunner.query(`DROP TYPE "extra_field_type_enum"`);
   }
 }

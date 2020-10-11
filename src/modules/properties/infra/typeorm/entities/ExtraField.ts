@@ -39,7 +39,7 @@ class ExtraField extends BaseEntity {
   name: string;
 
   @Field(() => ExtraFieldTypeEnum)
-  @Column('enum', { name: 'extra_field_type_enum' })
+  @Column('enum', { name: 'type' })
   type: ExtraFieldTypeEnum;
 
   @Field(() => [PropertyTypeEnum])
