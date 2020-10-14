@@ -14,12 +14,12 @@ export default class SessionResolver {
   async login(
     @Arg('email', () => String) email: string,
     @Arg('password', () => String) password: string,
-  ): Promise<string> {
+  ): Promise<{ user: User; token: string }> {
     const authenticate = container.resolve(AuthenticateUserService);
 
-    const { token } = await authenticate.execute({ email, password });
+    const { token, user } = await authenticate.execute({ email, password });
 
-    return token;
+    return { user: classToClass(user), token };
   }
 
   @Mutation(() => User)
