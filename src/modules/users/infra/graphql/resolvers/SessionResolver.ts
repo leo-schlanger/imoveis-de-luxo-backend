@@ -1,5 +1,13 @@
-/* eslint-disable no-param-reassign */
-import { Resolver, Mutation, Arg, Ctx, UseMiddleware } from 'type-graphql';
+/* eslint-disable max-classes-per-file */
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  Ctx,
+  UseMiddleware,
+  ObjectType,
+  Field,
+} from 'type-graphql';
 
 import AuthenticateUserService from '@modules/users/services/auth/AuthenticateUserService';
 import { container } from 'tsyringe';
@@ -8,8 +16,12 @@ import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
 import { classToClass } from 'class-transformer';
 import User from '../../typeorm/entities/User';
 
-interface LoginResult {
+@ObjectType('LoginResult')
+class LoginResult {
+  @Field(() => User)
   user: User;
+
+  @Field()
   token: string;
 }
 
