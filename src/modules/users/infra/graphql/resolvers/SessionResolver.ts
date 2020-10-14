@@ -27,7 +27,7 @@ class LoginResult {
 
 @Resolver()
 export default class SessionResolver {
-  @Mutation(() => String)
+  @Mutation(() => LoginResult)
   async login(
     @Arg('email', () => String) email: string,
     @Arg('password', () => String) password: string,
