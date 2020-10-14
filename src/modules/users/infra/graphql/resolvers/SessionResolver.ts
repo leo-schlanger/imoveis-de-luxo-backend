@@ -8,13 +8,18 @@ import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
 import { classToClass } from 'class-transformer';
 import User from '../../typeorm/entities/User';
 
+interface LoginResult {
+  user: User;
+  token: string;
+}
+
 @Resolver()
 export default class SessionResolver {
   @Mutation(() => String)
   async login(
     @Arg('email', () => String) email: string,
     @Arg('password', () => String) password: string,
-  ): Promise<{ user: User; token: string }> {
+  ): Promise<LoginResult> {
     const authenticate = container.resolve(AuthenticateUserService);
 
     const { token, user } = await authenticate.execute({ email, password });
