@@ -26,8 +26,8 @@ class Plan extends BaseEntity {
   @Column()
   name: string;
 
-  @Field()
-  @Column({ nullable: true })
+  @Field({ nullable: true })
+  @Column()
   description: string;
 
   @Field(() => Int)
