@@ -5,6 +5,7 @@ import 'dotenv/config';
 import express, { Response, Request, NextFunction } from 'express';
 import { errors } from 'celebrate';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 import 'express-async-errors';
 
@@ -78,6 +79,7 @@ import '@shared/container';
     context: ({ req, res }) => ({ req, res }),
   });
 
+  app.use('/graphql', bodyParser.json());
   apolloServer.applyMiddleware({ app, cors: true });
 
   app.listen(3333, () => {
