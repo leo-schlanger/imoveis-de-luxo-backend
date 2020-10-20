@@ -78,7 +78,7 @@ import '@shared/container';
     context: ({ req, res }) => ({ req, res }),
   });
 
-  apolloServer.applyMiddleware({ app, cors: false });
+  apolloServer.applyMiddleware({ app, cors: true });
 
   app.listen(3333, () => {
     console.log('🚀 Server started on port 3333!!');
