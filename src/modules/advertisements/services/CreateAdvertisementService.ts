@@ -59,7 +59,7 @@ class CreateAdvertisementService {
     title,
     description,
     type,
-    address_visible,
+    address_visible = true,
     property,
   }: IRequest): Promise<Advertisement> {
     const { type: propertyTypes, value, ...rest } = property;
