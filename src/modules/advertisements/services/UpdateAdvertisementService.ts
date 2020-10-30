@@ -14,8 +14,11 @@ interface IRequest {
   title?: string;
   description?: string;
   address_visible: boolean;
+  status?: boolean;
   type: AdvertisementTypeEnum;
 }
+
+// TODO: Rever testes e atualizar condições
 
 @injectable()
 class UpdateAdvertisementService {
@@ -34,6 +37,7 @@ class UpdateAdvertisementService {
     title,
     description,
     address_visible,
+    status,
     type,
   }: IRequest): Promise<Advertisement> {
     const advertisement = await this.advertisementsRepository.findById(
@@ -54,6 +58,10 @@ class UpdateAdvertisementService {
     }
 
     advertisement.address_visible = address_visible;
+
+    if (status) {
+      advertisement.status = status;
+    }
 
     if (title) {
       advertisement.title = title;
