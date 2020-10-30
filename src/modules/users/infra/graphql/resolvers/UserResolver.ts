@@ -78,7 +78,7 @@ export default class UserResolver {
 
     let newUser: User;
 
-    if (address) {
+    if (address && address.street) {
       newUser = await updateUserAddress.execute({
         user_id: user.id,
         ...address,
