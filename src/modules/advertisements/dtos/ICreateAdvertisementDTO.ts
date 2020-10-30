@@ -6,5 +6,6 @@ export default interface ICreateAdvertisementDTO {
   title: string;
   description?: string;
   address_visible?: boolean;
+  status?: boolean;
   type: AdvertisementTypeEnum;
 }

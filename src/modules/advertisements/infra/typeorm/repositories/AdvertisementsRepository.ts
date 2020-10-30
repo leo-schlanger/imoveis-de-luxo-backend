@@ -93,22 +93,10 @@ class AdvertisementsRepository implements IAdvertisementsRepository {
     return findAdvertisement;
   }
 
-  public async create({
-    title,
-    description = '',
-    property_id,
-    user_id,
-    address_visible = true,
-    type,
-  }: ICreateAdvertisementDTO): Promise<Advertisement> {
-    const advertisement = this.ormRepository.create({
-      title,
-      description,
-      property_id,
-      user_id,
-      address_visible,
-      type,
-    });
+  public async create(
+    newAdvertisement: ICreateAdvertisementDTO,
+  ): Promise<Advertisement> {
+    const advertisement = this.ormRepository.create(newAdvertisement);
 
     await this.ormRepository.save(advertisement);
 

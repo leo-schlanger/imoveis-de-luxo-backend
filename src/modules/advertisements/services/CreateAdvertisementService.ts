@@ -18,6 +18,7 @@ interface IRequest {
   title: string;
   description?: string;
   address_visible?: boolean;
+  status?: boolean;
   type: AdvertisementTypeEnum;
   property: {
     country: string;
@@ -56,11 +57,8 @@ class CreateAdvertisementService {
 
   public async execute({
     user_id,
-    title,
-    description,
-    type,
-    address_visible = true,
     property,
+    ...ad
   }: IRequest): Promise<Advertisement> {
     const { type: propertyTypes, value, ...rest } = property;
     const userAd = await this.userRepository.findById(user_id);
@@ -88,12 +86,9 @@ class CreateAdvertisementService {
     });
 
     const advertisement = await this.advertisementsRepository.create({
-      type,
       property_id: propertyCreated.id,
       user_id,
-      title,
-      address_visible,
-      description,
+      ...ad,
     });
 
     return advertisement;
