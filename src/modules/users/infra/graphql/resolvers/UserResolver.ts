@@ -63,7 +63,7 @@ export default class UserResolver {
     @Arg('data', () => UserUpdateInput)
     data: UserUpdateInput,
   ): Promise<User | undefined> {
-    const { address, plan_id, avatar, ...rest } = data;
+    const { address, plan_id, avatar, status, type, ...rest } = data;
 
     const updateUserAddress = container.resolve(UpdateProfileAddressService);
     const updateUserPlan = container.resolve(UpdateUserPlanService);
@@ -97,6 +97,16 @@ export default class UserResolver {
     }
 
     newUser = await updateUserProfile.execute({ user_id: user.id, ...rest });
+
+    // TODO: Criar service de autenticação apenas para adm
+    if (status) {
+      newUser.status = status;
+      newUser.save();
+    }
+    if (type) {
+      newUser.type = type;
+      newUser.save();
+    }
 
     return newUser;
   }
