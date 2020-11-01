@@ -59,11 +59,16 @@ export default class AdvertisementResolver {
     @Arg('data', () => AdvertisementUpdateInput) data: AdvertisementUpdateInput,
   ): Promise<Advertisement | undefined> {
     const { property, ...rest } = data;
-    const { type, value, ...address } = property;
-    await Advertisement.update(
-      { id },
-      { ...rest, property: { type, value, address } },
-    );
+
+    if (property) {
+      const { type, value, ...address } = property;
+      await Advertisement.update(
+        { id },
+        { ...rest, property: { type, value, address } },
+      );
+    } else {
+      await Advertisement.update({ id }, { ...rest });
+    }
 
     const advertisementUpdated = await Advertisement.findOne(id);
 
