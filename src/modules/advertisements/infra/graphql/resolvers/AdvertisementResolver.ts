@@ -19,6 +19,8 @@ import CreateAdvertisementService from '@modules/advertisements/services/CreateA
 import MyContext from '@shared/infra/graphql/types/MyContext';
 import ListAdvertisementsService from '@modules/advertisements/services/ListAdvertisementsService';
 import { classToClass } from 'class-transformer';
+import UpdateAdvertisementService from '@modules/advertisements/services/UpdateAdvertisementService';
+import UpdateAdvertisementAddressService from '@modules/advertisements/services/UpdateAdvertisementAddressService';
 import Advertisement from '../../typeorm/entities/Advertisement';
 import AdvertisementInput from '../inputs/AdvertisementInput';
 import AdvertisementUpdateInput from '../inputs/AdvertisementUpdateInput';
@@ -57,17 +59,31 @@ export default class AdvertisementResolver {
   async updateAdvertisement(
     @Arg('id', () => Int) id: number,
     @Arg('data', () => AdvertisementUpdateInput) data: AdvertisementUpdateInput,
+    @Ctx() context: MyContext,
   ): Promise<Advertisement | undefined> {
-    const { property, ...rest } = data;
+    const { id: user_id } = context.req.user;
+    const updateAdvertisement = container.resolve(UpdateAdvertisementService);
+    const updateAdvertisementAddress = container.resolve(
+      UpdateAdvertisementAddressService,
+    );
+
+    const { title, type, description, address_visible, property } = data;
+
+    await updateAdvertisement.execute({
+      user_id,
+      advertisement_id: id,
+      title,
+      type,
+      description,
+      address_visible,
+    });
 
     if (property) {
-      const { type, value, ...address } = property;
-      await Advertisement.update(
-        { id },
-        { ...rest, property: { type, value, address } },
-      );
-    } else {
-      await Advertisement.update({ id }, { ...rest });
+      await updateAdvertisementAddress.execute({
+        user_id,
+        advertisement_id: id,
+        ...property,
+      });
     }
 
     const advertisementUpdated = await Advertisement.findOne(id);
