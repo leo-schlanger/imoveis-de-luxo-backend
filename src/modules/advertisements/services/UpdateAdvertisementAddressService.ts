@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppErrors';
 
 import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
 
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import Advertisement from '../infra/typeorm/entities/Advertisement';
 import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository';
 
@@ -45,7 +46,8 @@ class UpdateAdvertisementAddressService {
     }
 
     if (advertisement.user_id !== user_id) {
-      throw new AppError('Unauthorized user', 401);
+      if (advertisement.user.type !== UserTypeEnum.ADM)
+        throw new AppError('Unauthorized user', 401);
     }
 
     const address = await this.adressesRepository.findById(
