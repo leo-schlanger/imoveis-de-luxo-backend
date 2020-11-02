@@ -1,11 +1,13 @@
 import AppError from '@shared/errors/AppErrors';
 
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import UpdateAdvertisementService from './UpdateAdvertisementService';
 import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
+let fakeUsersRepository: FakeUsersRepository;
 let fakeCacheProvider: FakeCacheProvider;
 let updateAdvertisement: UpdateAdvertisementService;
 
@@ -15,6 +17,7 @@ describe('UpdateAdvertisement', () => {
     fakeCacheProvider = new FakeCacheProvider();
     updateAdvertisement = new UpdateAdvertisementService(
       fakeAdvertisementsRepository,
+      fakeUsersRepository,
       fakeCacheProvider,
     );
   });

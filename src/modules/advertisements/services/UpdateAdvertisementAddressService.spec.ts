@@ -3,12 +3,14 @@ import AppError from '@shared/errors/AppErrors';
 import FakeAdressesRepository from '@modules/adresses/repositories/fakes/FakeAdressesRepository';
 import FakePropertiesRepository from '@modules/properties/repositories/fakes/FakePropertiesRepository';
 import { PropertyTypeEnum } from '@modules/properties/infra/typeorm/entities/Property';
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeAdvertisementsRepository from '../repositories/fakes/FakeAdvertisementsRepository';
 import UpdateAdvertisementAddressService from './UpdateAdvertisementAddressService';
 import { AdvertisementTypeEnum } from '../infra/typeorm/entities/Advertisement';
 
 let fakeAdvertisementsRepository: FakeAdvertisementsRepository;
 let fakeAdressesRepository: FakeAdressesRepository;
+let fakeUsersRepository: FakeUsersRepository;
 let fakePropertiesRepository: FakePropertiesRepository;
 let updateAdvertisementAddress: UpdateAdvertisementAddressService;
 
@@ -20,6 +22,7 @@ describe('UpdateAdvertisementAddress', () => {
     updateAdvertisementAddress = new UpdateAdvertisementAddressService(
       fakeAdvertisementsRepository,
       fakeAdressesRepository,
+      fakeUsersRepository,
     );
   });
 

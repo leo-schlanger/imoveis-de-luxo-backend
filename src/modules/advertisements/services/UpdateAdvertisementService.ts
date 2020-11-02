@@ -3,6 +3,8 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppErrors';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
 import Advertisement, {
   AdvertisementTypeEnum,
 } from '../infra/typeorm/entities/Advertisement';
@@ -25,6 +27,9 @@ class UpdateAdvertisementService {
   constructor(
     @inject('AdvertisementsRepository')
     private advertisementsRepository: IAdvertisementsRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
 
     // TODO: Implementar limpeza de cache ao atualizar novo anúncio
     @inject('CacheProvider')
@@ -49,7 +54,9 @@ class UpdateAdvertisementService {
     }
 
     if (advertisement.user_id !== user_id) {
-      throw new AppError('Unauthorized user', 401);
+      const user = await this.usersRepository.findById(user_id);
+      if (!user || user.type !== UserTypeEnum.ADM)
+        throw new AppError(`${user?.type}`, 401);
     }
 
     if (advertisement.type !== type) {

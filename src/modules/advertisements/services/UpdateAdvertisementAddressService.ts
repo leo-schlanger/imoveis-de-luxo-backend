@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppErrors';
 import IAdressesRepository from '@modules/adresses/repositories/IAdressesRepository';
 
 import { UserTypeEnum } from '@modules/users/infra/typeorm/entities/User';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import Advertisement from '../infra/typeorm/entities/Advertisement';
 import IAdvertisementsRepository from '../repositories/IAdvertisementsRepository';
 
@@ -30,6 +31,9 @@ class UpdateAdvertisementAddressService {
 
     @inject('AdressesRepository')
     private adressesRepository: IAdressesRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
   ) {}
 
   public async execute({
@@ -46,8 +50,9 @@ class UpdateAdvertisementAddressService {
     }
 
     if (advertisement.user_id !== user_id) {
-      if (advertisement.user.type !== UserTypeEnum.ADM)
-        throw new AppError('Unauthorized user', 401);
+      const user = await this.usersRepository.findById(user_id);
+      if (!user || user.type !== UserTypeEnum.ADM)
+        throw new AppError(`${user?.type}`, 401);
     }
 
     const address = await this.adressesRepository.findById(
