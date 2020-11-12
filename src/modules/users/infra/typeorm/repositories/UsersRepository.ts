@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { getRepository, Repository } from 'typeorm';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
@@ -34,31 +35,37 @@ class UsersRepository implements IUsersRepository {
       if (user) {
         const userFields = Object.entries(user);
 
-        userFields.map(field =>
-          users.andWhere(`user.${field[0]} = :${field[0]}`, {
-            [field[0]]: field[1],
-          }),
-        );
+        userFields.map(field => {
+          if (field[1]) {
+            users.andWhere(`user.${field[0]} = :${field[0]}`, {
+              [field[0]]: field[1],
+            });
+          }
+        });
       }
 
       if (address) {
         const addressFields = Object.entries(address);
 
-        addressFields.map(field =>
-          users.andWhere(`address.${field[0]} = :${`address_${field[0]}`}`, {
-            [`address_${field[0]}`]: field[1],
-          }),
-        );
+        addressFields.map(field => {
+          if (field[1]) {
+            users.andWhere(`address.${field[0]} = :${`address_${field[0]}`}`, {
+              [`address_${field[0]}`]: field[1],
+            });
+          }
+        });
       }
 
       if (plan) {
         const planFields = Object.entries(plan);
 
-        planFields.map(field =>
-          users.andWhere(`plan.${field[0]} = :${`plan_${field[0]}`}`, {
-            [`plan_${field[0]}`]: field[1],
-          }),
-        );
+        planFields.map(field => {
+          if (field[1]) {
+            users.andWhere(`plan.${field[0]} = :${`plan_${field[0]}`}`, {
+              [`plan_${field[0]}`]: field[1],
+            });
+          }
+        });
       }
     }
 
