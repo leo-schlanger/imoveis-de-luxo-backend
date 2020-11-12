@@ -1,6 +1,7 @@
 import { Resolver, Mutation, Arg, Query, UseMiddleware } from 'type-graphql';
 
 import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
+import { isAdmin } from '@shared/infra/graphql/middlewares/IsAdmin';
 import { container } from 'tsyringe';
 
 import CreatePlanService from '@modules/users/services/plans/CreatePlanService';
@@ -26,6 +27,7 @@ export default class PlanResolver {
 
   @Mutation(() => Plan)
   @UseMiddleware(isAuth)
+  @UseMiddleware(isAdmin)
   async updatePlan(
     @Arg('id', () => String) id: string,
     @Arg('data', () => PlanUpdateInput) data: PlanUpdateInput,
@@ -37,6 +39,7 @@ export default class PlanResolver {
 
   @Mutation(() => Boolean)
   @UseMiddleware(isAuth)
+  @UseMiddleware(isAdmin)
   async deletePlan(@Arg('id', () => String) id: string): Promise<boolean> {
     const deletePlan = container.resolve(DeletePlanService);
     await deletePlan.execute({ plan_id: id });

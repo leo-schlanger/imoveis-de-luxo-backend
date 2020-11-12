@@ -22,6 +22,7 @@ import UpdateProfileService from '@modules/users/services/users/UpdateProfileSer
 import UpdateUserAvatarService from '@modules/users/services/users/UpdateUserAvatarService';
 
 import { isAuth } from '@shared/infra/graphql/middlewares/IsAuth';
+import { isAdmin } from '@shared/infra/graphql/middlewares/IsAdmin';
 import UserListInput from '../inputs/UserListInput';
 import UserUpdateInput from '../inputs/UserUpdateInput';
 import UserInput from '../inputs/UserInput';
@@ -126,6 +127,8 @@ export default class UserResolver {
   }
 
   @Query(() => UserList)
+  @UseMiddleware(isAuth)
+  @UseMiddleware(isAdmin)
   async users(
     @Arg('data', () => UserListInput) data: UserListInput,
   ): Promise<UserList> {
