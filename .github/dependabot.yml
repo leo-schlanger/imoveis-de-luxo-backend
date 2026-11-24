@@ -1,0 +1,12 @@
+# Inactive repo: no version updates, security fixes only, in one grouped PR.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ['*']
