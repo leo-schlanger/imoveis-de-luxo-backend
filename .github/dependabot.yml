@@ -1,4 +1,4 @@
-# Inactive repo: no version updates, security fixes only, in one grouped PR.
+# Inactive repo: no version updates. Security minor/patch share one group; majors stay separate.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -10,3 +10,4 @@ updates:
       security:
         applies-to: security-updates
         patterns: ['*']
+        update-types: [minor, patch]
